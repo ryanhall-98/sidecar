@@ -3,843 +3,252 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sidecar — Your Bar's Back Office, Via Text</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Kalshi AI Bot — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0C0A09;
-  --surface: #1C1917;
-  --surface2: #292524;
-  --amber: #F59E0B;
-  --amber-soft: #D97706;
-  --amber-glow: rgba(245,158,11,0.15);
-  --cream: #FFFBEB;
-  --text: #FAFAF9;
-  --text-muted: #A8A29E;
-  --text-dim: #78716C;
-  --green: #22C55E;
-  --red: #EF4444;
-  --radius: 12px;
-}
-
-* { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
-h1,h2,h3 { font-family: 'Playfair Display', serif; }
-
-.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-
-/* ═══ NAV ═══ */
-nav {
-  position: fixed; top:0; left:0; right:0; z-index:100;
-  background: rgba(12,10,9,0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(245,158,11,0.1);
-  padding: 16px 0;
-}
-nav .container {
-  display:flex; justify-content:space-between; align-items:center;
-}
-.logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem; font-weight: 700;
-  color: var(--amber);
-  letter-spacing: -0.5px;
-}
-.logo span { color: var(--text-muted); font-weight:400; font-size:0.85rem; margin-left:8px; }
-.nav-cta {
-  background: var(--amber);
-  color: var(--bg);
-  padding: 10px 24px;
-  border-radius: 100px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s;
-}
-.nav-cta:hover { background: var(--cream); transform: translateY(-1px); }
-
-/* ═══ HERO ═══ */
-.hero {
-  min-height: 100vh;
-  display: flex; align-items: center;
-  padding: 120px 0 80px;
-  position: relative;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -100px; right: -200px;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, var(--amber-glow) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-.hero h1 {
-  font-size: 3.8rem;
-  line-height: 1.08;
-  letter-spacing: -1.5px;
-  margin-bottom: 24px;
-}
-.hero h1 em {
-  font-style: italic;
-  color: var(--amber);
-}
-.hero-sub {
-  font-size: 1.15rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin-bottom: 36px;
-  max-width: 480px;
-}
-.hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
-.btn-primary {
-  background: var(--amber);
-  color: var(--bg);
-  padding: 14px 32px;
-  border-radius: 100px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  transition: all 0.3s;
-  display: inline-block;
-}
-.btn-primary:hover { background: var(--cream); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,158,11,0.3); }
-.btn-outline {
-  border: 1px solid var(--text-dim);
-  color: var(--text);
-  padding: 14px 32px;
-  border-radius: 100px;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  transition: all 0.3s;
-}
-.btn-outline:hover { border-color: var(--amber); color: var(--amber); }
-
-/* ═══ PHONE MOCKUP ═══ */
-.phone {
-  width: 320px;
-  margin: 0 auto;
-  background: #000;
-  border-radius: 36px;
-  padding: 12px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
-  position: relative;
-}
-.phone-screen {
-  background: #F2F2F7;
-  border-radius: 26px;
-  overflow: hidden;
-  min-height: 460px;
-}
-.phone-header {
-  background: var(--surface);
-  padding: 20px 16px 12px;
-  text-align: center;
-}
-.phone-header .contact-name {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--text);
-}
-.phone-header .contact-sub {
-  font-size: 0.7rem;
-  color: var(--text-dim);
-  margin-top: 2px;
-}
-.phone-avatar {
-  width: 40px; height: 40px;
-  background: var(--amber);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 1.1rem; color: var(--bg);
-  margin: 0 auto 8px;
-}
-.messages {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.msg {
-  max-width: 82%;
-  padding: 10px 14px;
-  border-radius: 18px;
-  font-size: 0.82rem;
-  line-height: 1.45;
-  opacity: 0;
-  animation: msgIn 0.4s forwards;
-}
-.msg-user {
-  background: #007AFF;
-  color: white;
-  align-self: flex-end;
-  border-bottom-right-radius: 4px;
-}
-.msg-sidecar {
-  background: #E9E9EB;
-  color: #1C1C1E;
-  align-self: flex-start;
-  border-bottom-left-radius: 4px;
-}
-.msg:nth-child(1) { animation-delay: 0.3s; }
-.msg:nth-child(2) { animation-delay: 1.2s; }
-.msg:nth-child(3) { animation-delay: 2.4s; }
-.msg:nth-child(4) { animation-delay: 3.4s; }
-.msg:nth-child(5) { animation-delay: 4.8s; }
-.msg:nth-child(6) { animation-delay: 6s; }
-.msg:nth-child(7) { animation-delay: 7.2s; }
-
-@keyframes msgIn {
-  from { opacity:0; transform: translateY(10px); }
-  to { opacity:1; transform: translateY(0); }
-}
-
-.typing {
-  align-self: flex-start;
-  background: #E9E9EB;
-  padding: 10px 18px;
-  border-radius: 18px;
-  border-bottom-left-radius: 4px;
-  display: flex; gap: 4px;
-  opacity: 0;
-  animation: msgIn 0.3s forwards;
-}
-.typing span {
-  width: 6px; height: 6px;
-  background: #999;
-  border-radius: 50%;
-  animation: dotBounce 1.4s infinite;
-}
-.typing span:nth-child(2) { animation-delay: 0.2s; }
-.typing span:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes dotBounce {
-  0%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-6px); }
-}
-
-/* ═══ STATS BAR ═══ */
-.stats-bar {
-  padding: 60px 0;
-  border-top: 1px solid rgba(245,158,11,0.08);
-  border-bottom: 1px solid rgba(245,158,11,0.08);
-}
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-  text-align: center;
-}
-.stat-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.8rem;
-  color: var(--amber);
-  font-weight: 700;
-}
-.stat-label {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-top: 4px;
-  line-height: 1.4;
-}
-
-/* ═══ HOW IT WORKS ═══ */
-.section { padding: 100px 0; }
-.section-tag {
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  font-size: 0.75rem;
-  color: var(--amber);
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-.section-title {
-  font-size: 2.8rem;
-  letter-spacing: -1px;
-  margin-bottom: 20px;
-  line-height: 1.15;
-}
-.section-sub {
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  max-width: 550px;
-  line-height: 1.7;
-  margin-bottom: 60px;
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-}
-.step {
-  background: var(--surface);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: var(--radius);
-  padding: 36px 28px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s;
-}
-.step:hover {
-  border-color: rgba(245,158,11,0.2);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-}
-.step-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 4rem;
-  color: rgba(245,158,11,0.08);
-  font-weight: 700;
-  position: absolute;
-  top: 12px; right: 20px;
-}
-.step h3 {
-  font-size: 1.3rem;
-  margin-bottom: 12px;
-  color: var(--cream);
-}
-.step p {
-  color: var(--text-muted);
-  line-height: 1.65;
-  font-size: 0.92rem;
-}
-
-/* ═══ SERVICES ═══ */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-.service-card {
-  background: var(--surface);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: var(--radius);
-  padding: 28px 24px;
-  transition: all 0.3s;
-}
-.service-card:hover {
-  border-color: rgba(245,158,11,0.15);
-  background: var(--surface2);
-}
-.service-icon {
-  font-size: 1.5rem;
-  margin-bottom: 12px;
-}
-.service-card h3 {
-  font-size: 1.05rem;
-  margin-bottom: 8px;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 600;
-}
-.service-card p {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  line-height: 1.6;
-}
-
-/* ═══ BEFORE/AFTER ═══ */
-.comparison {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-}
-.comp-card {
-  border-radius: var(--radius);
-  padding: 40px 32px;
-}
-.comp-before {
-  background: linear-gradient(135deg, #1a0000 0%, var(--surface) 100%);
-  border: 1px solid rgba(239,68,68,0.15);
-}
-.comp-after {
-  background: linear-gradient(135deg, #0a1a00 0%, var(--surface) 100%);
-  border: 1px solid rgba(34,197,94,0.15);
-}
-.comp-badge {
-  display: inline-block;
-  padding: 4px 14px;
-  border-radius: 100px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 24px;
-}
-.comp-before .comp-badge { background: rgba(239,68,68,0.15); color: var(--red); }
-.comp-after .comp-badge { background: rgba(34,197,94,0.15); color: var(--green); }
-.comp-card h3 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-}
-.comp-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.comp-list li {
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  padding-left: 28px;
-  position: relative;
-  line-height: 1.5;
-}
-.comp-before .comp-list li::before { content: '✕'; position:absolute; left:0; color: var(--red); font-weight:700; }
-.comp-after .comp-list li::before { content: '✓'; position:absolute; left:0; color: var(--green); font-weight:700; }
-
-/* ═══ PRICING ═══ */
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-.price-card {
-  background: var(--surface);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: var(--radius);
-  padding: 36px 28px;
-  transition: all 0.3s;
-  position: relative;
-}
-.price-card.featured {
-  border-color: var(--amber);
-  box-shadow: 0 0 60px rgba(245,158,11,0.08);
-}
-.price-popular {
-  position: absolute;
-  top: -12px; left: 50%;
-  transform: translateX(-50%);
-  background: var(--amber);
-  color: var(--bg);
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 4px 16px;
-  border-radius: 100px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.price-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  margin-bottom: 4px;
-}
-.price-desc {
-  color: var(--text-dim);
-  font-size: 0.82rem;
-  margin-bottom: 20px;
-}
-.price-amount {
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: var(--cream);
-}
-.price-amount span {
-  font-size: 1rem;
-  color: var(--text-dim);
-  font-weight: 400;
-}
-.price-divider {
-  border: none;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  margin: 24px 0;
-}
-.price-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 28px;
-}
-.price-features li {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  padding-left: 22px;
-  position: relative;
-}
-.price-features li::before {
-  content: '→';
-  position: absolute;
-  left: 0;
-  color: var(--amber);
-}
-.price-cta {
-  display: block;
-  text-align: center;
-  padding: 12px;
-  border-radius: 100px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-decoration: none;
-  transition: all 0.3s;
-}
-.price-card .price-cta {
-  border: 1px solid var(--text-dim);
-  color: var(--text);
-}
-.price-card .price-cta:hover {
-  border-color: var(--amber);
-  color: var(--amber);
-}
-.price-card.featured .price-cta {
-  background: var(--amber);
-  color: var(--bg);
-  border: none;
-}
-.price-card.featured .price-cta:hover {
-  background: var(--cream);
-}
-
-/* ═══ CTA ═══ */
-.final-cta {
-  text-align: center;
-  padding: 100px 0;
-  position: relative;
-}
-.final-cta::before {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 800px; height: 400px;
-  background: radial-gradient(ellipse, var(--amber-glow) 0%, transparent 70%);
-  pointer-events: none;
-}
-.final-cta h2 {
-  font-size: 3rem;
-  letter-spacing: -1px;
-  margin-bottom: 16px;
-}
-.final-cta p {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  margin-bottom: 36px;
-}
-
-.guarantee {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--surface);
-  padding: 10px 20px;
-  border-radius: 100px;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-top: 16px;
-  border: 1px solid rgba(255,255,255,0.04);
-}
-
-/* ═══ FOOTER ═══ */
-footer {
-  border-top: 1px solid rgba(245,158,11,0.08);
-  padding: 40px 0;
-  text-align: center;
-}
-footer p {
-  color: var(--text-dim);
-  font-size: 0.82rem;
-}
-footer a { color: var(--amber); text-decoration: none; }
-
-/* ═══ RESPONSIVE ═══ */
-@media (max-width: 768px) {
-  .hero-grid, .comparison, .pricing-grid, .services-grid, .steps {
-    grid-template-columns: 1fr;
+  :root {
+    --bg: #06080a;
+    --surface: #0d1117;
+    --surface2: #151b23;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.1);
+    --text: #c9d1d9;
+    --text-dim: #6e7681;
+    --text-muted: #484f58;
+    --green: #00dc82;
+    --green-dim: rgba(0,220,130,0.12);
+    --red: #ff6b6b;
+    --red-dim: rgba(255,107,107,0.12);
+    --amber: #f0b429;
+    --amber-dim: rgba(240,180,41,0.12);
+    --blue: #58a6ff;
+    --blue-dim: rgba(88,166,255,0.12);
+    --mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --sans: 'IBM Plex Sans', -apple-system, sans-serif;
   }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-  .hero h1 { font-size: 2.6rem; }
-  .section-title { font-size: 2rem; }
-  .phone { width: 280px; }
-  .hero { padding-top: 100px; }
-}
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg); color: var(--text); font-family: var(--sans);
+    min-height: 100vh; -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content:''; position:fixed; inset:0;
+    background-image: linear-gradient(rgba(255,255,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.012) 1px,transparent 1px);
+    background-size: 40px 40px; pointer-events:none; z-index:0;
+  }
+  .container { max-width:860px; margin:0 auto; padding:20px 16px 60px; position:relative; z-index:1; }
+  .header { display:flex; align-items:flex-end; justify-content:space-between; padding-bottom:20px; margin-bottom:24px; border-bottom:1px solid var(--border); }
+  .header-left .tag { font-family:var(--mono); font-size:10px; letter-spacing:3px; color:var(--text-muted); text-transform:uppercase; margin-bottom:4px; }
+  .header-left h1 { font-family:var(--mono); font-size:22px; font-weight:700; color:#fff; display:flex; align-items:center; gap:10px; }
+  .badge { font-size:9px; padding:2px 8px; border-radius:3px; font-weight:600; letter-spacing:1.5px; font-family:var(--mono); }
+  .badge-sim { background:var(--amber-dim); color:var(--amber); }
+  .badge-live { background:var(--green-dim); color:var(--green); }
+  .header-right { text-align:right; display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
+  .update-time { font-family:var(--mono); font-size:10px; color:var(--text-muted); }
+  .sync-btn { font-family:var(--mono); font-size:10px; padding:5px 12px; background:var(--surface2); border:1px solid var(--border2); border-radius:4px; color:var(--text-dim); cursor:pointer; transition:all 0.15s; }
+  .sync-btn:hover { background:rgba(255,255,255,0.08); color:var(--text); border-color:rgba(255,255,255,0.15); }
+  .pnl-hero { text-align:center; padding:28px 0 32px; margin-bottom:24px; position:relative; }
+  .pnl-hero::after { content:''; position:absolute; bottom:0; left:20%; right:20%; height:1px; background:linear-gradient(90deg,transparent,var(--border2),transparent); }
+  .pnl-label { font-family:var(--mono); font-size:10px; letter-spacing:3px; color:var(--text-muted); text-transform:uppercase; margin-bottom:10px; }
+  .pnl-value { font-family:var(--mono); font-size:56px; font-weight:800; line-height:1; letter-spacing:-2px; }
+  .pnl-sub { font-family:var(--mono); font-size:13px; margin-top:8px; opacity:0.7; }
+  .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:24px; }
+  @media(max-width:600px) { .stats-grid{grid-template-columns:repeat(2,1fr);} .pnl-value{font-size:40px;} .header-left h1{font-size:17px;} }
+  .stat-card { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px 12px; transition:border-color 0.2s; }
+  .stat-card:hover { border-color:var(--border2); }
+  .stat-label { font-family:var(--mono); font-size:9px; letter-spacing:2px; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px; }
+  .stat-value { font-family:var(--mono); font-size:22px; font-weight:700; line-height:1.1; }
+  .stat-sub { font-family:var(--mono); font-size:10px; color:var(--text-muted); margin-top:4px; }
+  .chart-box { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:16px; margin-bottom:24px; overflow-x:auto; }
+  .chart-title { font-family:var(--mono); font-size:10px; letter-spacing:2px; color:var(--text-muted); text-transform:uppercase; margin-bottom:12px; }
+  .tabs { display:flex; border-bottom:1px solid var(--border); margin-bottom:16px; }
+  .tab { font-family:var(--mono); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; padding:10px 18px; background:none; border:none; border-bottom:2px solid transparent; color:var(--text-muted); cursor:pointer; transition:all 0.15s; }
+  .tab:hover { color:var(--text-dim); }
+  .tab.active { color:#fff; border-bottom-color:var(--green); }
+  .trade-row { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-radius:4px; transition:background 0.1s; }
+  .trade-row:hover { background:rgba(255,255,255,0.02); }
+  .trade-row:nth-child(even) { background:rgba(255,255,255,0.015); }
+  .trade-info { flex:1; min-width:0; }
+  .trade-question { font-size:12px; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .trade-meta { font-family:var(--mono); font-size:10px; color:var(--text-muted); margin-top:2px; }
+  .trade-result { text-align:right; min-width:80px; margin-left:12px; }
+  .trade-pnl { font-family:var(--mono); font-size:13px; font-weight:600; }
+  .trade-tag { font-family:var(--mono); font-size:9px; opacity:0.6; }
+  .pending-card { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px 16px; margin-bottom:8px; transition:border-color 0.2s; }
+  .pending-card:hover { border-color:var(--border2); }
+  .pending-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; }
+  .pending-ticker { font-family:var(--mono); font-size:10px; color:var(--text-muted); margin-top:3px; }
+  .pending-stats { display:flex; gap:16px; font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-bottom:10px; flex-wrap:wrap; }
+  .pending-actions { display:flex; gap:6px; }
+  .btn-won,.btn-lost { font-family:var(--mono); font-size:10px; padding:4px 14px; border-radius:4px; cursor:pointer; transition:all 0.15s; font-weight:500; }
+  .btn-won { background:var(--green-dim); border:1px solid rgba(0,220,130,0.25); color:var(--green); }
+  .btn-won:hover { background:rgba(0,220,130,0.2); border-color:var(--green); }
+  .btn-lost { background:var(--red-dim); border:1px solid rgba(255,107,107,0.25); color:var(--red); }
+  .btn-lost:hover { background:rgba(255,107,107,0.2); border-color:var(--red); }
+  .day-row { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-radius:4px; }
+  .day-row:nth-child(even) { background:rgba(255,255,255,0.015); }
+  .day-date { font-family:var(--mono); font-size:12px; color:var(--text); min-width:70px; }
+  .day-stats { display:flex; gap:14px; font-family:var(--mono); font-size:11px; align-items:center; }
+  .day-pnl { font-family:var(--mono); font-size:13px; font-weight:600; min-width:80px; text-align:right; }
+  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:100; padding:20px; }
+  .modal { background:var(--surface); border:1px solid var(--border2); border-radius:12px; padding:24px; width:100%; max-width:520px; }
+  .modal h3 { font-family:var(--mono); font-size:14px; font-weight:600; color:#fff; margin-bottom:8px; }
+  .modal p { font-size:12px; color:var(--text-dim); margin-bottom:16px; line-height:1.6; }
+  .modal textarea { width:100%; height:160px; background:var(--bg); border:1px solid var(--border2); border-radius:6px; padding:12px; font-family:var(--mono); font-size:11px; color:var(--text); resize:vertical; margin-bottom:12px; }
+  .modal textarea:focus { outline:none; border-color:var(--green); }
+  .modal-btns { display:flex; gap:8px; justify-content:flex-end; }
+  .modal-btn { font-family:var(--mono); font-size:11px; padding:6px 16px; border-radius:4px; cursor:pointer; transition:all 0.15s; }
+  .modal-btn-cancel { background:none; border:1px solid var(--border2); color:var(--text-dim); }
+  .modal-btn-save { background:var(--green); border:1px solid var(--green); color:var(--bg); font-weight:600; }
+  .modal-btn-save:hover { opacity:0.9; }
+  .empty { text-align:center; padding:48px 20px; color:var(--text-muted); font-size:13px; }
+  .footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); text-align:center; }
+  .footer code { font-family:var(--mono); font-size:10px; color:var(--text-muted); background:var(--surface); padding:2px 6px; border-radius:3px; display:inline-block; margin:4px 0; }
+  .footer p { font-size:10px; color:var(--text-muted); margin-top:6px; }
+  .note-box { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--amber); border-radius:4px; padding:12px 14px; margin-bottom:20px; font-size:11px; color:var(--text-dim); line-height:1.6; }
+  .note-box strong { color:var(--amber); }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .animate-in { animation:fadeUp 0.4s ease forwards; opacity:0; }
+  .delay-1{animation-delay:0.05s} .delay-2{animation-delay:0.1s} .delay-3{animation-delay:0.15s}
+  .delay-4{animation-delay:0.2s} .delay-5{animation-delay:0.25s} .delay-6{animation-delay:0.3s}
+  .pulse-dot { width:6px; height:6px; border-radius:50%; display:inline-block; margin-right:4px; animation:pulse 2s ease infinite; }
+  @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
 </style>
 </head>
 <body>
+<div class="container" id="app"></div>
+<script>
+const STORAGE_KEY = 'kalshi_bot_trades_v3';
 
-<!-- NAV -->
-<nav>
-  <div class="container">
-    <div class="logo">Sidecar <span>for bars & restaurants</span></div>
-    <a href="https://calendly.com/hallryanm3/30min" class="nav-cta">Start Free Trial →</a>
-  </div>
-</nav>
+// REAL TRADES from VPS as of Feb 12 2026
+// Resolved against actual weather: NYC high 35°F, Chicago high 39°F
+const REAL_TRADES = [
+  {ticker:"POLY-SHUTDOWN",question:"Another US government shutdown by February 14?",category:"politics",side:"YES",price:0.735,contracts:6,cost:5.00,potential_profit:1.80,edge:0.115,confidence:70,simulation:true,timestamp:1739245443,result:null},
+  {ticker:"POLY-HULIAIPOLE",question:"Will Russia capture all of Huliaipole by Feb 28?",category:"politics",side:"NO",price:0.52,contracts:9,cost:5.00,potential_profit:4.62,edge:0.33,confidence:65,simulation:true,timestamp:1739245457,result:null},
+  {ticker:"KXHIGHNY-26FEB12-B38.5",question:"NYC high temp 38-39°F on Feb 12",category:"weather",side:"YES",price:0.12,contracts:49,cost:5.88,potential_profit:43.12,edge:0.13,confidence:80,simulation:true,timestamp:1739319543,result:"loss"},
+  {ticker:"KXHIGHCHI-26FEB12-T38",question:"Chicago high temp <38°F on Feb 12",category:"weather",side:"YES",price:0.22,contracts:28,cost:6.16,potential_profit:21.84,edge:0.13,confidence:75,simulation:true,timestamp:1739319546,result:"loss"},
+  {ticker:"KXHIGHCHI-26FEB12-B42.5",question:"Chicago high temp 42-43°F on Feb 12",category:"weather",side:"YES",price:0.12,contracts:52,cost:6.24,potential_profit:45.76,edge:0.13,confidence:85,simulation:true,timestamp:1739319547,result:"loss"},
+  {ticker:"KXHIGHNY-26FEB12-B38.5",question:"NYC high temp 38-39°F on Feb 12",category:"weather",side:"YES",price:0.12,contracts:43,cost:5.16,potential_profit:37.84,edge:0.13,confidence:70,simulation:true,timestamp:1739319870,result:"loss"},
+  {ticker:"KXHIGHNY-26FEB12-B34.5",question:"NYC high temp 34-35°F on Feb 12",category:"weather",side:"YES",price:0.30,contracts:25,cost:7.50,potential_profit:17.50,edge:0.15,confidence:75,simulation:true,timestamp:1739319872,result:"win"},
+  {ticker:"KXHIGHNY-26FEB12-B38.5",question:"NYC high temp 38-39°F on Feb 12",category:"weather",side:"YES",price:0.12,contracts:32,cost:3.84,potential_profit:28.16,edge:0.08,confidence:85,simulation:true,timestamp:1739320308,result:"loss"},
+  {ticker:"KXHIGHNY-26FEB12-B34.5",question:"NYC high temp 34-35°F on Feb 12",category:"weather",side:"YES",price:0.30,contracts:21,cost:6.30,potential_profit:14.70,edge:0.15,confidence:65,simulation:true,timestamp:1739320310,result:"win"},
+  {ticker:"KXHIGHNY-26FEB12-B38.5",question:"NYC high temp 38-39°F on Feb 12",category:"weather",side:"YES",price:0.12,contracts:49,cost:5.88,potential_profit:43.12,edge:0.13,confidence:80,simulation:true,timestamp:1739320434,result:"loss"},
+  {ticker:"KXHIGHNY-26FEB12-B34.5",question:"NYC high temp 34-35°F on Feb 12",category:"weather",side:"YES",price:0.30,contracts:28,cost:8.40,potential_profit:19.60,edge:0.15,confidence:85,simulation:true,timestamp:1739320437,result:"win"},
+  {ticker:"KXHIGHNY-26FEB12-B38.5",question:"NYC high temp 38-39°F on Feb 12",category:"weather",side:"YES",price:0.12,contracts:52,cost:6.24,potential_profit:45.76,edge:0.13,confidence:85,simulation:true,timestamp:1739320560,result:"loss"},
+  {ticker:"KXHIGHNY-26FEB12-B34.5",question:"NYC high temp 34-35°F on Feb 12",category:"weather",side:"YES",price:0.30,contracts:17,cost:5.10,potential_profit:11.90,edge:0.10,confidence:75,simulation:true,timestamp:1739320776,result:"win"},
+  {ticker:"KXHIGHCHI-26FEB12-B42.5",question:"Chicago high temp 42-43°F on Feb 12",category:"weather",side:"YES",price:0.17,contracts:41,cost:6.97,potential_profit:34.03,edge:0.18,confidence:70,simulation:true,timestamp:1739321025,result:"loss"},
+];
 
-<!-- HERO -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-grid">
-      <div>
-        <h1>Text us.<br><em>It gets done.</em></h1>
-        <p class="hero-sub">Ordering, social media, review responses, menu costing, hiring posts, event promos, inbox management — handled by a real person powered by AI. Your entire back office, via text message.</p>
-        <div class="hero-btns">
-          <a href="https://calendly.com/hallryanm3/30min" class="btn-primary">Start Free Trial</a>
-          <a href="#how" class="btn-outline">See How It Works</a>
-        </div>
-      </div>
-      <div>
-        <div class="phone">
-          <div class="phone-screen">
-            <div class="phone-header">
-              <div class="phone-avatar">S</div>
-              <div class="contact-name">Sidecar</div>
-              <div class="contact-sub">iMessage · Now</div>
-            </div>
-            <div class="messages">
-              <div class="msg msg-user">We're low on Espolòn and Aperol. Can you reorder?</div>
-              <div class="msg msg-sidecar">On it. PO drafted and sent to Southern. Also flagged you're low on Campari — want me to add it?</div>
-              <div class="msg msg-user">Yes. Also can you post something about our new spring menu?</div>
-              <div class="msg msg-sidecar">Done. 4 posts scheduled across this week. Sending you a preview in 10 for approval 👍</div>
-              <div class="msg msg-user">We got a 2-star review on Google btw</div>
-              <div class="msg msg-sidecar">Already saw it. Drafted a response — empathetic, acknowledges the wait time, invites them back. Want to approve before I post?</div>
-              <div class="msg msg-user">Perfect. What did I do before you 😂</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+function loadTrades(){try{const r=localStorage.getItem(STORAGE_KEY);if(r){const p=JSON.parse(r);if(Array.isArray(p)&&p.length>0)return p;}}catch(e){}localStorage.setItem(STORAGE_KEY,JSON.stringify(REAL_TRADES));return REAL_TRADES;}
+function saveTrades(t){localStorage.setItem(STORAGE_KEY,JSON.stringify(t));}
 
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="container">
-    <div class="stats-grid">
-      <div>
-        <div class="stat-num">15+</div>
-        <div class="stat-label">hours/week your manager<br>spends on admin, not the floor</div>
-      </div>
-      <div>
-        <div class="stat-num">73%</div>
-        <div class="stat-label">of bars never respond<br>to their online reviews</div>
-      </div>
-      <div>
-        <div class="stat-num">$0</div>
-        <div class="stat-label">to start — free trial week,<br>no contracts, cancel anytime</div>
-      </div>
-      <div>
-        <div class="stat-num">24hr</div>
-        <div class="stat-label">turnaround on every task.<br>Most done same-day.</div>
-      </div>
-    </div>
-  </div>
-</div>
+function processTrades(trades){
+  const resolved=trades.filter(t=>t.result),pending=trades.filter(t=>!t.result);
+  let totalInvested=0,totalReturned=0,wins=0,losses=0;
+  resolved.forEach(t=>{totalInvested+=t.cost;if(t.result==='win'){totalReturned+=t.contracts;wins++;}if(t.result==='loss'){losses++;}});
+  const totalPnL=totalReturned-totalInvested;
+  const roi=totalInvested>0?(totalPnL/totalInvested)*100:0;
+  const winRate=resolved.length>0?(wins/resolved.length)*100:0;
+  const pendingCost=pending.reduce((s,t)=>s+t.cost,0);
+  const pendingUpside=pending.reduce((s,t)=>s+t.potential_profit,0);
+  const byDay={};
+  trades.forEach(t=>{const d=new Date(t.timestamp*1000).toLocaleDateString('en-US',{month:'short',day:'numeric'});if(!byDay[d])byDay[d]={day:d,invested:0,returned:0,trades:0,wins:0,losses:0,pending:0,ts:t.timestamp};byDay[d].trades++;if(t.result==='win'){byDay[d].invested+=t.cost;byDay[d].returned+=t.contracts;byDay[d].wins++;}else if(t.result==='loss'){byDay[d].invested+=t.cost;byDay[d].losses++;}else{byDay[d].pending++;}});
+  return{totalPnL,roi,winRate,wins,losses,pendingCount:pending.length,totalInvested,totalReturned,pendingCost,pendingUpside,byDay:Object.values(byDay).sort((a,b)=>b.ts-a.ts),trades,resolved,pending};
+}
 
-<!-- HOW IT WORKS -->
-<section class="section" id="how">
-  <div class="container">
-    <div class="section-tag">How It Works</div>
-    <div class="section-title">Three steps. That's it.</div>
-    <div class="section-sub">No software to learn. No dashboard to check. No login to remember. Just text us like you'd text your best employee.</div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h3>15-minute call</h3>
-        <p>Tell us what's eating your time. We learn your voice, your vendors, your tools. No pitch, no BS — just figuring out where we plug in.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h3>Free trial week</h3>
-        <p>We run everything for 7 days on the house. Ordering, social, reviews, inbox — the works. You see the results before you spend a dime.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h3>Text us, it gets done</h3>
-        <p>You run your bar. We run your back office. Need something? Text us. It's handled before last call. Every single time.</p>
-      </div>
-    </div>
-  </div>
-</section>
+function renderChart(byDay){
+  if(!byDay.length)return'<div class="empty">No data</div>';
+  const rev=[...byDay].reverse();let cum=0;
+  const pts=rev.map(d=>{cum+=(d.returned-d.invested);return{...d,cumPnL:cum};});
+  const maxP=Math.max(...pts.map(p=>p.cumPnL),0.01),minP=Math.min(...pts.map(p=>p.cumPnL),-0.01);
+  const range=(maxP-minP)||1,h=130,w=Math.max(pts.length*120,320);
+  const coords=pts.map((p,i)=>{const x=(i/Math.max(pts.length-1,1))*(w-50)+25;const y=h-15-((p.cumPnL-minP)/range)*(h-40);return{x,y,...p};});
+  const zeroY=h-15-((0-minP)/range)*(h-40);
+  const lineD=coords.map((c,i)=>`${i===0?'M':'L'} ${c.x} ${c.y}`).join(' ');
+  const areaD=lineD+` L ${coords[coords.length-1].x} ${h-5} L ${coords[0].x} ${h-5} Z`;
+  const color=cum>=0?'var(--green)':'var(--red)';
+  let s=`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="display:block;">`;
+  s+=`<defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${color}" stop-opacity="0.12"/><stop offset="100%" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>`;
+  s+=`<line x1="25" y1="${zeroY}" x2="${w-25}" y2="${zeroY}" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4 4"/>`;
+  s+=`<path d="${areaD}" fill="url(#ag)"/><path d="${lineD}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`;
+  coords.forEach(c=>{const col=c.cumPnL>=0?'var(--green)':'var(--red)';s+=`<circle cx="${c.x}" cy="${c.y}" r="3.5" fill="var(--bg)" stroke="${col}" stroke-width="2"/>`;s+=`<text x="${c.x}" y="${c.y-10}" text-anchor="middle" fill="${col}" font-size="9" font-family="JetBrains Mono" font-weight="600">$${c.cumPnL.toFixed(2)}</text>`;s+=`<text x="${c.x}" y="${h}" text-anchor="middle" fill="var(--text-muted)" font-size="8.5" font-family="JetBrains Mono">${c.day}</text>`;});
+  s+=`</svg>`;return s;
+}
 
-<!-- SERVICES -->
-<section class="section" style="padding-top:0;">
-  <div class="container">
-    <div class="section-tag">What We Handle</div>
-    <div class="section-title">Everything that isn't bartending</div>
-    <div class="section-sub">You focus on the bar. We handle the laptop.</div>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">📋</div>
-        <h3>Ordering & Inventory</h3>
-        <p>Text us your counts. We draft POs, email your distributors, and flag when you're running low. Same-day turnaround.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📱</div>
-        <h3>Social Media</h3>
-        <p>4+ posts a week in your voice, scheduled and published. Send us a photo, we handle the caption, hashtags, and timing.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">💰</div>
-        <h3>Menu Engineering</h3>
-        <p>Pour cost analysis, recipe costing, margin optimization. We tell you what's making money and what's bleeding it.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">⭐</div>
-        <h3>Review Responses</h3>
-        <p>Every Google and Yelp review gets a thoughtful reply in your tone within 24 hours. Even the 1-stars. Especially the 1-stars.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🎉</div>
-        <h3>Events & Promos</h3>
-        <p>Copy, Eventbrite, email blast, social posts — we handle the full launch so you just show up on event night.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📨</div>
-        <h3>Inbox & DMs</h3>
-        <p>Catering inquiries, press requests, influencer collabs, private event quotes — we draft every reply so nothing slips through.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">👥</div>
-        <h3>Hiring</h3>
-        <p>Job posts that actually attract people, distributed to Poached, Indeed, and your socials. Not just "we're hiring 🙏".</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🔍</div>
-        <h3>Competitor Intel</h3>
-        <p>Monthly brief on what nearby bars are doing — menus, pricing, events, promotions. Know what's happening before it affects you.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🧾</div>
-        <h3>Bookkeeping Prep</h3>
-        <p>Receipts organized, invoices categorized, expenses flagged. Your accountant bills half the hours. You never touch a spreadsheet.</p>
-      </div>
-    </div>
-  </div>
-</section>
+let state={trades:loadTrades(),view:'overview',showModal:false};
 
-<!-- BEFORE / AFTER -->
-<section class="section" style="padding-top:0;">
-  <div class="container">
-    <div class="section-tag">The Difference</div>
-    <div class="section-title">Monday morning, two realities</div>
-    <div class="section-sub">Same bar. Same manager. One has Sidecar.</div>
-    <div class="comparison">
-      <div class="comp-card comp-before">
-        <div class="comp-badge">Without Sidecar</div>
-        <h3>The Monday Spiral</h3>
-        <ul class="comp-list">
-          <li>Wake up dreading the ordering spreadsheet</li>
-          <li>30 min counting bottles, 45 min emailing distributors</li>
-          <li>3 unanswered Google reviews from the weekend</li>
-          <li>Instagram hasn't been posted to in 9 days</li>
-          <li>Inbox has 40 unread emails including a catering inquiry from Thursday</li>
-          <li>No idea what your actual pour cost is on the new cocktail menu</li>
-          <li>A cook quit and you need to write a job post</li>
-          <li>It's 2pm. You haven't touched the floor.</li>
-        </ul>
-      </div>
-      <div class="comp-card comp-after">
-        <div class="comp-badge">With Sidecar</div>
-        <h3>The Monday Reset</h3>
-        <ul class="comp-list">
-          <li>Text Sidecar your counts while you drink coffee</li>
-          <li>POs drafted and sent to distributors by 10am</li>
-          <li>All 3 weekend reviews responded to — in your voice</li>
-          <li>4 posts scheduled this week, preview in your texts</li>
-          <li>Catering inquiry quoted, follow-up sent, event details confirmed</li>
-          <li>Pour cost report in your inbox — 2 cocktails flagged for repricing</li>
-          <li>Hiring post live on Poached, Indeed, and your Instagram story</li>
-          <li>It's 11am. You're on the floor where you belong.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+function render(){
+  const data=processTrades(state.trades);
+  const pnlColor=data.totalPnL>=0?'var(--green)':'var(--red)';
+  const pnlSign=data.totalPnL>=0?'+':'';
+  const now=new Date().toLocaleTimeString();
+  let h='';
 
-<!-- PRICING -->
-<section class="section" id="pricing">
-  <div class="container">
-    <div class="section-tag">Pricing</div>
-    <div class="section-title">Start where it hurts.<br>Scale when it works.</div>
-    <div class="section-sub">Every plan includes a dedicated point of contact. Text, call, or email — same day response, always.</div>
-    <div class="pricing-grid">
-      <div class="price-card">
-        <div class="price-name">The Well</div>
-        <div class="price-desc">Ops on autopilot</div>
-        <div class="price-amount">$500<span>/mo</span></div>
-        <hr class="price-divider">
-        <ul class="price-features">
-          <li>Purchase orders from your counts, same day</li>
-          <li>Distributor emails drafted & sent</li>
-          <li>Par level monitoring & low-stock alerts</li>
-          <li>Weekly inventory variance report</li>
-          <li>Google & Yelp review responses (24hr)</li>
-          <li>Inbox & DM draft replies (20/week)</li>
-          <li>Dedicated point of contact</li>
-        </ul>
-        <a href="https://calendly.com/hallryanm3/30min" class="price-cta">Start Free Trial →</a>
-      </div>
-      <div class="price-card featured">
-        <div class="price-popular">Most Popular</div>
-        <div class="price-name">The Double</div>
-        <div class="price-desc">Ops + marketing + growth</div>
-        <div class="price-amount">$1,500<span>/mo</span></div>
-        <hr class="price-divider">
-        <ul class="price-features">
-          <li>Everything in The Well</li>
-          <li>4+ social posts/week in your voice</li>
-          <li>Monthly email blast to your list</li>
-          <li>Event copy, Eventbrite & promotion</li>
-          <li>Hiring posts written & distributed</li>
-          <li>Menu copy & website updates</li>
-          <li>Monthly competitor intel brief</li>
-          <li>Performance analytics dashboard</li>
-        </ul>
-        <a href="https://calendly.com/hallryanm3/30min" class="price-cta">Start Free Trial →</a>
-      </div>
-      <div class="price-card">
-        <div class="price-name">The Full Pour</div>
-        <div class="price-desc">Your entire back office</div>
-        <div class="price-amount">$2,500<span>/mo</span></div>
-        <hr class="price-divider">
-        <ul class="price-features">
-          <li>Everything in The Double</li>
-          <li>Full menu costing & pour cost analysis</li>
-          <li>Recipe margin optimization</li>
-          <li>Vendor price comparison & negotiation prep</li>
-          <li>Bookkeeping prep & expense categorization</li>
-          <li>Staff scheduling optimization</li>
-          <li>Monthly P&L summary with insights</li>
-          <li>Unlimited inbox management</li>
-          <li>Priority same-day turnaround</li>
-        </ul>
-        <a href="https://calendly.com/hallryanm3/30min" class="price-cta">Start Free Trial →</a>
-      </div>
-    </div>
-  </div>
-</section>
+  h+=`<div class="header animate-in delay-1"><div class="header-left"><div class="tag">Kalshi AI Bot</div><h1>Dashboard <span class="badge badge-sim">SIM</span></h1></div><div class="header-right"><span class="update-time"><span class="pulse-dot" style="background:var(--amber)"></span>${now}</span><button class="sync-btn" onclick="openModal()">⬆ Sync Trades</button></div></div>`;
+  h+=`<div class="pnl-hero animate-in delay-2"><div class="pnl-label">Total P&L (Resolved)</div><div class="pnl-value" style="color:${pnlColor}">${pnlSign}$${Math.abs(data.totalPnL).toFixed(2)}</div><div class="pnl-sub" style="color:${pnlColor}">${pnlSign}${data.roi.toFixed(1)}% ROI on $${data.totalInvested.toFixed(2)} invested</div></div>`;
+  h+=`<div class="note-box animate-in delay-2"><strong>⚠ Simulation Mode</strong> — Paper trades only, no real money. Results resolved against actual weather: NYC Feb 12 high: 35°F · Chicago Feb 12 high: 39°F. The conflict detection fix + duplicate prevention is now deployed.</div>`;
+  h+=`<div class="stats-grid animate-in delay-3">`;
+  h+=statCard('Win Rate',`${data.winRate.toFixed(0)}%`,`${data.wins}W / ${data.losses}L`,data.winRate>=50?'var(--green)':'var(--red)');
+  h+=statCard('Total',data.trades.length,`${data.resolved.length} settled`,'var(--text)');
+  h+=statCard('Pending',data.pendingCount,`$${data.pendingCost.toFixed(2)} at risk`,'var(--amber)');
+  h+=statCard('Upside',`$${data.pendingUpside.toFixed(2)}`,'if pending win','var(--blue)');
+  h+=`</div>`;
+  h+=`<div class="chart-box animate-in delay-4"><div class="chart-title">Cumulative P&L</div>${renderChart(data.byDay)}</div>`;
 
-<!-- FINAL CTA -->
-<section class="final-cta">
-  <div class="container" style="position:relative;z-index:1;">
-    <div class="section-tag">Ready?</div>
-    <h2>Your first week is free.</h2>
-    <p>No contracts. No setup fees. No risk. If we don't save you time, you don't pay.</p>
-    <a href="https://calendly.com/hallryanm3/30min" class="btn-primary">Book a Free 15-Min Call →</a>
-    <br>
-    <div class="guarantee">🔒 No credit card required · Cancel anytime · Results in 48 hours</div>
-  </div>
-</section>
+  const tabs=['overview','pending','history'];
+  h+=`<div class="tabs animate-in delay-5">`;
+  tabs.forEach(t=>{const l=t==='pending'&&data.pendingCount>0?`${t} (${data.pendingCount})`:t;h+=`<button class="tab ${state.view===t?'active':''}" onclick="setView('${t}')">${l}</button>`;});
+  h+=`</div><div class="animate-in delay-6">`;
 
-<!-- FOOTER -->
-<footer>
-  <div class="container">
-    <p>Sidecar — AI-powered back office for bars & restaurants · NYC · <a href="mailto:ryan@sidecarhq.cc">ryan@sidecarhq.cc</a></p>
-  </div>
-</footer>
+  if(state.view==='overview'){
+    if(!data.byDay.length)h+=`<div class="empty">No trades yet.</div>`;
+    else data.byDay.forEach(d=>{const dp=d.returned-d.invested;const dc=dp>=0?'var(--green)':'var(--red)';const ds=dp>=0?'+':'';h+=`<div class="day-row"><div class="day-date">${d.day}</div><div class="day-stats"><span style="color:var(--text-muted)">${d.trades} trades</span><span style="color:var(--green)">${d.wins}W</span><span style="color:var(--red)">${d.losses}L</span>${d.pending>0?`<span style="color:var(--amber)">${d.pending}⏳</span>`:''}</div><div class="day-pnl" style="color:${dc}">${ds}$${Math.abs(dp).toFixed(2)}</div></div>`;});
+  }
 
+  if(state.view==='pending'){
+    if(!data.pending.length)h+=`<div class="empty">No pending trades — all settled!</div>`;
+    else data.pending.forEach((t,i)=>{const ri=state.trades.indexOf(t);h+=`<div class="pending-card"><div class="pending-header"><div><div style="font-size:12px;color:var(--text);font-weight:500">${t.question}</div><div class="pending-ticker">${t.ticker}</div></div><span class="badge badge-sim" style="font-size:9px">PENDING</span></div><div class="pending-stats"><span>${t.side} @ $${t.price.toFixed(2)}</span><span>${t.contracts} contracts</span><span>Cost: $${t.cost.toFixed(2)}</span><span>Edge: ${(t.edge*100).toFixed(0)}%</span></div><div class="pending-actions"><button class="btn-won" onclick="markResult(${ri},'win')">✓ Won</button><button class="btn-lost" onclick="markResult(${ri},'loss')">✗ Lost</button></div></div>`;});
+  }
+
+  if(state.view==='history'){
+    if(!data.resolved.length)h+=`<div class="empty">No settled trades yet.</div>`;
+    else[...data.resolved].reverse().forEach(t=>{const isW=t.result==='win';const pnl=isW?(t.contracts-t.cost):-t.cost;const cl=isW?'var(--green)':'var(--red)';const dt=new Date(t.timestamp*1000).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});h+=`<div class="trade-row"><div class="trade-info"><div class="trade-question">${t.question}</div><div class="trade-meta">${dt} · ${t.side} ${t.contracts}x @ $${t.price.toFixed(2)} · Edge ${(t.edge*100).toFixed(0)}%</div></div><div class="trade-result"><div class="trade-pnl" style="color:${cl}">${pnl>=0?'+':''}$${Math.abs(pnl).toFixed(2)}</div><div class="trade-tag" style="color:${cl}">${isW?'WON':'LOST'}</div></div></div>`;});
+  }
+
+  h+=`</div>`;
+  h+=`<div class="footer"><p>Sync command:</p><code>ssh root@174.138.84.53 'cat /root/polymarket-ai-bot/data/trades.json' | pbcopy</code><p>Then click "⬆ Sync Trades" and paste · Data persists in your browser</p></div>`;
+
+  if(state.showModal){
+    h+=`<div class="modal-overlay" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()"><h3>Sync Trade Data</h3><p>Run this in terminal, then paste below:<br><code style="font-family:var(--mono);font-size:10px;color:var(--green);background:var(--bg);padding:2px 6px;border-radius:3px">ssh root@174.138.84.53 'cat /root/polymarket-ai-bot/data/trades.json' | pbcopy</code></p><textarea id="pasteArea" placeholder="Paste trades.json here..."></textarea><div class="modal-btns"><button class="modal-btn modal-btn-cancel" onclick="state.showModal=false;render();">Cancel</button><button class="modal-btn modal-btn-save" onclick="importTrades()">Import</button></div></div></div>`;
+  }
+
+  document.getElementById('app').innerHTML=h;
+}
+
+function statCard(l,v,s,c){return`<div class="stat-card"><div class="stat-label">${l}</div><div class="stat-value" style="color:${c}">${v}</div><div class="stat-sub">${s}</div></div>`;}
+function setView(v){state.view=v;render();}
+function openModal(){state.showModal=true;render();setTimeout(()=>{const e=document.getElementById('pasteArea');if(e)e.focus();},100);}
+function closeModal(e){if(e.target.classList.contains('modal-overlay')){state.showModal=false;render();}}
+
+function importTrades(){
+  const el=document.getElementById('pasteArea');if(!el)return;
+  try{
+    const raw=JSON.parse(el.value.trim());
+    if(!Array.isArray(raw)||!raw.length){alert('Expected JSON array.');return;}
+    const norm=raw.map(t=>{
+      if(t.condition_id&&t.condition_id.startsWith('0x'))return{ticker:'POLY-'+((t.market_question||'').slice(0,12).replace(/\s/g,'-').toUpperCase()),question:t.market_question||'Unknown',category:'politics',side:t.side||'YES',price:t.price||0.5,contracts:Math.round(t.shares||0),cost:t.size_usdc||5,potential_profit:((t.shares||0)-(t.size_usdc||5)),edge:(t.edge_pct||10)/100,confidence:65,simulation:t.simulated!==false,timestamp:new Date(t.timestamp||t.saved_at||Date.now()).getTime()/1000,result:null};
+      return{...t,result:t.result||null};
+    });
+    state.trades=norm;saveTrades(norm);state.showModal=false;render();
+  }catch(e){alert('Could not parse JSON.');}
+}
+
+function markResult(i,r){state.trades[i]={...state.trades[i],result:r};saveTrades(state.trades);render();}
+
+// Force fresh data on first load of v3
+if(!localStorage.getItem(STORAGE_KEY)){localStorage.setItem(STORAGE_KEY,JSON.stringify(REAL_TRADES));}
+
+render();
+</script>
 </body>
 </html>
