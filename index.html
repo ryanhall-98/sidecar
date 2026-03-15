@@ -133,71 +133,75 @@ nav .container {
 .phone {
   width: 320px;
   margin: 0 auto;
-  background: #000;
+  background: #1a1a2e;
   border-radius: 36px;
   padding: 12px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(99,102,241,0.2);
   position: relative;
 }
 .phone-screen {
-  background: #F2F2F7;
+  background: #0f0f1a;
   border-radius: 26px;
   overflow: hidden;
-  min-height: 460px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
 }
 .phone-header {
-  background: var(--surface);
-  padding: 20px 16px 12px;
+  background: #1a1a2e;
+  padding: 16px 16px 12px;
   text-align: center;
+  border-bottom: 1px solid rgba(99,102,241,0.15);
+  flex-shrink: 0;
 }
 .phone-header .contact-name {
   font-weight: 600;
   font-size: 0.95rem;
-  color: var(--text);
+  color: #ffffff;
+  margin-top: 6px;
 }
 .phone-header .contact-sub {
-  font-size: 0.7rem;
-  color: var(--text-dim);
+  font-size: 0.68rem;
+  color: #6b7280;
   margin-top: 2px;
 }
 .phone-avatar {
   width: 40px; height: 40px;
-  background: var(--amber);
+  background: #6366f1;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 1.1rem; color: var(--bg);
-  margin: 0 auto 8px;
+  font-weight: 700; font-size: 1rem; color: #ffffff;
+  margin: 0 auto 4px;
 }
 .messages {
-  padding: 16px;
+  padding: 14px 12px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+  flex: 1;
+  overflow-y: auto;
 }
-.msg {
-  max-width: 82%;
-  padding: 10px 14px;
+.message {
+  max-width: 80%;
+  padding: 9px 13px;
   border-radius: 18px;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   line-height: 1.45;
-  opacity: 0;
-  animation: msgIn 0.4s forwards;
+  word-break: break-word;
 }
-.msg-user {
-  background: #007AFF;
-  color: white;
-  align-self: flex-end;
-  border-bottom-right-radius: 4px;
-}
-.msg-sidecar {
-  background: #E9E9EB;
-  color: #1C1C1E;
+.message.received {
+  background: #2a2a3e;
+  color: #e5e7eb;
   align-self: flex-start;
   border-bottom-left-radius: 4px;
 }
-.msg:nth-child(1) { animation-delay: 0.3s; }
-.msg:nth-child(2) { animation-delay: 1.2s; }
-.msg:nth-child(3) { animation-delay: 2.4s; }
+.message.sent {
+  background: #6366f1;
+  color: #ffffff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+  text-align: left;
+}
 .msg:nth-child(4) { animation-delay: 3.4s; }
 .msg:nth-child(5) { animation-delay: 4.8s; }
 .msg:nth-child(6) { animation-delay: 6s; }
@@ -596,34 +600,31 @@ footer a { color: var(--amber); text-decoration: none; }
             <div class="phone-header">
               <div class="phone-avatar">S</div>
               <div class="contact-name">Sidecar</div>
-              <div class="contact-sub">iMessage · Now</div>
+              <div class="contact-sub">text message · now</div>
             </div>
             <div class="messages">
   <div class="message received">
-    Hey — what's running low? Need to order tomorrow.
+    what's running low? need to order tonight
   </div>
   <div class="message sent">
-    Hey! Here's your low-stock rundown:<br><br>
-    🔴 Tito's Vodka — 0.5 bottles (par: 6)<br>
+    🔴 Tito's — 0.5 bottles (par: 6)<br>
     🔴 Campari — 1 bottle (par: 4)<br>
-    🟡 Aperol — 2 bottles (par: 5)<br>
-    🟡 Hendrick's Gin — 1.5 bottles (par: 3)<br><br>
-    Want me to generate a full order list?
+    🟡 Aperol — 2 bottles (par: 5)<br><br>
+    Want me to draft the PO?
   </div>
   <div class="message received">
-    Yes. And what should I expect this weekend?
+    yes. what should i expect this weekend?
   </div>
   <div class="message sent">
-    Order list sent to your email. Here's your weekend forecast:<br><br>
-    Fri–Sat looks strong — NYU graduation weekend. Expect ~30% above your avg volume. Top movers: Tito's, Aperol Spritz, draft beer.<br><br>
-    Recommend doubling your Tito's and Aperol order. Want me to update the order list?
+    PO sent to your distributors.<br><br>
+    Weekend forecast: +30% volume. NYU graduation. Stock up on Tito's and Aperol.
   </div>
   <div class="message received">
-    Yes do it. Also make me a trivia night graphic for Thursday
+    make me a trivia night graphic for thursday
   </div>
   <div class="message sent">
-    Order list updated. On the graphic — give me 30 seconds.<br><br>
-    Done! Thursday Trivia Night flyer is ready. Reply APPROVE to post to Instagram, or send edits.
+    On it — 30 seconds.<br><br>
+    ✅ Done. Reply APPROVE to post to Instagram.
   </div>
 </div>
   </div>
