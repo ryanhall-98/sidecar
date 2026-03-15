@@ -1,134 +1,839 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sidecar — Your Bar's Back Office, Via Text</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-    :root{--bg:#06060b;--card:#0c0c14;--border:#1a1a2e;--border2:#252540;--t1:#e8e8f0;--t2:#8888a0;--t3:#555570;--ind:#6366f1;--ind2:#4f46e5;--indg:rgba(99,102,241,.15);--grn:#22c55e;--red:#ef4444}
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);line-height:1.6;-webkit-font-smoothing:antialiased}
-    .c{max-width:1140px;margin:0 auto;padding:0 24px}
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(6,6,11,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-    .ni{max-width:1140px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
-    .nl{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:18px;color:var(--ind);letter-spacing:3px;text-decoration:none}
-    .nn{display:flex;align-items:center;gap:32px}
-    .nn a{color:var(--t2);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
-    .nn a:hover{color:var(--t1)}
-    .nc{background:var(--ind)!important;color:#fff!important;padding:8px 20px!important;border-radius:8px;font-weight:600!important;font-size:13px!important}
-    .hero{padding:140px 0 80px;text-align:center;position:relative}
-    .hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,var(--indg) 0%,transparent 70%);pointer-events:none}
-    .hb{display:inline-block;background:#12122a;border:1px solid var(--border2);color:var(--ind);font-size:13px;font-weight:600;padding:6px 16px;border-radius:20px;margin-bottom:28px;letter-spacing:.5px}
-    .hero h1{font-size:clamp(40px,6vw,68px);font-weight:700;line-height:1.08;margin-bottom:24px;letter-spacing:-1.5px}
-    .hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--ind),#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .hs{font-size:18px;color:var(--t2);max-width:580px;margin:0 auto 40px;line-height:1.7}
-    .hbtns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-    .bp{background:var(--ind);color:#fff;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:600;text-decoration:none;transition:all .2s;border:none;cursor:pointer;display:inline-block}
-    .bp:hover{background:var(--ind2);transform:translateY(-1px)}
-    .bs{background:transparent;color:var(--t2);padding:14px 32px;border-radius:10px;font-size:15px;font-weight:500;text-decoration:none;border:1px solid var(--border2);transition:all .2s;display:inline-block}
-    .bs:hover{border-color:var(--t3);color:var(--t1)}
-    .ph-s{padding:0 0 80px;display:flex;justify-content:center}
-    .ph{background:var(--card);border:1px solid var(--border);border-radius:24px;width:380px;max-width:100%;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
-    .phh{display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:16px}
-    .pha{width:36px;height:36px;border-radius:50%;background:var(--ind);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff}
-    .phn{font-weight:600;font-size:15px}
-    .phl{font-size:12px;color:var(--t3)}
-    .chat{display:flex;flex-direction:column;gap:10px}
-    .msg{padding:10px 14px;border-radius:16px;font-size:14px;line-height:1.5;max-width:85%}
-    .mu{background:var(--ind);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
-    .mb{background:#12122a;color:var(--t1);border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:4px}
-    .stats{padding:60px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-    .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:12px;overflow:hidden}
-    .st{background:var(--card);padding:32px 24px;text-align:center}
-    .sv{font-size:36px;font-weight:700;color:var(--ind);font-family:'JetBrains Mono',monospace}
-    .sl{font-size:13px;color:var(--t3);margin-top:8px;line-height:1.4}
-    .sec{padding:100px 0}
-    .sh{text-align:center;margin-bottom:60px}
-    .stag{font-size:13px;font-weight:600;color:var(--ind);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
-    .stit{font-size:clamp(28px,4vw,42px);font-weight:700;letter-spacing:-.5px;margin-bottom:16px}
-    .ssub{font-size:16px;color:var(--t2);max-width:520px;margin:0 auto}
-    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-    .step{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;transition:border-color .3s}
-    .step:hover{border-color:var(--border2)}
-    .sn{width:36px;height:36px;border-radius:10px;background:var(--indg);color:var(--ind);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;font-family:'JetBrains Mono',monospace;margin-bottom:20px}
-    .step h3{font-size:18px;font-weight:600;margin-bottom:10px}
-    .step p{font-size:14px;color:var(--t2);line-height:1.6}
-    .srvg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .srv{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;transition:border-color .3s,transform .2s}
-    .srv:hover{border-color:var(--border2);transform:translateY(-2px)}
-    .si{font-size:24px;margin-bottom:14px}
-    .srv h3{font-size:16px;font-weight:600;margin-bottom:8px}
-    .srv p{font-size:13px;color:var(--t2);line-height:1.6}
-    .cmp{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-    .cc{border-radius:16px;padding:36px;border:1px solid var(--border)}
-    .cb{background:rgba(239,68,68,.06);border-color:rgba(239,68,68,.15)}
-    .cg{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.15)}
-    .cb h3{color:var(--red);font-size:20px;font-weight:700;margin-bottom:6px}
-    .cg h3{color:var(--grn);font-size:20px;font-weight:700;margin-bottom:6px}
-    .cs{font-size:14px;color:var(--t3);margin-bottom:20px}
-    .cc li{font-size:14px;color:var(--t2);padding:6px 0;list-style:none;line-height:1.5}
-    .cb li::before{content:'✗ ';color:var(--red);font-weight:600}
-    .cg li::before{content:'✓ ';color:var(--grn);font-weight:600}
-    .pg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .pc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;position:relative;transition:border-color .3s}
-    .pc:hover{border-color:var(--border2)}
-    .pc.ft{border-color:var(--ind);box-shadow:0 0 40px var(--indg)}
-    .pbdg{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--ind);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;padding:4px 16px;border-radius:12px;letter-spacing:1px}
-    .pnm{font-size:18px;font-weight:700;margin-bottom:4px}
-    .pd{font-size:13px;color:var(--t3);margin-bottom:16px}
-    .pa{font-size:40px;font-weight:700;font-family:'JetBrains Mono',monospace}
-    .pa span{font-size:16px;font-weight:400;color:var(--t3)}
-    .pdv{height:1px;background:var(--border);margin:20px 0}
-    .pf{list-style:none}
-    .pf li{font-size:13px;color:var(--t2);padding:5px 0;line-height:1.5}
-    .pf li::before{content:'✓ ';color:var(--ind);font-weight:600}
-    .pct{display:block;text-align:center;margin-top:24px;padding:12px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s}
-    .pctp{background:var(--ind);color:#fff}
-    .pctp:hover{background:var(--ind2)}
-    .pcto{background:transparent;color:var(--t2);border:1px solid var(--border2)}
-    .pcto:hover{border-color:var(--t3);color:var(--t1)}
-    .cta-s{padding:100px 0;text-align:center;border-top:1px solid var(--border)}
-    .cta-s h2{font-size:clamp(28px,4vw,42px);font-weight:700;margin-bottom:16px}
-    .cta-s p{font-size:16px;color:var(--t2);margin-bottom:32px}
-    .cn{font-size:13px;color:var(--t3);margin-top:16px}
-    footer{border-top:1px solid var(--border);padding:40px 0}
-    .fi{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-    .fb{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;color:var(--t3);letter-spacing:2px}
-    .fl{display:flex;gap:24px}
-    .fl a{color:var(--t3);text-decoration:none;font-size:13px;transition:color .2s}
-    .fl a:hover{color:var(--t2)}
-    .fc{font-size:12px;color:var(--t3)}
-    .ham{display:none;background:none;border:none;color:var(--t2);font-size:24px;cursor:pointer}
-    .mm{display:none}
-    @media(max-width:768px){.nn{display:none}.ham{display:block}.mm.open{display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:24px;gap:16px;z-index:99}.mm a{color:var(--t2);text-decoration:none;font-size:16px;padding:8px 0}.sg{grid-template-columns:repeat(2,1fr)}.steps,.srvg,.cmp,.pg{grid-template-columns:1fr}.hero h1{font-size:36px}.ph{width:100%}.fi{flex-direction:column;text-align:center}}
-  
-    html,body{overflow-x:hidden!important;max-width:100vw!important}
-    *{max-width:100vw}
-    img,video,iframe{max-width:100%}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sidecar — Your Bar's Back Office, Via Text</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0C0A09;
+  --surface: #1C1917;
+  --surface2: #292524;
+  --amber: #F59E0B;
+  --amber-soft: #D97706;
+  --amber-glow: rgba(245,158,11,0.15);
+  --cream: #FFFBEB;
+  --text: #FAFAF9;
+  --text-muted: #A8A29E;
+  --text-dim: #78716C;
+  --green: #22C55E;
+  --red: #EF4444;
+  --radius: 12px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,h2,h3 { font-family: 'Playfair Display', serif; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ═══ NAV ═══ */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  background: rgba(12,10,9,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(245,158,11,0.1);
+  padding: 16px 0;
+}
+nav .container {
+  display:flex; justify-content:space-between; align-items:center;
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--amber);
+  letter-spacing: -0.5px;
+}
+.logo span { color: var(--text-muted); font-weight:400; font-size:0.85rem; margin-left:8px; }
+.nav-cta {
+  background: var(--amber);
+  color: var(--bg);
+  padding: 10px 24px;
+  border-radius: 100px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+.nav-cta:hover { background: var(--cream); transform: translateY(-1px); }
+
+/* ═══ HERO ═══ */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 120px 0 80px;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--amber-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.hero h1 {
+  font-size: 3.8rem;
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+  margin-bottom: 24px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--amber);
+}
+.hero-sub {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  max-width: 480px;
+}
+.hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
+.btn-primary {
+  background: var(--amber);
+  color: var(--bg);
+  padding: 14px 32px;
+  border-radius: 100px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s;
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--cream); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,158,11,0.3); }
+.btn-outline {
+  border: 1px solid var(--text-dim);
+  color: var(--text);
+  padding: 14px 32px;
+  border-radius: 100px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+.btn-outline:hover { border-color: var(--amber); color: var(--amber); }
+
+/* ═══ PHONE MOCKUP ═══ */
+.phone {
+  width: 320px;
+  margin: 0 auto;
+  background: #000;
+  border-radius: 36px;
+  padding: 12px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+  position: relative;
+}
+.phone-screen {
+  background: #F2F2F7;
+  border-radius: 26px;
+  overflow: hidden;
+  min-height: 460px;
+}
+.phone-header {
+  background: var(--surface);
+  padding: 20px 16px 12px;
+  text-align: center;
+}
+.phone-header .contact-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.phone-header .contact-sub {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+.phone-avatar {
+  width: 40px; height: 40px;
+  background: var(--amber);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1.1rem; color: var(--bg);
+  margin: 0 auto 8px;
+}
+.messages {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.msg {
+  max-width: 82%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  opacity: 0;
+  animation: msgIn 0.4s forwards;
+}
+.msg-user {
+  background: #007AFF;
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+.msg-sidecar {
+  background: #E9E9EB;
+  color: #1C1C1E;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.msg:nth-child(1) { animation-delay: 0.3s; }
+.msg:nth-child(2) { animation-delay: 1.2s; }
+.msg:nth-child(3) { animation-delay: 2.4s; }
+.msg:nth-child(4) { animation-delay: 3.4s; }
+.msg:nth-child(5) { animation-delay: 4.8s; }
+.msg:nth-child(6) { animation-delay: 6s; }
+.msg:nth-child(7) { animation-delay: 7.2s; }
+
+@keyframes msgIn {
+  from { opacity:0; transform: translateY(10px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+.typing {
+  align-self: flex-start;
+  background: #E9E9EB;
+  padding: 10px 18px;
+  border-radius: 18px;
+  border-bottom-left-radius: 4px;
+  display: flex; gap: 4px;
+  opacity: 0;
+  animation: msgIn 0.3s forwards;
+}
+.typing span {
+  width: 6px; height: 6px;
+  background: #999;
+  border-radius: 50%;
+  animation: dotBounce 1.4s infinite;
+}
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+}
+
+/* ═══ STATS BAR ═══ */
+.stats-bar {
+  padding: 60px 0;
+  border-top: 1px solid rgba(245,158,11,0.08);
+  border-bottom: 1px solid rgba(245,158,11,0.08);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  text-align: center;
+}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  color: var(--amber);
+  font-weight: 700;
+}
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* ═══ HOW IT WORKS ═══ */
+.section { padding: 100px 0; }
+.section-tag {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.75rem;
+  color: var(--amber);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: 2.8rem;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+.section-sub {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  max-width: 550px;
+  line-height: 1.7;
+  margin-bottom: 60px;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.step {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: var(--radius);
+  padding: 36px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s;
+}
+.step:hover {
+  border-color: rgba(245,158,11,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+.step-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  color: rgba(245,158,11,0.08);
+  font-weight: 700;
+  position: absolute;
+  top: 12px; right: 20px;
+}
+.step h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: var(--cream);
+}
+.step p {
+  color: var(--text-muted);
+  line-height: 1.65;
+  font-size: 0.92rem;
+}
+
+/* ═══ SERVICES ═══ */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.service-card {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  transition: all 0.3s;
+}
+.service-card:hover {
+  border-color: rgba(245,158,11,0.15);
+  background: var(--surface2);
+}
+.service-icon {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+.service-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+}
+.service-card p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+/* ═══ BEFORE/AFTER ═══ */
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.comp-card {
+  border-radius: var(--radius);
+  padding: 40px 32px;
+}
+.comp-before {
+  background: linear-gradient(135deg, #1a0000 0%, var(--surface) 100%);
+  border: 1px solid rgba(239,68,68,0.15);
+}
+.comp-after {
+  background: linear-gradient(135deg, #0a1a00 0%, var(--surface) 100%);
+  border: 1px solid rgba(34,197,94,0.15);
+}
+.comp-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+.comp-before .comp-badge { background: rgba(239,68,68,0.15); color: var(--red); }
+.comp-after .comp-badge { background: rgba(34,197,94,0.15); color: var(--green); }
+.comp-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+.comp-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.comp-list li {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  padding-left: 28px;
+  position: relative;
+  line-height: 1.5;
+}
+.comp-before .comp-list li::before { content: '✕'; position:absolute; left:0; color: var(--red); font-weight:700; }
+.comp-after .comp-list li::before { content: '✓'; position:absolute; left:0; color: var(--green); font-weight:700; }
+
+/* ═══ PRICING ═══ */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.price-card {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: var(--radius);
+  padding: 36px 28px;
+  transition: all 0.3s;
+  position: relative;
+}
+.price-card.featured {
+  border-color: var(--amber);
+  box-shadow: 0 0 60px rgba(245,158,11,0.08);
+}
+.price-popular {
+  position: absolute;
+  top: -12px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--amber);
+  color: var(--bg);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 16px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.price-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  margin-bottom: 4px;
+}
+.price-desc {
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  margin-bottom: 20px;
+}
+.price-amount {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--cream);
+}
+.price-amount span {
+  font-size: 1rem;
+  color: var(--text-dim);
+  font-weight: 400;
+}
+.price-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin: 24px 0;
+}
+.price-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.price-features li {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  padding-left: 22px;
+  position: relative;
+}
+.price-features li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--amber);
+}
+.price-cta {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.price-card .price-cta {
+  border: 1px solid var(--text-dim);
+  color: var(--text);
+}
+.price-card .price-cta:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+.price-card.featured .price-cta {
+  background: var(--amber);
+  color: var(--bg);
+  border: none;
+}
+.price-card.featured .price-cta:hover {
+  background: var(--cream);
+}
+
+/* ═══ CTA ═══ */
+.final-cta {
+  text-align: center;
+  padding: 100px 0;
+  position: relative;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 400px;
+  background: radial-gradient(ellipse, var(--amber-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.final-cta h2 {
+  font-size: 3rem;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+.final-cta p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin-bottom: 36px;
+}
+
+.guarantee {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 16px;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* ═══ FOOTER ═══ */
+footer {
+  border-top: 1px solid rgba(245,158,11,0.08);
+  padding: 40px 0;
+  text-align: center;
+}
+footer p {
+  color: var(--text-dim);
+  font-size: 0.82rem;
+}
+footer a { color: var(--amber); text-decoration: none; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .hero-grid, .comparison, .pricing-grid, .services-grid, .steps {
+    grid-template-columns: 1fr;
+  }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .hero h1 { font-size: 2.6rem; }
+  .section-title { font-size: 2rem; }
+  .phone { width: 280px; }
+  .hero { padding-top: 100px; }
+}
+</style>
 </head>
 <body>
-<nav><div class="ni"><a href="#" class="nl">SIDECAR</a><div class="nn"><a href="#how">How It Works</a><a href="#srv">Services</a><a href="#price">Pricing</a><a href="https://portal.sidecarhq.cc/onboard" class="nc">Start Free Trial</a></div><button class="ham" onclick="document.getElementById('mm').classList.toggle('open')">☰</button></div></nav>
-<div id="mm" class="mm"><a href="#how">How It Works</a><a href="#srv">Services</a><a href="#price">Pricing</a><a href="https://portal.sidecarhq.cc/onboard">Start Free Trial →</a></div>
 
-<section class="hero"><div class="c"><div class="hb">Built for NYC bars & restaurants</div><h1>Text us.<br><em>It gets done.</em></h1><p class="hs">Ordering, social media, review responses, hiring posts, event promos, inbox management — handled by AI, guided by a human. Your entire back office, via text.</p><div class="hbtns"><a href="https://portal.sidecarhq.cc/onboard" class="bp">Start Free Trial →</a><a href="#how" class="bs">See How It Works</a></div></div></section>
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="logo">Sidecar <span>for bars & restaurants</span></div>
+    <a href="https://portal.sidecarhq.cc/onboard" class="nav-cta">Start Free Trial →</a>
+  </div>
+</nav>
 
-<section class="ph-s"><div class="ph"><div class="phh"><div class="pha">S</div><div><div class="phn">Sidecar</div><div class="phl">iMessage · Now</div></div></div><div class="chat"><div class="msg mu">We're low on Espolòn and Aperol. Can you reorder?</div><div class="msg mb">On it. PO drafted and sent to Southern. Also flagged you're low on Campari — want me to add it?</div><div class="msg mu">Yes. Also post something about our new spring menu?</div><div class="msg mb">Done. 4 posts scheduled this week. Sending you a preview in 10 for approval 👍</div><div class="msg mu">We got a 2-star review on Google btw</div><div class="msg mb">Already saw it. Drafted a response — empathetic, acknowledges the wait time, invites them back. Want to approve before I post?</div></div></div></section>
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <h1>Text us.<br><em>It gets done.</em></h1>
+        <p class="hero-sub">Ordering, social media, review responses, menu costing, hiring posts, event promos, inbox management — handled by a real person powered by AI. Your entire back office, via text message.</p>
+        <div class="hero-btns">
+          <a href="https://portal.sidecarhq.cc/onboard" class="btn-primary">Start Free Trial</a>
+          <a href="#how" class="btn-outline">See How It Works</a>
+        </div>
+      </div>
+      <div>
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <div class="phone-avatar">S</div>
+              <div class="contact-name">Sidecar</div>
+              <div class="contact-sub">iMessage · Now</div>
+            </div>
+            <div class="messages">
+              <div class="msg msg-user">We're low on Espolòn and Aperol. Can you reorder?</div>
+              <div class="msg msg-sidecar">On it. PO drafted and sent to Southern. Also flagged you're low on Campari — want me to add it?</div>
+              <div class="msg msg-user">Yes. Also can you post something about our new spring menu?</div>
+              <div class="msg msg-sidecar">Done. 4 posts scheduled across this week. Sending you a preview in 10 for approval 👍</div>
+              <div class="msg msg-user">We got a 2-star review on Google btw</div>
+              <div class="msg msg-sidecar">Already saw it. Drafted a response — empathetic, acknowledges the wait time, invites them back. Want to approve before I post?</div>
+              <div class="msg msg-user">Perfect. What did I do before you 😂</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<section class="stats"><div class="c"><div class="sg"><div class="st"><div class="sv">15+</div><div class="sl">hours/week your manager<br>spends on admin</div></div><div class="st"><div class="sv">73%</div><div class="sl">of bars never respond<br>to their online reviews</div></div><div class="st"><div class="sv">$0</div><div class="sl">to start — free trial week,<br>no contracts ever</div></div><div class="st"><div class="sv">24hr</div><div class="sl">turnaround on every task.<br>Most done same-day.</div></div></div></div></section>
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-num">15+</div>
+        <div class="stat-label">hours/week your manager<br>spends on admin, not the floor</div>
+      </div>
+      <div>
+        <div class="stat-num">73%</div>
+        <div class="stat-label">of bars never respond<br>to their online reviews</div>
+      </div>
+      <div>
+        <div class="stat-num">$0</div>
+        <div class="stat-label">to start — free trial week,<br>no contracts, cancel anytime</div>
+      </div>
+      <div>
+        <div class="stat-num">24hr</div>
+        <div class="stat-label">turnaround on every task.<br>Most done same-day.</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<section class="sec" id="how"><div class="c"><div class="sh"><div class="stag">How It Works</div><h2 class="stit">Three steps. That's it.</h2><p class="ssub">No software to learn. No dashboard to check. Just text us like you'd text your best employee.</p></div><div class="steps"><div class="step"><div class="sn">1</div><h3>Sign up in 60 seconds</h3><p>Tell us your bar name, your socials, and what's eating your time. No call needed — unless you want one.</p></div><div class="step"><div class="sn">2</div><h3>Free trial week</h3><p>We run everything for 7 days on the house. Ordering, social, reviews, inbox — the works. You see results before you spend a dime.</p></div><div class="step"><div class="sn">3</div><h3>Text us, it gets done</h3><p>You run your bar. We run your back office. Need something? Text us. It's handled before last call.</p></div></div></div></section>
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="container">
+    <div class="section-tag">How It Works</div>
+    <div class="section-title">Three steps. That's it.</div>
+    <div class="section-sub">No software to learn. No dashboard to check. No login to remember. Just text us like you'd text your best employee.</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>15-minute call</h3>
+        <p>Tell us what's eating your time. We learn your voice, your vendors, your tools. No pitch, no BS — just figuring out where we plug in.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Free trial week</h3>
+        <p>We run everything for 7 days on the house. Ordering, social, reviews, inbox — the works. You see the results before you spend a dime.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Text us, it gets done</h3>
+        <p>You run your bar. We run your back office. Need something? Text us. It's handled before last call. Every single time.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<section class="sec" id="srv" style="border-top:1px solid var(--border)"><div class="c"><div class="sh"><div class="stag">What We Handle</div><h2 class="stit">Everything that isn't bartending</h2><p class="ssub">You focus on the bar. We handle the laptop.</p></div><div class="srvg"><div class="srv"><div class="si">📋</div><h3>Ordering & Inventory</h3><p>Text us your counts. We draft POs, email your distributors, and flag when you're running low.</p></div><div class="srv"><div class="si">📱</div><h3>Social Media</h3><p>4+ posts a week in your voice, scheduled and published. Send a photo, we handle the rest.</p></div><div class="srv"><div class="si">⭐</div><h3>Review Responses</h3><p>Every Google and Yelp review gets a thoughtful reply in your tone within 24 hours.</p></div><div class="srv"><div class="si">💰</div><h3>Menu Engineering</h3><p>Pour cost analysis, recipe costing, margin optimization. Know what's making money.</p></div><div class="srv"><div class="si">🎉</div><h3>Events & Promos</h3><p>Copy, Eventbrite, email blast, social posts — full launch so you just show up.</p></div><div class="srv"><div class="si">📨</div><h3>Inbox & DMs</h3><p>Catering inquiries, press requests, influencer collabs — we draft every reply.</p></div><div class="srv"><div class="si">👥</div><h3>Hiring</h3><p>Job posts that attract people, distributed to Poached, Indeed, and your socials.</p></div><div class="srv"><div class="si">🔍</div><h3>Competitor Intel</h3><p>Monthly brief on what nearby bars are doing — menus, pricing, events.</p></div><div class="srv"><div class="si">🧾</div><h3>Bookkeeping Prep</h3><p>Receipts organized, invoices categorized, expenses flagged.</p></div></div></div></section>
+<!-- SERVICES -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="section-tag">What We Handle</div>
+    <div class="section-title">Everything that isn't bartending</div>
+    <div class="section-sub">You focus on the bar. We handle the laptop.</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">📦</div>
+        <h3>Inventory Tracking</h3>
+        <p>Text your counts. We track stock, alert you when you're low, draft POs, and email your distributors. Photo a delivery receipt — we update your inventory automatically.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔮</div>
+        <h3>Demand Forecasting</h3>
+        <p>"What should I order this week?" Just ask. We analyze your sales history and give you a specific ordering recommendation before every shift.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <h3>Social Media</h3>
+        <p>4+ posts a week in your voice, scheduled and published. Send us a photo, we handle the caption, hashtags, and timing.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎨</div>
+        <h3>Marketing Images</h3>
+        <p>Text "make me a post for trivia night Thursday at 8pm" and get a polished, on-brand graphic back in 30 seconds. Real text, real design, ready to post.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⭐</div>
+        <h3>Review Responses</h3>
+        <p>Every Google and Yelp review gets a thoughtful reply in your tone within 24 hours. Even the 1-stars. Especially the 1-stars.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎉</div>
+        <h3>Events & Promos</h3>
+        <p>Copy, Eventbrite, email blast, social posts — we handle the full launch so you just show up on event night.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📨</div>
+        <h3>Inbox & DMs</h3>
+        <p>Catering inquiries, press requests, influencer collabs, private event quotes — we draft every reply so nothing slips through.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">👥</div>
+        <h3>Hiring</h3>
+        <p>Job posts that actually attract people, distributed to Poached, Indeed, and your socials. Not just "we're hiring 🙏".</p>
+      </div>
 
-<section class="sec" style="border-top:1px solid var(--border)"><div class="c"><div class="sh"><div class="stag">The Difference</div><h2 class="stit">Monday morning, two realities</h2><p class="ssub">Same bar. Same manager. One has Sidecar.</p></div><div class="cmp"><div class="cc cb"><h3>Without Sidecar</h3><p class="cs">The Monday Spiral</p><ul><li>Wake up dreading the ordering spreadsheet</li><li>30 min counting bottles, 45 min emailing distributors</li><li>3 unanswered Google reviews from the weekend</li><li>Instagram hasn't been posted to in 9 days</li><li>40 unread emails including a Thursday catering inquiry</li><li>No idea what your pour cost is on the new menu</li><li>A cook quit and you need to write a job post</li><li>It's 2pm. You haven't touched the floor.</li></ul></div><div class="cc cg"><h3>With Sidecar</h3><p class="cs">The Monday Reset</p><ul><li>Text your counts while you drink coffee</li><li>POs drafted and sent to distributors by 10am</li><li>All 3 weekend reviews responded to — in your voice</li><li>4 posts scheduled this week, preview in your texts</li><li>Catering inquiry quoted, follow-up sent, confirmed</li><li>Pour cost report in your inbox — 2 cocktails flagged</li><li>Hiring post live on Poached, Indeed, and Instagram</li><li>It's 11am. You're on the floor where you belong.</li></ul></div></div></div></section>
+    </div>
+  </div>
+</section>
 
-<section class="sec" id="price" style="border-top:1px solid var(--border)"><div class="c"><div class="sh"><div class="stag">Pricing</div><h2 class="stit">Start where it hurts. Scale when it works.</h2><p class="ssub">Every plan includes a dedicated point of contact. No contracts, cancel anytime.</p></div><div class="pg"><div class="pc"><div class="pnm">The Well</div><div class="pd">Ops on autopilot</div><div class="pa">$500<span>/mo</span></div><div class="pdv"></div><ul class="pf"><li>Purchase orders from your counts, same day</li><li>Distributor emails drafted & sent</li><li>Par level monitoring & low-stock alerts</li><li>Weekly inventory variance report</li><li>Google & Yelp review responses (24hr)</li><li>Inbox & DM draft replies (20/week)</li><li>Dedicated point of contact</li></ul><a href="https://portal.sidecarhq.cc/onboard" class="pct pcto">Start Free Trial →</a></div><div class="pc ft"><div class="pbdg">Most Popular</div><div class="pnm">The Double</div><div class="pd">Ops + marketing + growth</div><div class="pa">$1,500<span>/mo</span></div><div class="pdv"></div><ul class="pf"><li>Everything in The Well</li><li>4+ social posts/week in your voice</li><li>Monthly email blast to your list</li><li>Event copy, Eventbrite & promotion</li><li>Hiring posts written & distributed</li><li>Menu copy & website updates</li><li>Monthly competitor intel brief</li><li>Performance analytics dashboard</li></ul><a href="https://portal.sidecarhq.cc/onboard" class="pct pctp">Start Free Trial →</a></div><div class="pc"><div class="pnm">The Full Pour</div><div class="pd">Your entire back office</div><div class="pa">$2,500<span>/mo</span></div><div class="pdv"></div><ul class="pf"><li>Everything in The Double</li><li>Full menu costing & pour cost analysis</li><li>Recipe margin optimization</li><li>Vendor price comparison & negotiation prep</li><li>Bookkeeping prep & expense categorization</li><li>Staff scheduling optimization</li><li>Monthly P&L summary with insights</li><li>Unlimited inbox management</li><li>Priority same-day turnaround</li></ul><a href="https://portal.sidecarhq.cc/onboard" class="pct pcto">Start Free Trial →</a></div></div></div></section>
+<!-- BEFORE / AFTER -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="section-tag">The Difference</div>
+    <div class="section-title">Monday morning, two realities</div>
+    <div class="section-sub">Same bar. Same manager. One has Sidecar.</div>
+    <div class="comparison">
+      <div class="comp-card comp-before">
+        <div class="comp-badge">Without Sidecar</div>
+        <h3>The Monday Spiral</h3>
+        <ul class="comp-list">
+          <li>Wake up dreading the ordering spreadsheet</li>
+          <li>30 min counting bottles, 45 min emailing distributors</li>
+          <li>3 unanswered Google reviews from the weekend</li>
+          <li>Instagram hasn't been posted to in 9 days</li>
+          <li>Inbox has 40 unread emails including a catering inquiry from Thursday</li>
+          <li>No idea what your actual pour cost is on the new cocktail menu</li>
+          <li>A cook quit and you need to write a job post</li>
+          <li>It's 2pm. You haven't touched the floor.</li>
+        </ul>
+      </div>
+      <div class="comp-card comp-after">
+        <div class="comp-badge">With Sidecar</div>
+        <h3>The Monday Reset</h3>
+        <ul class="comp-list">
+          <li>Text Sidecar your counts while you drink coffee</li>
+          <li>POs drafted and sent to distributors by 10am</li>
+          <li>All 3 weekend reviews responded to — in your voice</li>
+          <li>4 posts scheduled this week, preview in your texts</li>
+          <li>Catering inquiry quoted, follow-up sent, event details confirmed</li>
+          <li>Pour cost report in your inbox — 2 cocktails flagged for repricing</li>
+          <li>Hiring post live on Poached, Indeed, and your Instagram story</li>
+          <li>It's 11am. You're on the floor where you belong.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-<section class="cta-s"><div class="c"><h2>Your first week is free.</h2><p>No contracts. No setup fees. No risk. If we don't save you time, you don't pay.</p><a href="https://portal.sidecarhq.cc/onboard" class="bp">Start Free Trial →</a><p class="cn">🔒 No credit card required · Cancel anytime · Results in 48 hours</p></div></section>
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-tag">Pricing</div>
+    <div class="section-title">Start where it hurts.<br>Scale when it works.</div>
+    <div class="section-sub">Every plan includes a dedicated point of contact. Text, call, or email — same day response, always.</div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">The Well</div>
+        <div class="price-desc">Ops on autopilot</div>
+        <div class="price-amount">$299<span>/mo</span></div>
+        <hr class="price-divider">
+        <ul class="price-features">
+          <li>SMS-native inventory tracking — text your counts, we track them</li>
+          <li>Low-stock alerts before you run out</li>
+          <li>Purchase orders drafted & sent to your distributors</li>
+          <li>Google & Yelp review responses within 24hrs</li>
+          <li>AI-generated social posts (4/week) in your voice</li>
+          <li>Event & promo graphics via text</li>
+          <li>Hiring posts written & distributed</li>
+        </ul>
+        <a href="https://portal.sidecarhq.cc/onboard" class="price-cta">Start Free Trial →</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-popular">Most Popular</div>
+        <div class="price-name">The Double</div>
+        <div class="price-desc">Ops + marketing + growth</div>
+        <div class="price-amount">$799<span>/mo</span></div>
+        <hr class="price-divider">
+        <ul class="price-features">
+          <li>Everything in The Well</li>
+          <li>Inventory forecasting — "what should I order this week?"</li>
+          <li>Weekend demand forecasting based on your sales history</li>
+          <li>Delivery receipt scanning — photo your invoice, we update stock</li>
+          <li>Distributor order management end-to-end</li>
+          <li>Unlimited social posts & image generation</li>
+          <li>Event copy & full promo launch</li>
+        </ul>
+        <a href="https://portal.sidecarhq.cc/onboard" class="price-cta">Start Free Trial →</a>
+      </div>
+      <div class="price-card">
+        <div class="price-name">The Full Pour</div>
+        <div class="price-desc">Your entire back office</div>
+        <div class="price-amount">$1,999<span>/mo</span></div>
+        <hr class="price-divider">
+        <ul class="price-features">
+          <li>Everything in The Double</li>
+          <li>POS integration (Square) — automatic sales tracking</li>
+          <li>AI pour cost analysis — know what's making money</li>
+          <li>Automated reorder triggers when stock hits par</li>
+          <li>Full vendor management & price comparison</li>
+          <li>Monthly inventory variance report</li>
+          <li>Unlimited everything — posts, images, tasks</li>
+          <li>Priority same-day turnaround</li>
+        </ul>
+        <a href="https://portal.sidecarhq.cc/onboard" class="price-cta">Start Free Trial →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-<footer><div class="c"><div class="fi"><div class="fb">SIDECAR</div><div class="fl"><a href="https://portal.sidecarhq.cc/terms">Terms of Service</a><a href="https://portal.sidecarhq.cc/privacy">Privacy Policy</a><a href="mailto:hello@sidecarhq.cc">Contact</a></div><div class="fc">© 2026 Sidecar HQ · NYC · hello@sidecarhq.cc</div></div></div></footer>
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="section-tag">Ready?</div>
+    <h2>Your first week is free.</h2>
+    <p>No contracts. No setup fees. No risk. If we don't save you time, you don't pay.</p>
+    <a href="https://portal.sidecarhq.cc/onboard" class="btn-primary">Start Free Trial →</a>
+    <br>
+    <div class="guarantee">🔒 No credit card required · Cancel anytime · Results in 48 hours</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>Sidecar — AI-powered back office for bars & restaurants · NYC · <a href="mailto:ryan@sidecarhq.cc">ryan@sidecarhq.cc</a></p>
+  </div>
+</footer>
+
 </body>
 </html>
