@@ -10,9 +10,9 @@
   --bg: #0C0A09;
   --surface: #1C1917;
   --surface2: #292524;
-  --amber: #F59E0B;
-  --amber-soft: #D97706;
-  --amber-glow: rgba(245,158,11,0.15);
+  --accent: #6366f1;
+  --indigo-soft: #4f46e5;
+  --amber-glow: rgba(99,102,241,0.15);
   --cream: #FFFBEB;
   --text: #FAFAF9;
   --text-muted: #A8A29E;
@@ -41,7 +41,7 @@ nav {
   position: fixed; top:0; left:0; right:0; z-index:100;
   background: rgba(12,10,9,0.85);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(245,158,11,0.1);
+  border-bottom: 1px solid rgba(99,102,241,0.1);
   padding: 16px 0;
 }
 nav .container {
@@ -50,12 +50,12 @@ nav .container {
 .logo {
   font-family: 'Playfair Display', serif;
   font-size: 1.5rem; font-weight: 700;
-  color: var(--amber);
+  color: var(--accent);
   letter-spacing: -0.5px;
 }
 .logo span { color: var(--text-muted); font-weight:400; font-size:0.85rem; margin-left:8px; }
 .nav-cta {
-  background: var(--amber);
+  background: var(--accent);
   color: var(--bg);
   padding: 10px 24px;
   border-radius: 100px;
@@ -95,7 +95,7 @@ nav .container {
 }
 .hero h1 em {
   font-style: italic;
-  color: var(--amber);
+  color: var(--accent);
 }
 .hero-sub {
   font-size: 1.15rem;
@@ -106,7 +106,7 @@ nav .container {
 }
 .hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
 .btn-primary {
-  background: var(--amber);
+  background: var(--accent);
   color: var(--bg);
   padding: 14px 32px;
   border-radius: 100px;
@@ -127,7 +127,7 @@ nav .container {
   font-size: 1rem;
   transition: all 0.3s;
 }
-.btn-outline:hover { border-color: var(--amber); color: var(--amber); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
 /* ═══ PHONE MOCKUP ═══ */
 .phone {
@@ -251,7 +251,7 @@ nav .container {
 .stat-num {
   font-family: 'Playfair Display', serif;
   font-size: 2.8rem;
-  color: var(--amber);
+  color: var(--accent);
   font-weight: 700;
 }
 .stat-label {
@@ -267,7 +267,7 @@ nav .container {
   text-transform: uppercase;
   letter-spacing: 3px;
   font-size: 0.75rem;
-  color: var(--amber);
+  color: var(--accent);
   font-weight: 600;
   margin-bottom: 16px;
 }
@@ -421,14 +421,14 @@ nav .container {
   position: relative;
 }
 .price-card.featured {
-  border-color: var(--amber);
+  border-color: var(--accent);
   box-shadow: 0 0 60px rgba(245,158,11,0.08);
 }
 .price-popular {
   position: absolute;
   top: -12px; left: 50%;
   transform: translateX(-50%);
-  background: var(--amber);
+  background: var(--accent);
   color: var(--bg);
   font-size: 0.7rem;
   font-weight: 700;
@@ -479,7 +479,7 @@ nav .container {
   content: '→';
   position: absolute;
   left: 0;
-  color: var(--amber);
+  color: var(--accent);
 }
 .price-cta {
   display: block;
@@ -496,11 +496,11 @@ nav .container {
   color: var(--text);
 }
 .price-card .price-cta:hover {
-  border-color: var(--amber);
-  color: var(--amber);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 .price-card.featured .price-cta {
-  background: var(--amber);
+  background: var(--accent);
   color: var(--bg);
   border: none;
 }
@@ -557,7 +557,7 @@ footer p {
   color: var(--text-dim);
   font-size: 0.82rem;
 }
-footer a { color: var(--amber); text-decoration: none; }
+footer a { color: var(--accent); text-decoration: none; }
 
 /* ═══ RESPONSIVE ═══ */
 @media (max-width: 768px) {
