@@ -7,853 +7,319 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0C0A09;
-  --surface: #1C1917;
-  --surface2: #292524;
-  --accent: #6366f1;
-  --indigo-soft: #4f46e5;
-  --amber-glow: rgba(99,102,241,0.15);
-  --cream: #FFFBEB;
-  --text: #FAFAF9;
-  --text-muted: #A8A29E;
-  --text-dim: #78716C;
-  --green: #22C55E;
-  --red: #EF4444;
-  --radius: 12px;
+  --bg: #0C0A09; --surface: #1C1917; --surface2: #292524;
+  --accent: #6366f1; --accent-lo: rgba(99,102,241,0.12);
+  --text: #FAFAF9; --text-muted: #A8A29E; --text-dim: #78716C;
+  --green: #22C55E; --amber: #F59E0B; --radius: 12px;
 }
-
 * { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
-h1,h2,h3 { font-family: 'Playfair Display', serif; }
-
-.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-
-/* ═══ NAV ═══ */
-nav {
-  position: fixed; top:0; left:0; right:0; z-index:100;
-  background: rgba(12,10,9,0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(99,102,241,0.1);
-  padding: 16px 0;
-}
-nav .container {
-  display:flex; justify-content:space-between; align-items:center;
-}
-.logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem; font-weight: 700;
-  color: var(--accent);
-  letter-spacing: -0.5px;
-}
-.logo span { color: var(--text-muted); font-weight:400; font-size:0.85rem; margin-left:8px; }
-.nav-cta {
-  background: var(--accent);
-  color: var(--bg);
-  padding: 10px 24px;
-  border-radius: 100px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s;
-}
-.nav-cta:hover { background: #818cf8; transform: translateY(-1px); }
-
-/* ═══ HERO ═══ */
-.hero {
-  min-height: 100vh;
-  display: flex; align-items: center;
-  padding: 120px 0 80px;
-  position: relative;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -100px; right: -200px;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, var(--amber-glow) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-.hero h1 {
-  font-size: 3.8rem;
-  line-height: 1.08;
-  letter-spacing: -1.5px;
-  margin-bottom: 24px;
-}
-.hero h1 em {
-  font-style: italic;
-  color: var(--accent);
-}
-.hero-sub {
-  font-size: 1.15rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin-bottom: 36px;
-  max-width: 480px;
-}
-.hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
-.btn-primary {
-  background: var(--accent);
-  color: var(--bg);
-  padding: 14px 32px;
-  border-radius: 100px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  transition: all 0.3s;
-  display: inline-block;
-}
-.btn-primary:hover { background: #818cf8; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(99,102,241,0.3); }
-.btn-outline {
-  border: 1px solid var(--text-dim);
-  color: var(--text);
-  padding: 14px 32px;
-  border-radius: 100px;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  transition: all 0.3s;
-}
-.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-
-/* ═══ PHONE MOCKUP ═══ */
-.phone {
-  width: 320px;
-  margin: 0 auto;
-  background: #1a1a2e;
-  border-radius: 36px;
-  padding: 12px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(99,102,241,0.2);
-  position: relative;
-}
-.phone-screen {
-  background: #0f0f1a;
-  border-radius: 26px;
-  overflow: hidden;
-  min-height: 500px;
-  display: flex;
-  flex-direction: column;
-}
-.phone-header {
-  background: #1a1a2e;
-  padding: 16px 16px 12px;
-  text-align: center;
-  border-bottom: 1px solid rgba(99,102,241,0.15);
-  flex-shrink: 0;
-}
-.phone-header .contact-name {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #ffffff;
-  margin-top: 6px;
-}
-.phone-header .contact-sub {
-  font-size: 0.68rem;
-  color: #6b7280;
-  margin-top: 2px;
-}
-.phone-avatar {
-  width: 40px; height: 40px;
-  background: #6366f1;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 1rem; color: #ffffff;
-  margin: 0 auto 4px;
-}
-.messages {
-  padding: 14px 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1;
-  overflow-y: auto;
-}
-.message {
-  max-width: 80%;
-  padding: 9px 13px;
-  border-radius: 18px;
-  font-size: 0.78rem;
-  line-height: 1.45;
-  word-break: break-word;
-}
-.message.received {
-  background: #2a2a3e;
-  color: #e5e7eb;
-  align-self: flex-start;
-  border-bottom-left-radius: 4px;
-}
-.message.sent {
-  background: #6366f1;
-  color: #ffffff;
-  align-self: flex-end;
-  border-bottom-right-radius: 4px;
-  text-align: left;
-}
-.msg:nth-child(4) { animation-delay: 3.4s; }
-.msg:nth-child(5) { animation-delay: 4.8s; }
-.msg:nth-child(6) { animation-delay: 6s; }
-.msg:nth-child(7) { animation-delay: 7.2s; }
-
-@keyframes msgIn {
-  from { opacity:0; transform: translateY(10px); }
-  to { opacity:1; transform: translateY(0); }
-}
-
-.typing {
-  align-self: flex-start;
-  background: #E9E9EB;
-  padding: 10px 18px;
-  border-radius: 18px;
-  border-bottom-left-radius: 4px;
-  display: flex; gap: 4px;
-  opacity: 0;
-  animation: msgIn 0.3s forwards;
-}
-.typing span {
-  width: 6px; height: 6px;
-  background: #999;
-  border-radius: 50%;
-  animation: dotBounce 1.4s infinite;
-}
-.typing span:nth-child(2) { animation-delay: 0.2s; }
-.typing span:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes dotBounce {
-  0%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-6px); }
-}
-
-/* ═══ STATS BAR ═══ */
-.stats-bar {
-  padding: 60px 0;
-  border-top: 1px solid rgba(99,102,241,0.08);
-  border-bottom: 1px solid rgba(99,102,241,0.08);
-}
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-  text-align: center;
-}
-.stat-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.8rem;
-  color: var(--accent);
-  font-weight: 700;
-}
-.stat-label {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-top: 4px;
-  line-height: 1.4;
-}
-
-/* ═══ HOW IT WORKS ═══ */
-.section { padding: 100px 0; }
-.section-tag {
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  font-size: 0.75rem;
-  color: var(--accent);
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-.section-title {
-  font-size: 2.8rem;
-  letter-spacing: -1px;
-  margin-bottom: 20px;
-  line-height: 1.15;
-}
-.section-sub {
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  max-width: 550px;
-  line-height: 1.7;
-  margin-bottom: 60px;
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-}
-.step {
-  background: var(--surface);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: var(--radius);
-  padding: 36px 28px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s;
-}
-.step:hover {
-  border-color: rgba(99,102,241,0.2);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-}
-.step-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 4rem;
-  color: rgba(99,102,241,0.08);
-  font-weight: 700;
-  position: absolute;
-  top: 12px; right: 20px;
-}
-.step h3 {
-  font-size: 1.3rem;
-  margin-bottom: 12px;
-  color: var(--cream);
-}
-.step p {
-  color: var(--text-muted);
-  line-height: 1.65;
-  font-size: 0.92rem;
-}
-
-/* ═══ SERVICES ═══ */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-.service-card {
-  background: var(--surface);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: var(--radius);
-  padding: 28px 24px;
-  transition: all 0.3s;
-}
-.service-card:hover {
-  border-color: rgba(99,102,241,0.15);
-  background: var(--surface2);
-}
-.service-icon {
-  font-size: 1.5rem;
-  margin-bottom: 12px;
-}
-.service-card h3 {
-  font-size: 1.05rem;
-  margin-bottom: 8px;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 600;
-}
-.service-card p {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  line-height: 1.6;
-}
-
-/* ═══ BEFORE/AFTER ═══ */
-.comparison {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-}
-.comp-card {
-  border-radius: var(--radius);
-  padding: 40px 32px;
-}
-.comp-before {
-  background: linear-gradient(135deg, #1a0000 0%, var(--surface) 100%);
-  border: 1px solid rgba(239,68,68,0.15);
-}
-.comp-after {
-  background: linear-gradient(135deg, #0a1a00 0%, var(--surface) 100%);
-  border: 1px solid rgba(34,197,94,0.15);
-}
-.comp-badge {
-  display: inline-block;
-  padding: 4px 14px;
-  border-radius: 100px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 24px;
-}
-.comp-before .comp-badge { background: rgba(239,68,68,0.15); color: var(--red); }
-.comp-after .comp-badge { background: rgba(34,197,94,0.15); color: var(--green); }
-.comp-card h3 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-}
-.comp-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.comp-list li {
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  padding-left: 28px;
-  position: relative;
-  line-height: 1.5;
-}
-.comp-before .comp-list li::before { content: '✕'; position:absolute; left:0; color: var(--red); font-weight:700; }
-.comp-after .comp-list li::before { content: '✓'; position:absolute; left:0; color: var(--green); font-weight:700; }
-
-/* ═══ PRICING ═══ */
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-.price-card {
-  background: var(--surface);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: var(--radius);
-  padding: 36px 28px;
-  transition: all 0.3s;
-  position: relative;
-}
-.price-card.featured {
-  border-color: var(--accent);
-  box-shadow: 0 0 60px rgba(99,102,241,0.08);
-}
-.price-popular {
-  position: absolute;
-  top: -12px; left: 50%;
-  transform: translateX(-50%);
-  background: var(--accent);
-  color: var(--bg);
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 4px 16px;
-  border-radius: 100px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.price-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  margin-bottom: 4px;
-}
-.price-desc {
-  color: var(--text-dim);
-  font-size: 0.82rem;
-  margin-bottom: 20px;
-}
-.price-amount {
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: var(--cream);
-}
-.price-amount span {
-  font-size: 1rem;
-  color: var(--text-dim);
-  font-weight: 400;
-}
-.price-divider {
-  border: none;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  margin: 24px 0;
-}
-.price-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 28px;
-}
-.price-features li {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  padding-left: 22px;
-  position: relative;
-}
-.price-features li::before {
-  content: '→';
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-}
-.price-cta {
-  display: block;
-  text-align: center;
-  padding: 12px;
-  border-radius: 100px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-decoration: none;
-  transition: all 0.3s;
-}
-.price-card .price-cta {
-  border: 1px solid var(--text-dim);
-  color: var(--text);
-}
-.price-card .price-cta:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-.price-card.featured .price-cta {
-  background: var(--accent);
-  color: var(--bg);
-  border: none;
-}
-.price-card.featured .price-cta:hover {
-  background: #818cf8;
-}
-
-/* ═══ CTA ═══ */
-.final-cta {
-  text-align: center;
-  padding: 100px 0;
-  position: relative;
-}
-.final-cta::before {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 800px; height: 400px;
-  background: radial-gradient(ellipse, var(--amber-glow) 0%, transparent 70%);
-  pointer-events: none;
-}
-.final-cta h2 {
-  font-size: 3rem;
-  letter-spacing: -1px;
-  margin-bottom: 16px;
-}
-.final-cta p {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  margin-bottom: 36px;
-}
-
-.guarantee {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--surface);
-  padding: 10px 20px;
-  border-radius: 100px;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-top: 16px;
-  border: 1px solid rgba(255,255,255,0.04);
-}
-
-/* ═══ FOOTER ═══ */
-footer {
-  border-top: 1px solid rgba(99,102,241,0.08);
-  padding: 40px 0;
-  text-align: center;
-}
-footer p {
-  color: var(--text-dim);
-  font-size: 0.82rem;
-}
-footer a { color: var(--accent); text-decoration: none; }
-
-/* ═══ RESPONSIVE ═══ */
-@media (max-width: 768px) {
-  .hero-grid, .comparison, .pricing-grid, .services-grid, .steps {
-    grid-template-columns: 1fr;
-  }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-  .hero h1 { font-size: 2.6rem; }
-  .section-title { font-size: 2rem; }
-  .phone { width: 280px; }
-  .hero { padding-top: 100px; }
-}
+body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+h1,h2,h3 { font-family:'Playfair Display',serif; }
+.container { max-width:1100px; margin:0 auto; padding:0 24px; }
+nav { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(12,10,9,0.88); backdrop-filter:blur(20px); border-bottom:1px solid rgba(99,102,241,0.1); padding:16px 0; }
+nav .container { display:flex; justify-content:space-between; align-items:center; }
+.logo { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--text); text-decoration:none; }
+.logo span { color:var(--accent); }
+.nav-links { display:flex; gap:32px; align-items:center; }
+.nav-links a { color:var(--text-muted); text-decoration:none; font-size:14px; font-weight:500; transition:color 0.2s; }
+.nav-links a:hover { color:var(--text); }
+.nav-cta { background:var(--accent); color:#fff !important; padding:10px 22px; border-radius:8px; font-size:14px; font-weight:700; text-decoration:none; }
+.hero { padding:160px 0 100px; text-align:center; }
+.hero-eyebrow { display:inline-block; background:var(--accent-lo); color:#818cf8; border:1px solid rgba(99,102,241,0.25); border-radius:20px; padding:6px 16px; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:28px; }
+.hero h1 { font-size:clamp(42px,7vw,82px); line-height:1.05; margin-bottom:24px; max-width:900px; margin-left:auto; margin-right:auto; }
+.hero h1 em { color:var(--accent); font-style:italic; }
+.hero-sub { font-size:clamp(17px,2.5vw,21px); color:var(--text-muted); max-width:620px; margin:0 auto 40px; line-height:1.65; }
+.hero-actions { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+.btn-primary { background:var(--accent); color:#fff; padding:16px 34px; border-radius:10px; font-size:16px; font-weight:700; text-decoration:none; display:inline-block; transition:opacity 0.2s; }
+.btn-primary:hover { opacity:0.85; }
+.btn-secondary { background:transparent; color:var(--text); padding:16px 34px; border-radius:10px; font-size:16px; font-weight:600; text-decoration:none; border:1px solid rgba(255,255,255,0.12); display:inline-block; transition:border-color 0.2s; }
+.btn-secondary:hover { border-color:rgba(255,255,255,0.3); }
+.demo-nudge { margin-top:18px; font-size:13px; color:var(--text-dim); }
+.demo-nudge strong { color:var(--text-muted); font-family:monospace; }
+.sms-demo { max-width:420px; margin:60px auto 0; background:var(--surface); border:1px solid rgba(99,102,241,0.15); border-radius:20px; padding:24px; font-size:14px; }
+.sms-header { display:flex; align-items:center; gap:10px; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.06); }
+.sms-avatar { width:38px; height:38px; background:var(--accent-lo); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.sms-name { font-weight:700; font-size:14px; }
+.sms-sub { font-size:11px; color:var(--text-dim); }
+.msg { margin-bottom:10px; }
+.msg-in { background:var(--surface2); border-radius:16px 16px 16px 4px; padding:10px 14px; color:var(--text); max-width:88%; line-height:1.5; }
+.msg-out { background:var(--accent); border-radius:16px 16px 4px 16px; padding:10px 14px; color:#fff; max-width:88%; margin-left:auto; line-height:1.5; }
+.stats { padding:60px 0; border-top:1px solid rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.05); }
+.stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center; }
+.stat-num { font-size:40px; font-weight:700; color:var(--accent); font-family:'Playfair Display',serif; }
+.stat-label { font-size:13px; color:var(--text-muted); margin-top:6px; line-height:1.4; }
+.section-block { padding:100px 0; }
+.section-label { font-size:11px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:0.12em; margin-bottom:14px; }
+.section-title { font-size:clamp(32px,4vw,48px); color:var(--text); margin-bottom:16px; }
+.section-sub { font-size:17px; color:var(--text-muted); max-width:560px; line-height:1.6; margin-bottom:56px; }
+.steps { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+.step { background:var(--surface); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius); padding:28px; }
+.step-num { width:36px; height:36px; background:var(--accent-lo); border:1px solid rgba(99,102,241,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#818cf8; margin-bottom:16px; }
+.step h3 { font-family:'DM Sans',sans-serif; font-size:17px; font-weight:700; margin-bottom:10px; }
+.step p { font-size:14px; color:var(--text-muted); line-height:1.6; }
+.features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.feature-card { background:var(--surface); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius); padding:26px; transition:border-color 0.2s; }
+.feature-card:hover { border-color:rgba(99,102,241,0.3); }
+.feature-icon { font-size:26px; margin-bottom:14px; }
+.feature-card h3 { font-family:'DM Sans',sans-serif; font-size:16px; font-weight:700; margin-bottom:8px; }
+.feature-card p { font-size:13px; color:var(--text-muted); line-height:1.6; }
+.feature-tag { display:inline-block; margin-top:10px; padding:3px 10px; border-radius:4px; font-size:11px; font-weight:600; background:rgba(34,197,94,0.1); color:#4ade80; }
+.compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:860px; margin:0 auto; }
+.compare-col { background:var(--surface); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius); overflow:hidden; }
+.compare-col.with { border-color:rgba(99,102,241,0.3); }
+.compare-head { padding:20px 24px; border-bottom:1px solid rgba(255,255,255,0.06); }
+.compare-col.without .compare-head h3 { font-family:'DM Sans',sans-serif; color:var(--text-muted); font-size:16px; font-weight:700; }
+.compare-col.with .compare-head h3 { font-family:'DM Sans',sans-serif; color:#818cf8; font-size:16px; font-weight:700; }
+.compare-items { padding:20px 24px; display:flex; flex-direction:column; gap:12px; }
+.compare-item { display:flex; align-items:flex-start; gap:10px; font-size:14px; color:var(--text-muted); line-height:1.5; }
+.pricing-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:48px; }
+.plan { background:var(--surface); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius); padding:28px 24px; position:relative; }
+.plan.featured { border-color:rgba(99,102,241,0.4); background:linear-gradient(135deg,#1a1940 0%,var(--surface) 100%); }
+.plan.house { border-color:rgba(245,158,11,0.3); }
+.plan-badge { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--accent); color:#fff; font-size:11px; font-weight:700; padding:4px 14px; border-radius:12px; white-space:nowrap; }
+.plan-name { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; margin-bottom:6px; }
+.plan-price { font-size:36px; font-weight:700; margin:16px 0 4px; font-family:monospace; }
+.plan-price span { font-size:16px; color:var(--text-muted); font-family:'DM Sans',sans-serif; font-weight:400; }
+.plan-desc { font-size:13px; color:var(--text-muted); line-height:1.5; margin-bottom:20px; }
+.plan-features { list-style:none; display:flex; flex-direction:column; gap:9px; margin-bottom:24px; }
+.plan-features li { font-size:13px; color:var(--text-muted); display:flex; align-items:flex-start; gap:8px; line-height:1.4; }
+.plan-features li::before { content:"\u2713"; color:var(--green); font-weight:700; flex-shrink:0; }
+.plan-cta { display:block; width:100%; padding:12px; border-radius:8px; font-size:14px; font-weight:700; text-align:center; text-decoration:none; background:var(--accent); color:#fff; transition:opacity 0.2s; }
+.plan.house .plan-cta { background:var(--amber); }
+.plan-cta:hover { opacity:0.85; }
+.cta-banner { padding:80px 0; text-align:center; }
+.cta-inner { background:linear-gradient(135deg,#1e1d3a 0%,#111 100%); border:1px solid rgba(99,102,241,0.25); border-radius:20px; padding:64px 40px; }
+.cta-inner h2 { font-size:clamp(30px,4vw,48px); margin-bottom:16px; }
+.cta-inner p { font-size:18px; color:var(--text-muted); margin-bottom:36px; }
+.cta-actions { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+.cta-fine { margin-top:20px; font-size:13px; color:var(--text-dim); }
+footer { padding:40px 0; border-top:1px solid rgba(255,255,255,0.06); text-align:center; }
+footer p { font-size:13px; color:var(--text-dim); }
+footer a { color:var(--text-muted); text-decoration:none; }
+@media(max-width:768px) {
+  .stats-grid,.steps { grid-template-columns:repeat(2,1fr); }
+  .features-grid { grid-template-columns:repeat(2,1fr); }
+  .compare-grid { grid-template-columns:1fr; }
+  .pricing-grid { grid-template-columns:repeat(2,1fr); }
+  .nav-links { display:none; }
+}
+@media(max-width:500px) { .features-grid,.pricing-grid { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="container">
-    <div class="logo">Sidecar <span>for bars & restaurants</span></div>
-    <a href="https://portal.sidecarhq.cc/onboard" class="nav-cta">Start Free Trial →</a>
+    <a href="/" class="logo">Side<span>car</span></a>
+    <div class="nav-links">
+      <a href="#how">How It Works</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://portal.sidecarhq.cc/onboard" class="nav-cta">Start Free Trial</a>
+    </div>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="container">
-    <div class="hero-grid">
-      <div>
-        <h1>Text us.<br><em>It gets done.</em></h1>
-        <p class="hero-sub">Inventory tracking, demand forecasting, social posts, review responses, hiring — all via SMS. Your entire bar back office, handled by AI.</p>
-        <div class="hero-btns">
-          <a href="https://portal.sidecarhq.cc/onboard" class="btn-primary">Start Free Trial</a>
-          <a href="#how" class="btn-outline">See How It Works</a>
-        </div>
+    <div class="hero-eyebrow">AI-Powered Back Office for Bars &amp; Restaurants</div>
+    <h1>Text us.<br><em>It gets done.</em></h1>
+    <p class="hero-sub">Inventory tracking, demand forecasting, social posts, review responses, hiring &mdash; all via SMS. Your entire bar back office, handled by AI.</p>
+    <div class="hero-actions">
+      <a href="https://portal.sidecarhq.cc/onboard" class="btn-primary">Start Free Trial &rarr;</a>
+      <a href="#how" class="btn-secondary">See How It Works</a>
+    </div>
+    <p class="demo-nudge">Want to see it live? Text <strong>DEMO</strong> to <strong>(844) 840-0637</strong></p>
+    <div class="sms-demo">
+      <div class="sms-header">
+        <div class="sms-avatar">&#x1F697;</div>
+        <div><div class="sms-name">Sidecar</div><div class="sms-sub">text message &middot; now</div></div>
       </div>
-      <div>
-        <div class="phone">
-          <div class="phone-screen">
-            <div class="phone-header">
-              <div class="phone-avatar">S</div>
-              <div class="contact-name">Sidecar</div>
-              <div class="contact-sub">text message · now</div>
-            </div>
-            <div class="messages">
-  <div class="message received">
-    what's running low? need to order tonight
-  </div>
-  <div class="message sent">
-    🔴 Tito's — 0.5 bottles (par: 6)<br>
-    🔴 Campari — 1 bottle (par: 4)<br>
-    🟡 Aperol — 2 bottles (par: 5)<br><br>
-    Want me to draft the PO?
-  </div>
-  <div class="message received">
-    yes. what should i expect this weekend?
-  </div>
-  <div class="message sent">
-    PO sent to your distributors.<br><br>
-    Weekend forecast: +30% volume. NYU graduation. Stock up on Tito's and Aperol.
-  </div>
-  <div class="message received">
-    make me a trivia night graphic for thursday
-  </div>
-  <div class="message sent">
-    On it — 30 seconds.<br><br>
-    ✅ Done. Reply APPROVE to post to Instagram.
-  </div>
-</div>
-  </div>
-          </div>
-        </div>
-      </div>
+      <div class="msg"><div class="msg-out">what's running low? need to order tonight</div></div>
+      <div class="msg"><div class="msg-in">&#x1F534; Tito's &mdash; 0.5 bottles (par: 6)<br>&#x1F534; Campari &mdash; 1 bottle (par: 4)<br>&#x1F7E1; Aperol &mdash; 2 bottles (par: 5)<br><br>Want me to draft the PO?</div></div>
+      <div class="msg"><div class="msg-out">yes. what should i expect this weekend?</div></div>
+      <div class="msg"><div class="msg-in">PO sent to your distributor.<br><br>Weekend forecast: +30% volume. NYU graduation nearby. Stock up on Tito's and Aperol &mdash; both trending high Fri&ndash;Sat.</div></div>
+      <div class="msg"><div class="msg-out">make me a trivia night graphic for thursday</div></div>
+      <div class="msg"><div class="msg-in">On it &mdash; 30 seconds.<br><br>&#x2705; Done. Reply APPROVE to post to Instagram.</div></div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-bar">
+<section class="stats">
   <div class="container">
     <div class="stats-grid">
-      <div>
-        <div class="stat-num">15+</div>
-        <div class="stat-label">hours/week your manager<br>spends on admin, not the floor</div>
-      </div>
-      <div>
-        <div class="stat-num">73%</div>
-        <div class="stat-label">of bars never respond<br>to their online reviews</div>
-      </div>
-      <div>
-        <div class="stat-num">$0</div>
-        <div class="stat-label">to start — free trial week,<br>no contracts, cancel anytime</div>
-      </div>
-      <div>
-        <div class="stat-num">24hr</div>
-        <div class="stat-label">turnaround on every task.<br>Most done same-day.</div>
-      </div>
+      <div><div class="stat-num">15+</div><div class="stat-label">hours/week your manager<br>spends on admin, not the floor</div></div>
+      <div><div class="stat-num">73%</div><div class="stat-label">of bars never respond<br>to their online reviews</div></div>
+      <div><div class="stat-num">$0</div><div class="stat-label">to start &mdash; free trial week,<br>no contracts, cancel anytime</div></div>
+      <div><div class="stat-num">24hr</div><div class="stat-label">turnaround on every task.<br>Most done same-day.</div></div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- HOW IT WORKS -->
-<section class="section" id="how">
+<section class="section-block" id="how">
   <div class="container">
-    <div class="section-tag">How It Works</div>
-    <div class="section-title">Three steps. That's it.</div>
-    <div class="section-sub">No software to learn. No dashboard to check. No login to remember. One unanswered catering inquiry can cost more than a month's subscription.</div>
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Three steps. That's it.</h2>
+    <p class="section-sub">No software to learn. No dashboard to check. No login to remember. Just text.</p>
     <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h3>Text the number</h3>
-        <p>No app. No call. No form. Text +1 (844) 840-0637 and we'll send you a signup link. Takes 60 seconds. No credit card.</p>
+      <div class="step"><div class="step-num">1</div><h3>Text the number</h3><p>No app. No call. No form. Text <strong>+1 (844) 840-0637</strong> and we'll send you a signup link. Takes 60 seconds. No credit card required.</p></div>
+      <div class="step"><div class="step-num">2</div><h3>We learn your bar</h3><p>The bot asks a few quick questions &mdash; your brand voice, vendors, handles. Answer by text. Your free 7-day trial starts automatically.</p></div>
+      <div class="step"><div class="step-num">3</div><h3>Text us, it gets done</h3><p>Reviews responded to. Social posts scheduled. Orders drafted. Most bars recoup the monthly cost in the first week. Every time.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-block" id="features">
+  <div class="container">
+    <div class="section-label">What We Handle</div>
+    <h2 class="section-title">Everything that isn't bartending</h2>
+    <p class="section-sub">You focus on the bar. We handle the laptop.</p>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">&#x1F4E6;</div><h3>Inventory Tracking</h3><p>Text your counts. We track stock, alert when you're low, draft POs, and email your distributors. Photo a delivery receipt &mdash; we update inventory automatically.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F52E;</div><h3>Demand Forecasting</h3><p>"What should I order this week?" Just ask. We analyze your sales history and give you a specific ordering recommendation before every shift.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F37A;</div><h3>Happy Hour &amp; Specials</h3><p>Get data-driven happy hour pricing suggestions based on your slowest hours, top sellers, and pour costs. Combo specials recommendations included.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F5FA;&#xFE0F;</div><h3>SKU Map &amp; Distributor Alerts</h3><p>Map every product to its distributor. Get a 7am alert every morning when items hit reorder level, with a pre-drafted order ready to send in one reply.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F943;</div><h3>Keg &amp; Tap Tracking</h3><p>Text "keg kicked" and we log it, update your inventory, and queue a reorder. No spreadsheet. No clipboard. One text.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F4F1;</div><h3>Social Media</h3><p>Posts in your voice, scheduled at peak engagement time. We analyze your Instagram to match your aesthetic automatically. Send a photo, we handle the rest.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F3A8;</div><h3>Marketing Images</h3><p>Text "make me a post for trivia night Thursday at 8pm" and get a polished, on-brand graphic back in 30 seconds. Ready to post.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x2B50;</div><h3>Review Responses</h3><p>Every Google and Yelp review gets a thoughtful reply in your tone within 24 hours. Even the 1-stars. Especially the 1-stars.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F4CA;</div><h3>Sales Reports</h3><p>Connect your POS and get automatic weekly reports &mdash; revenue, top sellers, pour cost, best and worst days. Text "send me my weekly report" anytime.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F4E4;</div><h3>CSV Export</h3><p>Export your inventory, task history, and message logs anytime from the portal. Your data is yours &mdash; no lock-in.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F389;</div><h3>Events &amp; Promos</h3><p>Copy, Eventbrite, email blast, social posts &mdash; we handle the full launch so you just show up on event night.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F465;</div><h3>Hiring</h3><p>Job posts that actually attract people, distributed to Poached, Indeed, and your socials. Not just "we're hiring &#x1F64F;".</p><span class="feature-tag">Live</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-block">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <div class="section-label">The Difference</div>
+      <h2 class="section-title">Monday morning, two realities</h2>
+    </div>
+    <div class="compare-grid">
+      <div class="compare-col without">
+        <div class="compare-head"><h3>&#x274C; Without Sidecar</h3></div>
+        <div class="compare-items">
+          <div class="compare-item"><span>&#x1F629;</span> Wake up dreading the ordering spreadsheet</div>
+          <div class="compare-item"><span>&#x23F1;&#xFE0F;</span> 30 min counting bottles, 45 min emailing distributors</div>
+          <div class="compare-item"><span>&#x1F4C9;</span> 3 unanswered Google reviews from the weekend</div>
+          <div class="compare-item"><span>&#x1F4F5;</span> Instagram hasn't been posted to in 9 days</div>
+          <div class="compare-item"><span>&#x1F4EC;</span> Inbox has 40 unread emails including a catering inquiry from Thursday</div>
+          <div class="compare-item"><span>&#x2753;</span> No idea what your pour cost is on the new cocktail menu</div>
+          <div class="compare-item"><span>&#x1F610;</span> A cook quit and you need to write a job post</div>
+          <div class="compare-item"><span>&#x1F552;</span> It's 2pm. You haven't touched the floor.</div>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h3>We learn your bar</h3>
-        <p>The bot asks a few quick questions — your brand voice, vendors, handles. Answer by text. Then your free trial week starts automatically.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h3>Text us, it gets done</h3>
-        <p>Reviews responded to. Social posts scheduled. Orders drafted. Most bars recoup the monthly cost in the first week. Every single time.</p>
+      <div class="compare-col with">
+        <div class="compare-head"><h3>&#x2705; With Sidecar</h3></div>
+        <div class="compare-items">
+          <div class="compare-item"><span>&#x2615;</span> Text Sidecar your counts while you drink coffee</div>
+          <div class="compare-item"><span>&#x1F4E8;</span> POs drafted and sent to distributors by 10am</div>
+          <div class="compare-item"><span>&#x2B50;</span> All 3 weekend reviews responded to &mdash; in your voice</div>
+          <div class="compare-item"><span>&#x1F4F8;</span> 4 posts scheduled this week, preview in your texts</div>
+          <div class="compare-item"><span>&#x1F4E9;</span> Catering inquiry quoted, follow-up sent, event confirmed</div>
+          <div class="compare-item"><span>&#x1F6A8;</span> Low-stock alert already sent &mdash; Tito's and Aperol flagged</div>
+          <div class="compare-item"><span>&#x1F4CB;</span> Hiring post live on your socials &mdash; applications coming in</div>
+          <div class="compare-item"><span>&#x1F378;</span> It's 11am. You're on the floor where you belong.</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="section" style="padding-top:0;">
+<section class="section-block" id="pricing">
   <div class="container">
-    <div class="section-tag">What We Handle</div>
-    <div class="section-title">Everything that isn't bartending</div>
-    <div class="section-sub">You focus on the bar. We handle the laptop.</div>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">📦</div>
-        <h3>Inventory Tracking</h3>
-        <p>Text your counts. We track stock, alert you when you're low, draft POs, and email your distributors. Photo a delivery receipt — we update your inventory automatically.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🔮</div>
-        <h3>Demand Forecasting</h3>
-        <p>"What should I order this week?" Just ask. We analyze your sales history and give you a specific ordering recommendation before every shift.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📱</div>
-        <h3>Social Media</h3>
-        <p>4+ posts a week in your voice, scheduled and published. Send us a photo, we handle the caption, hashtags, and timing.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🎨</div>
-        <h3>Marketing Images</h3>
-        <p>Text "make me a post for trivia night Thursday at 8pm" and get a polished, on-brand graphic back in 30 seconds. Real text, real design, ready to post.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">⭐</div>
-        <h3>Review Responses</h3>
-        <p>Every Google and Yelp review gets a thoughtful reply in your tone within 24 hours. Even the 1-stars. Especially the 1-stars.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🎉</div>
-        <h3>Events & Promos</h3>
-        <p>Copy, Eventbrite, email blast, social posts — we handle the full launch so you just show up on event night.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📨</div>
-        <h3>Inbox & DMs</h3>
-        <p>Catering inquiries, press requests, influencer collabs, private event quotes — we draft every reply so nothing slips through.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">👥</div>
-        <h3>Hiring</h3>
-        <p>Job posts that actually attract people, distributed to Poached, Indeed, and your socials. Not just "we're hiring 🙏".</p>
-      </div>
-
+    <div style="text-align:center;">
+      <div class="section-label">Pricing</div>
+      <h2 class="section-title">Start where it hurts. Scale when it works.</h2>
+      <p style="color:var(--text-muted);font-size:16px;margin-top:12px;">Every plan includes a 7-day free trial. No credit card required.</p>
     </div>
-  </div>
-</section>
-
-<!-- BEFORE / AFTER -->
-<section class="section" style="padding-top:0;">
-  <div class="container">
-    <div class="section-tag">The Difference</div>
-    <div class="section-title">Monday morning, two realities</div>
-    <div class="section-sub">Same bar. Same manager. One has Sidecar.</div>
-    <div class="comparison">
-      <div class="comp-card comp-before">
-        <div class="comp-badge">Without Sidecar</div>
-        <h3>The Monday Spiral</h3>
-        <ul class="comp-list">
-          <li>Wake up dreading the ordering spreadsheet</li>
-          <li>30 min counting bottles, 45 min emailing distributors</li>
-          <li>3 unanswered Google reviews from the weekend</li>
-          <li>Instagram hasn't been posted to in 9 days</li>
-          <li>Inbox has 40 unread emails including a catering inquiry from Thursday</li>
-          <li>No idea what your actual pour cost is on the new cocktail menu</li>
-          <li>A cook quit and you need to write a job post</li>
-          <li>It's 2pm. You haven't touched the floor.</li>
-        </ul>
-      </div>
-      <div class="comp-card comp-after">
-        <div class="comp-badge">With Sidecar</div>
-        <h3>The Monday Reset</h3>
-        <ul class="comp-list">
-          <li>Text Sidecar your counts while you drink coffee</li>
-          <li>POs drafted and sent to distributors by 10am</li>
-          <li>All 3 weekend reviews responded to — in your voice</li>
-          <li>4 posts scheduled this week, preview in your texts</li>
-          <li>Catering inquiry quoted, follow-up sent, event details confirmed</li>
-          <li>Low-stock alert already sent — Tito's and Aperol flagged before the rush</li>
-          <li>Hiring post live on your socials — applications coming in</li>
-          <li>It's 11am. You're on the floor where you belong.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="section" id="pricing">
-  <div class="container">
-    <div class="section-tag">Pricing</div>
-    <div class="section-title">Start where it hurts.<br>Scale when it works.</div>
-    <div class="section-sub">Every plan includes a dedicated point of contact. Text, call, or email — same day response, always.</div>
     <div class="pricing-grid">
-      <div class="price-card">
-        <div class="price-name">The Well</div>
-        <div class="price-desc">Ops on autopilot</div>
-        <div class="price-amount">$49<span>/mo</span></div>
-        <hr class="price-divider">
-        <ul class="price-features">
-          <li>Google & Yelp review responses within 24hrs</li>
-          <li>AI-generated social posts (4/week) in your voice</li>
-          <li>Event & promo copy written & distributed</li>
-          <li>Hiring posts written & distributed</li>
-          <li>Inbox & DM drafts</li>
-          <li>Purchase orders drafted & sent to your distributors</li>
+      <div class="plan">
+        <div class="plan-name">The Well</div>
+        <div class="plan-price">$149<span>/mo</span></div>
+        <p class="plan-desc">Ops on autopilot. The essentials that save you 10+ hours a week.</p>
+        <ul class="plan-features">
+          <li>Google &amp; Yelp review responses (24hr)</li>
+          <li>AI social posts (4/week) in your voice</li>
+          <li>Event &amp; promo copy written &amp; distributed</li>
+          <li>Hiring posts written &amp; distributed</li>
+          <li>Inbox &amp; DM drafts</li>
+          <li>Purchase orders drafted &amp; sent to distributors</li>
         </ul>
-        <a href="https://portal.sidecarhq.cc/onboard" class="price-cta">Start Free Trial →</a>
+        <a href="https://portal.sidecarhq.cc/onboard" class="plan-cta">Start Free Trial &rarr;</a>
       </div>
-      <div class="price-card featured">
-        <div class="price-popular">Most Popular</div>
-        <div class="price-name">The Double</div>
-        <div class="price-desc">Ops + marketing + growth</div>
-        <div class="price-amount">$149<span>/mo</span></div>
-        <hr class="price-divider">
-        <ul class="price-features">
+      <div class="plan featured">
+        <div class="plan-badge">MOST POPULAR</div>
+        <div class="plan-name">The Double</div>
+        <div class="plan-price">$249<span>/mo</span></div>
+        <p class="plan-desc">Everything in The Well plus inventory, forecasting, and unlimited social.</p>
+        <ul class="plan-features">
           <li>Everything in The Well</li>
-          <li>SMS inventory tracking — text your counts, we track them</li>
-          <li>Low-stock alerts & automated order lists</li>
-          <li>Inventory forecasting — "what should I order this week?"</li>
-          <li>Weekend demand forecasting based on your sales history</li>
-          <li>Delivery receipt scanning — photo your invoice, we update stock</li>
-          <li>Distributor order management end-to-end</li>
-          <li>Unlimited social posts & captions</li>
-          <li>Event copy & full promo launch</li>
+          <li>SMS inventory tracking &mdash; text your counts</li>
+          <li>Low-stock alerts &amp; automated order lists</li>
+          <li>SKU map + 7am distributor reorder alerts</li>
+          <li>Demand forecasting &mdash; "what should I order?"</li>
+          <li>Happy hour &amp; combo specials recommendations</li>
+          <li>Keg kicked tracking &amp; auto-reorder queue</li>
+          <li>Delivery receipt scanning via photo</li>
+          <li>Unlimited social posts &amp; captions</li>
         </ul>
-        <a href="https://portal.sidecarhq.cc/onboard" class="price-cta">Start Free Trial →</a>
+        <a href="https://portal.sidecarhq.cc/onboard" class="plan-cta">Start Free Trial &rarr;</a>
       </div>
-      <div class="price-card">
-        <div class="price-name">The Full Pour</div>
-        <div class="price-desc">Your entire back office</div>
-        <div class="price-amount">$399<span>/mo</span></div>
-        <hr class="price-divider">
-        <ul class="price-features">
+      <div class="plan">
+        <div class="plan-name">The Full Pour</div>
+        <div class="plan-price">$499<span>/mo</span></div>
+        <p class="plan-desc">Full automation suite. POS integration. Unlimited everything.</p>
+        <ul class="plan-features">
           <li>Everything in The Double</li>
-          <li>POS integration (Square) — automatic sales tracking</li>
-          <li>AI pour cost analysis — know what's making money</li>
-          <li>Automated reorder triggers when stock hits par</li>
-          <li>Full vendor management & price comparison</li>
-          <li>Monthly inventory variance report</li>
-          <li>Unlimited everything — posts, images, tasks</li>
+          <li>POS integration (Square, Toast, Clover, Lightspeed)</li>
+          <li>AI pour cost analysis</li>
+          <li>Automated weekly sales reports</li>
+          <li>CSV export &mdash; tasks, inventory, messages</li>
+          <li>Automated reorder triggers at par</li>
+          <li>Unlimited posts, images, tasks</li>
           <li>Priority same-day turnaround</li>
         </ul>
-        <a href="https://portal.sidecarhq.cc/onboard" class="price-cta">Start Free Trial →</a>
+        <a href="https://portal.sidecarhq.cc/onboard" class="plan-cta">Start Free Trial &rarr;</a>
+      </div>
+      <div class="plan house">
+        <div class="plan-name">The House</div>
+        <div class="plan-price">$1,500<span>/mo</span></div>
+        <p class="plan-desc">Multi-location groups. Dedicated founder support. Custom onboarding.</p>
+        <ul class="plan-features">
+          <li>Everything in The Full Pour</li>
+          <li>Multi-location management</li>
+          <li>Distributor rep dashboard</li>
+          <li>Group buying network access</li>
+          <li>Revenue-based financing eligibility</li>
+          <li>Dedicated account support</li>
+          <li>Custom integrations on request</li>
+        </ul>
+        <a href="mailto:ryan@sidecarhq.cc" class="plan-cta">Contact Us &rarr;</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
-<section class="final-cta">
-  <div class="container" style="position:relative;z-index:1;">
-    <div class="section-tag">Ready?</div>
-    <h2>Your first week is free.</h2>
-    <p>No contracts. No setup fees. No risk. If we don't save you time, you don't pay.</p>
-    <a href="https://portal.sidecarhq.cc/onboard" class="btn-primary">Start Free Trial →</a>
-    <br>
-    <div class="guarantee">🔒 No credit card required · Cancel anytime · Results in 48 hours</div>
+<section class="cta-banner">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Your first week is free.</h2>
+      <p>No contracts. No setup fees. No risk. If we don't save you time, you don't pay.</p>
+      <div class="cta-actions">
+        <a href="https://portal.sidecarhq.cc/onboard" class="btn-primary">Start Free Trial &rarr;</a>
+        <a href="sms:+18448400637" class="btn-secondary">&#x1F4F1; Text DEMO to try it</a>
+      </div>
+      <p class="cta-fine">&#x1F512; No credit card required &middot; Cancel anytime &middot; Results in 48 hours</p>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="container">
-    <p>Sidecar — AI-powered back office for bars & restaurants · NYC · <a href="mailto:ryan@sidecarhq.cc">ryan@sidecarhq.cc</a></p>
+    <p>Sidecar &mdash; AI-powered back office for bars &amp; restaurants &middot; NYC &middot; <a href="mailto:ryan@sidecarhq.cc">ryan@sidecarhq.cc</a> &middot; <a href="/terms">Terms</a> &middot; <a href="/privacy">Privacy</a></p>
   </div>
 </footer>
 
