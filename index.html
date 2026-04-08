@@ -72,7 +72,7 @@ nav .container { display:flex; justify-content:space-between; align-items:center
 .compare-col.with .compare-head h3 { font-family:'DM Sans',sans-serif; color:#818cf8; font-size:16px; font-weight:700; }
 .compare-items { padding:20px 24px; display:flex; flex-direction:column; gap:12px; }
 .compare-item { display:flex; align-items:flex-start; gap:10px; font-size:14px; color:var(--text-muted); line-height:1.5; }
-.pricing-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:48px; }
+.pricing-grid { display:grid; grid-template-columns:1fr; max-width:480px; margin:48px auto 0; gap:16px; }
 .plan { background:var(--surface); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius); padding:28px 24px; position:relative; }
 .plan.featured { border-color:rgba(99,102,241,0.4); background:linear-gradient(135deg,#1a1940 0%,var(--surface) 100%); }
 .plan.house { border-color:rgba(245,158,11,0.3); }
@@ -100,7 +100,7 @@ footer a { color:var(--text-muted); text-decoration:none; }
   .stats-grid { grid-template-columns:repeat(2,1fr); } .steps { grid-template-columns:1fr; }
   .features-grid { grid-template-columns:repeat(2,1fr); }
   .compare-grid { grid-template-columns:1fr; }
-  .pricing-grid { grid-template-columns:repeat(2,1fr); }
+  .pricing-grid { grid-template-columns:1fr; }
   .nav-links { display:none; }
 }
 @media(max-width:500px) { .features-grid,.pricing-grid { grid-template-columns:1fr; } }
@@ -232,72 +232,37 @@ footer a { color:var(--text-muted); text-decoration:none; }
   <div class="container">
     <div style="text-align:center;">
       <div class="section-label">Pricing</div>
-      <h2 class="section-title">Start where it hurts. Scale when it works.</h2>
-      <p style="color:var(--text-muted);font-size:16px;margin-top:12px;">Every plan includes a 7-day free trial. No credit card required.</p>
+      <h2 class="section-title">One plan. Everything included.</h2>
+      <p style="color:var(--text-muted);font-size:16px;margin-top:12px;">One plan. Every feature. 7-day free trial — no credit card required.</p>
     </div>
     <div class="pricing-grid">
-      <div class="plan">
-        <div class="plan-name">The Well</div>
-        <div class="plan-price">$149<span>/mo</span></div>
-        <p class="plan-desc">Your back office, on demand. Ask it anything.</p>
-        <ul class="plan-features">
-          <li>Google &amp; Yelp review responses (24hr)</li>
-          <li>AI social posts (4/week) in your voice</li>
-          <li>Event &amp; promo copy written &amp; distributed</li>
-          <li>Hiring posts written &amp; distributed</li>
-          <li>Inbox &amp; DM drafts</li>
-          <li>Purchase orders drafted &amp; sent to distributors</li>
-        </ul>
-        <a href="https://portal.sidecarhq.cc/onboard" class="plan-cta">Start Free Trial &rarr;</a>
-      </div>
       <div class="plan featured">
-        <div class="plan-badge">MOST POPULAR</div>
-        <div class="plan-name">The Double</div>
-        <div class="plan-price">$249<span>/mo</span></div>
-        <p class="plan-desc">Everything in The Well, plus inventory tracking and POS sync. Ask it anything, get it done.</p>
+        <div class="plan-badge">EVERYTHING INCLUDED</div>
+        <div class="plan-name">Sidecar</div>
+        <div class="plan-price">$199<span>/mo per location</span></div>
+        <p class="plan-desc">Your entire back office via text. Every feature, no limits, no upsells.</p>
         <ul class="plan-features">
-          <li>Everything in The Well</li>
-          <li>SMS inventory tracking &mdash; text your counts</li>
-          <li>Low-stock alerts &amp; automated order lists</li>
+          <li>Google &amp; Yelp review responses — drafted &amp; ready to post</li>
+          <li>Unlimited AI social posts &amp; captions in your voice</li>
+          <li>Custom image &amp; graphic generation (DALL-E HD)</li>
+          <li>Purchase orders drafted &amp; sent to distributors</li>
+          <li>SMS inventory tracking — text your counts</li>
+          <li>Low-stock alerts &amp; automated reorder triggers</li>
           <li>SKU map + 7am distributor reorder alerts</li>
-          <li>Demand forecasting &mdash; "what should I order?"</li>
+          <li>Demand forecasting — "what should I order?"</li>
           <li>Happy hour &amp; combo specials recommendations</li>
           <li>Keg kicked tracking &amp; auto-reorder queue</li>
           <li>Delivery receipt scanning via photo</li>
-          <li>Unlimited social posts &amp; captions</li>
-        </ul>
-        <a href="https://portal.sidecarhq.cc/onboard" class="plan-cta">Start Free Trial &rarr;</a>
-      </div>
-      <div class="plan">
-        <div class="plan-name">The Full Pour</div>
-        <div class="plan-price">$399<span>/mo</span></div>
-        <p class="plan-desc">Your back office on autopilot. It texts you before you have to ask.</p>
-        <ul class="plan-features">
-          <li>Everything in The Double</li>
           <li>POS integration (Square, Toast, Clover, Lightspeed)</li>
+          <li>Automated weekly sales reports &amp; CSV export</li>
+          <li>Event &amp; promo copy written &amp; distributed</li>
+          <li>Hiring posts written &amp; distributed</li>
+          <li>Inbox &amp; DM drafts</li>
           <li>AI pour cost analysis</li>
-          <li>Automated weekly sales reports</li>
-          <li>CSV export &mdash; tasks, inventory, messages</li>
-          <li>Automated reorder triggers at par</li>
-          <li>Unlimited posts, images, tasks</li>
-          <li>Priority same-day turnaround</li>
+          <li>Team member access — add your staff</li>
         </ul>
         <a href="https://portal.sidecarhq.cc/onboard" class="plan-cta">Start Free Trial &rarr;</a>
-      </div>
-      <div class="plan house">
-        <div class="plan-name">The House</div>
-        <div class="plan-price" style="font-size:22px;padding-top:8px;">Enterprise pricing</div>
-        <p class="plan-desc">Multi-location groups. Dedicated founder support. Custom onboarding. Pricing based on location count and needs.</p>
-        <ul class="plan-features">
-          <li>Everything in The Full Pour</li>
-          <li>Multi-location management</li>
-          <li>Distributor rep dashboard</li>
-          <li>Group buying network access</li>
-          <li>Revenue-based financing eligibility</li>
-          <li>Dedicated account support</li>
-          <li>Custom integrations on request</li>
-        </ul>
-        <a href="mailto:ryan@sidecarhq.cc" class="plan-cta">Contact Us &rarr;</a>
+        <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:12px;">No contracts. Cancel anytime. Multi-location? <a href="mailto:ryan@sidecarhq.cc" style="color:var(--accent);">Contact us</a>.</p>
       </div>
     </div>
   </div>
