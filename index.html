@@ -179,7 +179,7 @@ footer a { color:var(--text-muted); text-decoration:none; }
     .ip-msg{margin-bottom:5px;display:flex;opacity:0;transform:translateY(8px);animation:ipSlide .3s ease-out forwards;}
     .ip-msg.out{justify-content:flex-end;padding-left:40px;}
     .ip-msg.in{justify-content:flex-start;padding-right:40px;}
-    .ip-bub{border-radius:18px;padding:8px 14px;font-size:14.5px;line-height:1.35;font-family:-apple-system,'SF Pro Text','Helvetica Neue',sans-serif;letter-spacing:-.01em;white-space:pre-wrap;max-width:100%;}
+    .ip-bub{border-radius:18px;padding:8px 14px;font-size:14.5px;line-height:1.35;text-align:left;font-family:-apple-system,'SF Pro Text','Helvetica Neue',sans-serif;letter-spacing:-.01em;white-space:pre-wrap;max-width:100%;}
     .ip-msg.out .ip-bub{background:linear-gradient(180deg,#34C759,#30B350);color:#fff;border-radius:18px 18px 4px 18px;}
     .ip-msg.in .ip-bub{background:#E9E9EB;color:#000;border-radius:18px 18px 18px 4px;}
     .ip-typing{display:inline-flex;align-items:center;gap:4px;background:#E9E9EB;border-radius:18px;padding:10px 14px;}
@@ -224,9 +224,9 @@ footer a { color:var(--text-muted); text-decoration:none; }
       function setTime(){var d=new Date();document.getElementById('ipTime').textContent=d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});document.getElementById('ipTs').textContent='Today '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});}
       setTime();
       function clear(){if(timer)clearTimeout(timer);var msgs=box.querySelectorAll('.ip-msg,.ip-typing-wrap');msgs.forEach(function(m){m.remove();});}
-      function addTyping(){var w=document.createElement('div');w.className='ip-typing-wrap';w.style.marginBottom='5px';w.innerHTML='<div class="ip-typing"><span></span><span></span><span></span></div>';box.appendChild(w);box.scrollTop=box.scrollHeight;return w;}
+      function addTyping(){var w=document.createElement('div');w.className='ip-msg in';w.style.marginBottom='5px';w.style.paddingRight='40px';w.innerHTML='<div class="ip-typing"><span></span><span></span><span></span></div>';box.appendChild(w);box.scrollTop=box.scrollHeight;return w;}
       function addMsg(msg,delay){return new Promise(function(resolve){timer=setTimeout(function(){var tw=addTyping();var typeDur=msg.f==='in'?800+msg.t.length*6:400;timer=setTimeout(function(){tw.remove();var el=document.createElement('div');el.className='ip-msg '+msg.f;el.innerHTML='<div class="ip-bub">'+msg.t.replace(/\n/g,'<br>')+'</div>';box.appendChild(el);box.scrollTop=box.scrollHeight;resolve();},typeDur);},delay);});}
-      async function play(idx){clear();active=idx;btns.forEach(function(b,i){b.classList.toggle('active',i===idx);});var msgs=convos[idx];for(var i=0;i<msgs.length;i++){await addMsg(msgs[i],i===0?600:700+Math.random()*400);if(active!==idx)return;}timer=setTimeout(function(){if(active===idx)play(idx);},4000);}
+      async function play(idx){clear();active=idx;btns.forEach(function(b,i){b.classList.toggle('active',i===idx);});var msgs=convos[idx];for(var i=0;i<msgs.length;i++){await addMsg(msgs[i],i===0?600:700+Math.random()*400);if(active!==idx)return;}}
       btns.forEach(function(b){b.addEventListener('click',function(){play(parseInt(b.dataset.idx));});});
       play(0);
     })();
