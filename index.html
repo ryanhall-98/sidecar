@@ -130,18 +130,107 @@ footer a { color:var(--text-muted); text-decoration:none; }
       <a href="#how" class="btn-secondary">See How It Works</a>
     </div>
     <p class="demo-nudge">Want to see it live? Text <strong>DEMO</strong> to <strong>(844) 840-0637</strong></p>
-    <div class="sms-demo">
-      <div class="sms-header">
-        <div class="sms-avatar">&#x1F697;</div>
-        <div><div class="sms-name">Sidecar</div><div class="sms-sub">text message &middot; now</div></div>
+    <!-- iPhone Mockup -->
+    <div class="iphone-wrap">
+      <div class="iphone">
+        <div class="iphone-inner">
+          <div class="ip-status">
+            <span class="ip-time" id="ipTime">9:41</span>
+            <div class="ip-notch"></div>
+            <div class="ip-icons">
+              <svg width="16" height="12" viewBox="0 0 16 12"><g fill="#fff"><rect x="0" y="9" width="3" height="3" rx=".5"/><rect x="4.5" y="6" width="3" height="6" rx=".5"/><rect x="9" y="3" width="3" height="9" rx=".5"/><rect x="13.5" y="0" width="3" height="12" rx=".5" opacity=".35"/></g></svg>
+              <div class="ip-batt"><div class="ip-batt-fill"></div></div>
+            </div>
+          </div>
+          <div class="ip-header">
+            <div class="ip-avatar">&#x1F3CD;&#xFE0F;</div>
+            <div><div class="ip-name">Sidecar</div><div class="ip-number">(844) 840-0637</div></div>
+          </div>
+          <div class="ip-msgs" id="ipMsgs">
+            <div class="ip-ts" id="ipTs">Today 9:41 AM</div>
+          </div>
+          <div class="ip-input"><div class="ip-plus">+</div><div class="ip-field">Text Message</div><div class="ip-send">&#x2191;</div></div>
+        </div>
       </div>
-      <div class="msg"><div class="msg-out">what's running low? need to order tonight</div></div>
-      <div class="msg"><div class="msg-in">&#x1F534; Tito's &mdash; 0.5 bottles (par: 6)<br>&#x1F534; Campari &mdash; 1 bottle (par: 4)<br>&#x1F7E1; Aperol &mdash; 2 bottles (par: 5)<br><br>Want me to draft the PO?</div></div>
-      <div class="msg"><div class="msg-out">yes. what should i expect this weekend?</div></div>
-      <div class="msg"><div class="msg-in">PO sent to your distributor.<br><br>Weekend forecast: +30% volume. NYU graduation nearby. Stock up on Tito's and Aperol &mdash; both trending high Fri&ndash;Sat.</div></div>
-      <div class="msg"><div class="msg-out">make me a trivia night graphic for thursday</div></div>
-      <div class="msg"><div class="msg-in">On it &mdash; 30 seconds.<br><br>&#x2705; Done. Reply APPROVE to post to Instagram.</div></div>
+      <div class="convo-switch">
+        <button class="convo-btn active" data-idx="0">Inventory</button>
+        <button class="convo-btn" data-idx="1">Reviews</button>
+        <button class="convo-btn" data-idx="2">Social</button>
+      </div>
     </div>
+
+    <style>
+    .iphone-wrap{display:flex;flex-direction:column;align-items:center;gap:20px;margin:50px auto 0;}
+    .iphone{width:300px;height:580px;border-radius:40px;background:#000;padding:3px;box-shadow:0 25px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.05),inset 0 0 0 1px rgba(255,255,255,.08);}
+    .iphone-inner{width:100%;height:100%;border-radius:37px;overflow:hidden;background:#fff;display:flex;flex-direction:column;}
+    .ip-status{display:flex;justify-content:space-between;align-items:center;padding:12px 24px 0;font-size:14px;font-weight:600;color:#000;font-family:-apple-system,sans-serif;}
+    .ip-notch{width:120px;height:28px;background:#000;border-radius:20px;position:relative;}
+    .ip-notch::after{content:'';position:absolute;right:18px;top:9px;width:10px;height:10px;border-radius:50%;background:#1a1a2e;}
+    .ip-icons{display:flex;gap:5px;align-items:center;}
+    .ip-batt{width:22px;height:11px;border:1.5px solid #000;border-radius:3px;position:relative;}
+    .ip-batt::after{content:'';position:absolute;right:-4px;top:2.5px;width:2px;height:5px;background:#000;border-radius:0 1px 1px 0;}
+    .ip-batt-fill{position:absolute;left:1.5px;top:1.5px;bottom:1.5px;right:4px;background:#000;border-radius:1px;}
+    .ip-header{display:flex;align-items:center;gap:10px;padding:8px 16px 10px;border-bottom:.5px solid #E5E5EA;justify-content:center;}
+    .ip-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:16px;}
+    .ip-name{font-size:13px;font-weight:600;color:#000;text-align:center;font-family:-apple-system,sans-serif;}
+    .ip-number{font-size:10px;color:#8E8E93;text-align:center;font-family:-apple-system,sans-serif;}
+    .ip-msgs{flex:1;overflow-y:auto;padding:12px 10px;background:#fff;}
+    .ip-ts{text-align:center;font-size:11px;color:#8E8E93;margin-bottom:10px;font-family:-apple-system,sans-serif;}
+    .ip-msg{margin-bottom:5px;display:flex;opacity:0;transform:translateY(8px);animation:ipSlide .3s ease-out forwards;}
+    .ip-msg.out{justify-content:flex-end;padding-left:40px;}
+    .ip-msg.in{justify-content:flex-start;padding-right:40px;}
+    .ip-bub{border-radius:18px;padding:8px 14px;font-size:14.5px;line-height:1.35;font-family:-apple-system,'SF Pro Text','Helvetica Neue',sans-serif;letter-spacing:-.01em;white-space:pre-wrap;max-width:100%;}
+    .ip-msg.out .ip-bub{background:linear-gradient(180deg,#34C759,#30B350);color:#fff;border-radius:18px 18px 4px 18px;}
+    .ip-msg.in .ip-bub{background:#E9E9EB;color:#000;border-radius:18px 18px 18px 4px;}
+    .ip-typing{display:inline-flex;align-items:center;gap:4px;background:#E9E9EB;border-radius:18px;padding:10px 14px;}
+    .ip-typing span{width:7px;height:7px;border-radius:50%;background:#8E8E93;animation:ipBounce 1.4s ease-in-out infinite;}
+    .ip-typing span:nth-child(2){animation-delay:.2s;}
+    .ip-typing span:nth-child(3){animation-delay:.4s;}
+    .ip-input{padding:8px 8px 28px;border-top:.5px solid #E5E5EA;display:flex;align-items:center;gap:8px;background:#fff;}
+    .ip-plus{width:28px;height:28px;border-radius:50%;background:#E9E9EB;display:flex;align-items:center;justify-content:center;font-size:16px;color:#8E8E93;flex-shrink:0;}
+    .ip-field{flex:1;background:#F2F2F7;border-radius:18px;padding:7px 14px;font-size:15px;color:#8E8E93;font-family:-apple-system,sans-serif;}
+    .ip-send{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#34C759,#30D158);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;flex-shrink:0;}
+    .convo-switch{display:flex;gap:8px;}
+    .convo-btn{padding:8px 18px;border-radius:20px;border:none;background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+    .convo-btn.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;}
+    @keyframes ipSlide{to{opacity:1;transform:translateY(0)}}
+    @keyframes ipBounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
+    @media(max-width:500px){.iphone{width:270px;height:520px;}.ip-bub{font-size:13px;}}
+    </style>
+    <script>
+    (function(){
+      var convos=[
+        [
+          {f:"out",t:"what\u2019s running low?"},
+          {f:"in",t:"\ud83d\udd34 Tito\u2019s \u2014 0.5 bottles (par: 6)\n\ud83d\udd34 Campari \u2014 1 bottle (par: 4)\n\ud83d\udfe1 Aperol \u2014 2 bottles (par: 5)\n\nWant me to draft the PO?"},
+          {f:"out",t:"yes send it"},
+          {f:"in",t:"PO sent to Southern Glazer\u2019s. \u2705\n\nWeekend forecast: +30% volume. NYU graduation nearby. Stock up on Tito\u2019s and Aperol."}
+        ],
+        [
+          {f:"in",t:"New 5\u2605 Google review from Sarah M:\n\u201cBest cocktails in the LES.\u201d\n\nDraft reply: \u201cThanks Sarah! Glad you loved the drinks \u2014 see you next time! \ud83e\udd43\u201d\n\nYES to post."},
+          {f:"out",t:"yes"},
+          {f:"in",t:"Posted. \u2705 You\u2019ve responded to 12/12 reviews this month."}
+        ],
+        [
+          {f:"out",t:"post something for happy hour. $6 margs til 8"},
+          {f:"in",t:"Done. Drafted:\n\u201cMargarita Monday just got an upgrade. $6 margs \u2019til 8pm. First round\u2019s on your Monday blues. \ud83c\udf4b\u201d\n\nPosted to IG & FB. Want a reminder post at 5pm?"},
+          {f:"out",t:"yes do it"},
+          {f:"in",t:"Scheduled for 5:00 PM. I\u2019ll also text your VIP list at 4:30. \u2705"}
+        ]
+      ];
+      var box=document.getElementById('ipMsgs');
+      var btns=document.querySelectorAll('.convo-btn');
+      var active=0,timer=null;
+      function setTime(){var d=new Date();document.getElementById('ipTime').textContent=d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});document.getElementById('ipTs').textContent='Today '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});}
+      setTime();
+      function clear(){if(timer)clearTimeout(timer);var msgs=box.querySelectorAll('.ip-msg,.ip-typing-wrap');msgs.forEach(function(m){m.remove();});}
+      function addTyping(){var w=document.createElement('div');w.className='ip-typing-wrap';w.style.marginBottom='5px';w.innerHTML='<div class="ip-typing"><span></span><span></span><span></span></div>';box.appendChild(w);box.scrollTop=box.scrollHeight;return w;}
+      function addMsg(msg,delay){return new Promise(function(resolve){timer=setTimeout(function(){var tw=addTyping();var typeDur=msg.f==='in'?800+msg.t.length*6:400;timer=setTimeout(function(){tw.remove();var el=document.createElement('div');el.className='ip-msg '+msg.f;el.innerHTML='<div class="ip-bub">'+msg.t.replace(/\n/g,'<br>')+'</div>';box.appendChild(el);box.scrollTop=box.scrollHeight;resolve();},typeDur);},delay);});}
+      async function play(idx){clear();active=idx;btns.forEach(function(b,i){b.classList.toggle('active',i===idx);});var msgs=convos[idx];for(var i=0;i<msgs.length;i++){await addMsg(msgs[i],i===0?600:700+Math.random()*400);if(active!==idx)return;}timer=setTimeout(function(){if(active===idx)play(idx);},4000);}
+      btns.forEach(function(b){b.addEventListener('click',function(){play(parseInt(b.dataset.idx));});});
+      play(0);
+    })();
+    </script>
   </div>
 </section>
 
