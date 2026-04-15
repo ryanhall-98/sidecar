@@ -3,620 +3,433 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kalshi Trading Bot — Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<title>Sidecar — Your Bar's Back Office, Via Text</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0e17;
-  --surface: #111827;
-  --surface2: #1a2235;
-  --border: #1e2a3a;
-  --text: #e2e8f0;
-  --text2: #8896ab;
-  --green: #22c55e;
-  --green-bg: rgba(34,197,94,0.1);
-  --red: #ef4444;
-  --red-bg: rgba(239,68,68,0.1);
-  --blue: #3b82f6;
-  --blue-bg: rgba(59,130,246,0.1);
-  --yellow: #eab308;
-  --yellow-bg: rgba(234,179,8,0.1);
-  --purple: #a855f7;
-  --purple-bg: rgba(168,85,247,0.1);
-  --mono: 'JetBrains Mono', monospace;
-  --sans: 'DM Sans', sans-serif;
+  --bg: #0C0A09; --surface: #1C1917; --surface2: #292524;
+  --accent: #6366f1; --accent-lo: rgba(99,102,241,0.12);
+  --text: #FAFAF9; --text-muted: #A8A29E; --text-dim: #78716C;
+  --green: #22C55E; --amber: #F59E0B; --radius: 12px;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-body { background:var(--bg); color:var(--text); font-family:var(--sans); min-height:100vh; }
-.app { max-width:960px; margin:0 auto; padding:16px; }
-
-/* Header */
-.header { display:flex; align-items:center; justify-content:space-between; padding:16px 0; border-bottom:1px solid var(--border); margin-bottom:20px; }
-.header h1 { font-family:var(--mono); font-size:18px; font-weight:700; letter-spacing:-0.5px; }
-.header h1 span { color:var(--blue); }
-.bot-status { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text2); font-family:var(--mono); }
-.status-dot { width:8px; height:8px; border-radius:50%; animation: pulse 2s infinite; }
-.status-dot.on { background:var(--green); box-shadow:0 0 8px var(--green); }
-.status-dot.off { background:var(--red); box-shadow:0 0 8px var(--red); animation:none; }
-@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
-
-/* Nav Tabs */
-.tabs { display:flex; gap:2px; background:var(--surface); border-radius:10px; padding:3px; margin-bottom:20px; }
-.tab { flex:1; padding:10px; text-align:center; font-size:13px; font-weight:500; border-radius:8px; cursor:pointer; color:var(--text2); transition:all 0.2s; }
-.tab:hover { color:var(--text); }
-.tab.active { background:var(--surface2); color:var(--text); box-shadow:0 1px 3px rgba(0,0,0,0.3); }
-.panel { display:none; }
-.panel.active { display:block; }
-
-/* Stats Grid */
-.stats { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:20px; }
-@media(min-width:600px) { .stats { grid-template-columns:repeat(4,1fr); } }
-.stat { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; }
-.stat-label { font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--text2); margin-bottom:6px; }
-.stat-value { font-family:var(--mono); font-size:22px; font-weight:700; }
-.stat-value.green { color:var(--green); }
-.stat-value.red { color:var(--red); }
-.stat-sub { font-size:11px; color:var(--text2); margin-top:4px; font-family:var(--mono); }
-
-/* Big PnL */
-.pnl-hero { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; text-align:center; margin-bottom:20px; }
-.pnl-amount { font-family:var(--mono); font-size:42px; font-weight:700; letter-spacing:-1px; }
-.pnl-label { font-size:12px; color:var(--text2); margin-top:4px; text-transform:uppercase; letter-spacing:1px; }
-
-/* Chart */
-.chart-box { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; margin-bottom:20px; }
-.chart-title { font-size:13px; color:var(--text2); margin-bottom:12px; }
-.chart-canvas { width:100%; height:180px; }
-
-/* Trade Table */
-.trades-section { background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:20px; }
-.trades-header { padding:14px 16px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
-.trades-header h3 { font-size:14px; font-weight:600; }
-.trade-row { display:grid; grid-template-columns:1fr 70px 70px 70px; gap:8px; padding:12px 16px; border-bottom:1px solid var(--border); align-items:center; font-size:13px; }
-.trade-row:last-child { border-bottom:none; }
-.trade-row.header { font-size:11px; color:var(--text2); text-transform:uppercase; letter-spacing:0.5px; }
-.trade-market { font-family:var(--mono); font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.trade-tag { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; font-family:var(--mono); }
-.trade-tag.win { background:var(--green-bg); color:var(--green); }
-.trade-tag.loss { background:var(--red-bg); color:var(--red); }
-.trade-tag.pending { background:var(--yellow-bg); color:var(--yellow); }
-.trade-pnl { font-family:var(--mono); font-weight:600; text-align:right; }
-
-/* Sync Bar */
-.sync-bar { display:flex; gap:8px; margin-bottom:20px; }
-.sync-btn { background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:10px 16px; border-radius:8px; cursor:pointer; font-size:13px; font-family:var(--sans); transition:all 0.15s; }
-.sync-btn:hover { background:var(--border); }
-.sync-btn.primary { background:var(--blue); border-color:var(--blue); }
-.sync-btn.primary:hover { background:#2563eb; }
-
-/* Settings Panel */
-.settings-group { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px; margin-bottom:16px; }
-.settings-group h3 { font-size:14px; font-weight:600; margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--border); }
-.setting-row { margin-bottom:20px; }
-.setting-row:last-child { margin-bottom:0; }
-.setting-label { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
-.setting-label span { font-size:13px; }
-.setting-label .val { font-family:var(--mono); font-weight:700; color:var(--blue); font-size:15px; }
-.setting-hint { font-size:11px; color:var(--text2); margin-top:4px; }
-.rec-badge { font-size:10px; background:var(--purple-bg); color:var(--purple); padding:2px 6px; border-radius:4px; font-family:var(--mono); font-weight:600; }
-
-/* Range Slider */
-.slider-wrap { position:relative; padding:0 0 4px; }
-input[type=range] { -webkit-appearance:none; width:100%; height:6px; border-radius:3px; background:var(--surface2); outline:none; }
-input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:var(--blue); cursor:pointer; box-shadow:0 0 6px rgba(59,130,246,0.4); }
-.rec-marker { position:absolute; top:-2px; width:2px; height:10px; background:var(--purple); border-radius:1px; pointer-events:none; }
-
-/* Toggle */
-.toggle-row { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--border); }
-.toggle-row:last-child { border-bottom:none; }
-.toggle-label { font-size:13px; }
-.toggle { position:relative; width:44px; height:24px; cursor:pointer; }
-.toggle input { opacity:0; width:0; height:0; }
-.toggle .slider { position:absolute; inset:0; background:var(--surface2); border-radius:12px; transition:0.2s; border:1px solid var(--border); }
-.toggle .slider:before { content:''; position:absolute; width:18px; height:18px; border-radius:50%; background:var(--text2); left:2px; top:2px; transition:0.2s; }
-.toggle input:checked + .slider { background:var(--blue); border-color:var(--blue); }
-.toggle input:checked + .slider:before { transform:translateX(20px); background:#fff; }
-
-/* Kill Switch */
-.kill-switch { display:flex; align-items:center; justify-content:space-between; background:var(--surface); border:2px solid var(--border); border-radius:10px; padding:16px 20px; margin-bottom:16px; }
-.kill-switch.on { border-color:var(--green); }
-.kill-switch.off { border-color:var(--red); }
-.kill-label { font-size:15px; font-weight:600; }
-.kill-status { font-family:var(--mono); font-size:13px; }
-
-/* Config output */
-.config-output { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:16px; font-family:var(--mono); font-size:12px; color:var(--text2); white-space:pre; overflow-x:auto; margin-top:16px; line-height:1.6; }
-.copy-config { margin-top:10px; }
-
-/* Sync modal */
-.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:100; align-items:center; justify-content:center; }
-.modal-overlay.show { display:flex; }
-.modal { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; max-width:500px; width:90%; }
-.modal h3 { margin-bottom:12px; }
-.modal textarea { width:100%; height:200px; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:12px; font-family:var(--mono); font-size:12px; color:var(--text); resize:none; }
-.modal-actions { display:flex; gap:8px; margin-top:12px; justify-content:flex-end; }
+body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+h1,h2,h3 { font-family:'Playfair Display',serif; }
+.container { max-width:1100px; margin:0 auto; padding:0 24px; }
+nav { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(12,10,9,0.88); backdrop-filter:blur(20px); border-bottom:1px solid rgba(99,102,241,0.1); padding:16px 0; }
+nav .container { display:flex; justify-content:space-between; align-items:center; }
+.logo { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--text); text-decoration:none; }
+.logo span { color:var(--accent); }
+.nav-links { display:flex; gap:32px; align-items:center; }
+.nav-links a { color:var(--text-muted); text-decoration:none; font-size:14px; font-weight:500; transition:color 0.2s; }
+.nav-links a:hover { color:var(--text); }
+.nav-cta { background:var(--accent); color:#fff !important; padding:10px 22px; border-radius:8px; font-size:14px; font-weight:700; text-decoration:none; }
+.hero { padding:160px 0 100px; text-align:center; }
+.hero-eyebrow { display:inline-block; background:var(--accent-lo); color:#818cf8; border:1px solid rgba(99,102,241,0.25); border-radius:20px; padding:6px 16px; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:28px; }
+.hero h1 { font-size:clamp(42px,7vw,82px); line-height:1.05; margin-bottom:24px; max-width:900px; margin-left:auto; margin-right:auto; }
+.hero h1 em { color:var(--accent); font-style:italic; }
+.hero-sub { font-size:clamp(17px,2.5vw,21px); color:var(--text-muted); max-width:620px; margin:0 auto 40px; line-height:1.65; }
+.hero-actions { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+.btn-primary { background:var(--accent); color:#fff; padding:16px 34px; border-radius:10px; font-size:16px; font-weight:700; text-decoration:none; display:inline-block; transition:opacity 0.2s; }
+.btn-primary:hover { opacity:0.85; }
+.btn-secondary { background:transparent; color:var(--text); padding:16px 34px; border-radius:10px; font-size:16px; font-weight:600; text-decoration:none; border:1px solid rgba(255,255,255,0.12); display:inline-block; transition:border-color 0.2s; }
+.btn-secondary:hover { border-color:rgba(255,255,255,0.3); }
+.demo-nudge { margin-top:18px; font-size:13px; color:var(--text-dim); }
+.demo-nudge strong { color:var(--text-muted); font-family:monospace; }
+.sms-demo { max-width:420px; margin:60px auto 0; background:var(--surface); border:1px solid rgba(99,102,241,0.15); border-radius:20px; padding:24px; font-size:14px; }
+.sms-header { display:flex; align-items:center; gap:10px; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.06); }
+.sms-avatar { width:38px; height:38px; background:var(--accent-lo); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.sms-name { font-weight:700; font-size:14px; }
+.sms-sub { font-size:11px; color:var(--text-dim); }
+.msg { margin-bottom:10px; }
+.msg-in { background:var(--surface2); border-radius:16px 16px 16px 4px; padding:10px 14px; color:var(--text); max-width:88%; line-height:1.5; }
+.msg-out { background:var(--accent); border-radius:16px 16px 4px 16px; padding:10px 14px; color:#fff; max-width:88%; margin-left:auto; line-height:1.5; }
+.stats { padding:60px 0; border-top:1px solid rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.05); }
+.stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center; }
+.stat-num { font-size:40px; font-weight:700; color:var(--accent); font-family:'Playfair Display',serif; }
+.stat-label { font-size:13px; color:var(--text-muted); margin-top:6px; line-height:1.4; }
+.section-block { padding:100px 0; }
+.section-label { font-size:11px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:0.12em; margin-bottom:14px; }
+.section-title { font-size:clamp(32px,4vw,48px); color:var(--text); margin-bottom:16px; }
+.section-sub { font-size:17px; color:var(--text-muted); max-width:560px; line-height:1.6; margin-bottom:56px; }
+.steps { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+.step { background:var(--surface); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius); padding:28px; }
+.step-num { width:36px; height:36px; background:var(--accent-lo); border:1px solid rgba(99,102,241,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#818cf8; margin-bottom:16px; }
+.step h3 { font-family:'DM Sans',sans-serif; font-size:17px; font-weight:700; margin-bottom:10px; }
+.step p { font-size:14px; color:var(--text-muted); line-height:1.6; }
+.features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.feature-card { background:var(--surface); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius); padding:26px; transition:border-color 0.2s; }
+.feature-card:hover { border-color:rgba(99,102,241,0.3); }
+.feature-icon { font-size:26px; margin-bottom:14px; }
+.feature-card h3 { font-family:'DM Sans',sans-serif; font-size:16px; font-weight:700; margin-bottom:8px; }
+.feature-card p { font-size:13px; color:var(--text-muted); line-height:1.6; }
+.feature-tag { display:inline-block; margin-top:10px; padding:3px 10px; border-radius:4px; font-size:11px; font-weight:600; background:rgba(34,197,94,0.1); color:#4ade80; }
+.compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:860px; margin:0 auto; }
+.compare-col { background:var(--surface); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius); overflow:hidden; }
+.compare-col.with { border-color:rgba(99,102,241,0.3); }
+.compare-head { padding:20px 24px; border-bottom:1px solid rgba(255,255,255,0.06); }
+.compare-col.without .compare-head h3 { font-family:'DM Sans',sans-serif; color:var(--text-muted); font-size:16px; font-weight:700; }
+.compare-col.with .compare-head h3 { font-family:'DM Sans',sans-serif; color:#818cf8; font-size:16px; font-weight:700; }
+.compare-items { padding:20px 24px; display:flex; flex-direction:column; gap:12px; }
+.compare-item { display:flex; align-items:flex-start; gap:10px; font-size:14px; color:var(--text-muted); line-height:1.5; }
+.pricing-grid { display:grid; grid-template-columns:1fr; max-width:480px; margin:48px auto 0; gap:16px; }
+.plan { background:var(--surface); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius); padding:28px 24px; position:relative; }
+.plan.featured { border-color:rgba(99,102,241,0.4); background:linear-gradient(135deg,#1a1940 0%,var(--surface) 100%); }
+.plan.house { border-color:rgba(245,158,11,0.3); }
+.plan-badge { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--accent); color:#fff; font-size:11px; font-weight:700; padding:4px 14px; border-radius:12px; white-space:nowrap; }
+.plan-name { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; margin-bottom:6px; }
+.plan-price { font-size:36px; font-weight:700; margin:16px 0 4px; font-family:monospace; }
+.plan-price span { font-size:16px; color:var(--text-muted); font-family:'DM Sans',sans-serif; font-weight:400; }
+.plan-desc { font-size:13px; color:var(--text-muted); line-height:1.5; margin-bottom:20px; }
+.plan-features { list-style:none; display:flex; flex-direction:column; gap:9px; margin-bottom:24px; }
+.plan-features li { font-size:13px; color:var(--text-muted); display:flex; align-items:flex-start; gap:8px; line-height:1.4; }
+.plan-features li::before { content:"✓"; color:var(--green); font-weight:700; flex-shrink:0; }
+.plan-cta { display:block; width:100%; padding:12px; border-radius:8px; font-size:14px; font-weight:700; text-align:center; text-decoration:none; background:var(--accent); color:#fff; transition:opacity 0.2s; }
+.plan.house .plan-cta { background:var(--amber); }
+.plan-cta:hover { opacity:0.85; }
+.cta-banner { padding:80px 0; text-align:center; }
+.cta-inner { background:linear-gradient(135deg,#1e1d3a 0%,#111 100%); border:1px solid rgba(99,102,241,0.25); border-radius:20px; padding:64px 40px; }
+.cta-inner h2 { font-size:clamp(30px,4vw,48px); margin-bottom:16px; }
+.cta-inner p { font-size:18px; color:var(--text-muted); margin-bottom:36px; }
+.cta-actions { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+.cta-fine { margin-top:20px; font-size:13px; color:var(--text-dim); }
+footer { padding:40px 0; border-top:1px solid rgba(255,255,255,0.06); text-align:center; }
+footer p { font-size:13px; color:var(--text-dim); }
+footer a { color:var(--text-muted); text-decoration:none; }
+@media(max-width:768px) {
+  .stats-grid { grid-template-columns:repeat(2,1fr); } .steps { grid-template-columns:1fr; }
+  .features-grid { grid-template-columns:repeat(2,1fr); }
+  .compare-grid { grid-template-columns:1fr; }
+  .pricing-grid { grid-template-columns:1fr; }
+  .nav-links { display:none; }
+}
+@media(max-width:500px) { .features-grid,.pricing-grid { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
-<div class="app">
 
-<!-- Header -->
-<div class="header">
-  <h1>KALSHI <span>BOT</span></h1>
-  <div class="bot-status">
-    <div class="status-dot on" id="statusDot"></div>
-    <span id="statusText">SIMULATION</span>
-  </div>
-</div>
-
-<!-- Tabs -->
-<div class="tabs">
-  <div class="tab active" data-tab="overview">Overview</div>
-  <div class="tab" data-tab="trades">Trades</div>
-  <div class="tab" data-tab="settings">⚙ Settings</div>
-</div>
-
-<!-- OVERVIEW PANEL -->
-<div class="panel active" id="overview">
-  <div class="pnl-hero">
-    <div class="pnl-amount" id="pnlAmount">$0.00</div>
-    <div class="pnl-label">Simulated P&L</div>
-  </div>
-
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-label">Win Rate</div>
-      <div class="stat-value" id="winRate">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Total Trades</div>
-      <div class="stat-value" id="totalTrades">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Pending</div>
-      <div class="stat-value" id="pendingCount">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Total Invested</div>
-      <div class="stat-value" id="totalInvested">$0</div>
+<nav>
+  <div class="container">
+    <a href="/" class="logo">Side<span>car</span></a>
+    <div class="nav-links">
+      <a href="#how">How It Works</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://portal.sidecarhq.cc/onboard" class="nav-cta">Start Free Trial</a>
     </div>
   </div>
+</nav>
 
-  <div class="chart-box">
-    <div class="chart-title">Cumulative P&L</div>
-    <canvas class="chart-canvas" id="pnlChart"></canvas>
-  </div>
-
-  <div class="sync-bar">
-    <button class="sync-btn primary" onclick="openSyncModal()">⬆ Sync Trades</button>
-    <button class="sync-btn" onclick="exportData()">⬇ Export</button>
-    <button class="sync-btn" onclick="clearData()">✕ Clear</button>
-  </div>
-</div>
-
-<!-- TRADES PANEL -->
-<div class="panel" id="trades">
-  <div class="trades-section">
-    <div class="trades-header">
-      <h3>All Trades</h3>
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">AI-Powered Back Office for Bars &amp; Restaurants</div>
+    <h1>Text us.<br><em>It gets done.</em></h1>
+    <p class="hero-sub">Inventory tracking, demand forecasting, social posts, review responses, hiring &mdash; all via SMS. Your entire bar back office, handled by AI.</p>
+    <div class="hero-actions">
+      <a href="https://portal.sidecarhq.cc/onboard" class="btn-primary">Start Free Trial &rarr;</a>
+      <a href="#how" class="btn-secondary">See How It Works</a>
     </div>
-    <div class="trade-row header">
-      <span>Market</span><span>Cost</span><span>Result</span><span style="text-align:right">P&L</span>
-    </div>
-    <div id="tradesList"></div>
-  </div>
-</div>
-
-<!-- SETTINGS PANEL -->
-<div class="panel" id="settings">
-  <!-- Kill Switch -->
-  <div class="kill-switch on" id="killSwitch">
-    <div>
-      <div class="kill-label">Bot Enabled</div>
-      <div class="kill-status" id="killStatus">Trading active</div>
-    </div>
-    <label class="toggle">
-      <input type="checkbox" id="botEnabled" checked onchange="updateKillSwitch()">
-      <span class="slider"></span>
-    </label>
-  </div>
-
-  <!-- Trading Limits -->
-  <div class="settings-group">
-    <h3>Trading Limits</h3>
-
-    <div class="setting-row">
-      <div class="setting-label">
-        <span>Daily Spend Cap</span>
-        <span class="val" id="dailyLimitVal">$25</span>
+    <p class="demo-nudge">Want to see it live? Text <strong>DEMO</strong> to <strong>(844) 840-0637</strong></p>
+    <div class="sms-demo">
+      <div class="sms-header">
+        <div class="sms-avatar">&#x1F697;</div>
+        <div><div class="sms-name">Sidecar</div><div class="sms-sub">text message &middot; now</div></div>
       </div>
-      <div class="slider-wrap">
-        <input type="range" min="5" max="200" value="25" step="5" id="dailyLimit" oninput="updateSlider('dailyLimit','$')">
-        <div class="rec-marker" style="left:calc((25 - 5) / (200 - 5) * 100%)"></div>
-      </div>
-      <div class="setting-hint">Recommended: <span class="rec-badge">$25</span> — Max total spent per day across all trades</div>
-    </div>
-
-    <div class="setting-row">
-      <div class="setting-label">
-        <span>Per Trade Size</span>
-        <span class="val" id="perTradeVal">$5</span>
-      </div>
-      <div class="slider-wrap">
-        <input type="range" min="1" max="50" value="5" step="1" id="perTrade" oninput="updateSlider('perTrade','$')">
-        <div class="rec-marker" style="left:calc((5 - 1) / (50 - 1) * 100%)"></div>
-      </div>
-      <div class="setting-hint">Recommended: <span class="rec-badge">$5</span> — Amount risked on each individual trade</div>
-    </div>
-
-    <div class="setting-row">
-      <div class="setting-label">
-        <span>Max Trades Per Day</span>
-        <span class="val" id="maxTradesVal">6</span>
-      </div>
-      <div class="slider-wrap">
-        <input type="range" min="1" max="20" value="6" step="1" id="maxTrades" oninput="updateSlider('maxTrades','')">
-        <div class="rec-marker" style="left:calc((6 - 1) / (20 - 1) * 100%)"></div>
-      </div>
-      <div class="setting-hint">Recommended: <span class="rec-badge">6</span> — Prevents over-trading on a single day</div>
+      <div class="msg"><div class="msg-out">what's running low? need to order tonight</div></div>
+      <div class="msg"><div class="msg-in">&#x1F534; Tito's &mdash; 0.5 bottles (par: 6)<br>&#x1F534; Campari &mdash; 1 bottle (par: 4)<br>&#x1F7E1; Aperol &mdash; 2 bottles (par: 5)<br><br>Want me to draft the PO?</div></div>
+      <div class="msg"><div class="msg-out">yes. what should i expect this weekend?</div></div>
+      <div class="msg"><div class="msg-in">PO sent to your distributor.<br><br>Weekend forecast: +30% volume. NYU graduation nearby. Stock up on Tito's and Aperol &mdash; both trending high Fri&ndash;Sat.</div></div>
+      <div class="msg"><div class="msg-out">make me a trivia night graphic for thursday</div></div>
+      <div class="msg"><div class="msg-in">On it &mdash; 30 seconds.<br><br>&#x2705; Done. Reply APPROVE to post to Instagram.</div></div>
     </div>
   </div>
+</section>
 
-  <!-- AI Thresholds -->
-  <div class="settings-group">
-    <h3>AI Thresholds</h3>
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div><div class="stat-num">15+</div><div class="stat-label">hours/week your manager<br>spends on admin, not the floor</div></div>
+      <div><div class="stat-num">73%</div><div class="stat-label">of bars never respond<br>to their online reviews</div></div>
+      <div><div class="stat-num">$0</div><div class="stat-label">to start &mdash; free trial week,<br>no contracts, cancel anytime</div></div>
+      <div><div class="stat-num">24hr</div><div class="stat-label">turnaround on every task.<br>Most done same-day.</div></div>
+    </div>
+  </div>
+</section>
 
-    <div class="setting-row">
-      <div class="setting-label">
-        <span>Min Confidence</span>
-        <span class="val" id="minConfVal">70%</span>
+<section class="section-block" id="how">
+  <div class="container">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Three steps. That's it.</h2>
+    <p class="section-sub">No software to learn. No dashboard to check. No login to remember. Just text.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><h3>Text the number</h3><p>No app. No call. No form. Text <strong>+1 (844) 840-0637</strong> and we'll send you a signup link. Takes 60 seconds. No credit card required.</p></div>
+      <div class="step"><div class="step-num">2</div><h3>We learn your bar</h3><p>The bot asks a few quick questions &mdash; your brand voice, vendors, handles. Answer by text. Your free 7-day trial starts automatically.</p></div>
+      <div class="step"><div class="step-num">3</div><h3>Text us, it gets done</h3><p>Reviews responded to. Social posts scheduled. Orders drafted. Most bars recoup the monthly cost in the first week. Every time.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-block" id="features">
+  <div class="container">
+    <div class="section-label">What We Handle</div>
+    <h2 class="section-title">Everything that isn't bartending</h2>
+    <p class="section-sub">You focus on the bar. We handle the laptop.</p>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">&#x1F4E6;</div><h3>Inventory Tracking</h3><p>Text your counts. We track stock, alert when you're low, draft POs, and email your distributors. Photo a delivery receipt &mdash; we update inventory automatically.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F52E;</div><h3>Demand Forecasting</h3><p>"What should I order this week?" Just ask. We analyze your sales history and give you a specific ordering recommendation before every shift.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F37A;</div><h3>Happy Hour &amp; Specials</h3><p>Get data-driven happy hour pricing suggestions based on your slowest hours, top sellers, and pour costs. Combo specials recommendations included.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F5FA;&#xFE0F;</div><h3>SKU Map &amp; Distributor Alerts</h3><p>Map every product to its distributor. Get a 7am alert every morning when items hit reorder level, with a pre-drafted order ready to send in one reply.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F943;</div><h3>Keg &amp; Tap Tracking</h3><p>Text "keg kicked" and we log it, update your inventory, and queue a reorder. No spreadsheet. No clipboard. One text.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F4F1;</div><h3>Social Media</h3><p>Posts in your voice, scheduled at peak engagement time. We analyze your Instagram to match your aesthetic automatically. Send a photo, we handle the rest.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F3A8;</div><h3>Marketing Images</h3><p>Text "make me a post for trivia night Thursday at 8pm" and get a polished, on-brand graphic back in 30 seconds. Ready to post.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x2B50;</div><h3>Review Responses</h3><p>Every Google and Yelp review gets a thoughtful reply in your tone within 24 hours. Even the 1-stars. Especially the 1-stars.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F4CA;</div><h3>Sales Reports</h3><p>Connect your POS and get automatic weekly reports &mdash; revenue, top sellers, pour cost, best and worst days. Text "send me my weekly report" anytime.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F4E4;</div><h3>CSV Export</h3><p>Export your inventory, task history, and message logs anytime from the portal. Your data is yours &mdash; no lock-in.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F389;</div><h3>Events &amp; Promos</h3><p>Copy, Eventbrite, email blast, social posts &mdash; we handle the full launch so you just show up on event night.</p><span class="feature-tag">Live</span></div>
+      <div class="feature-card"><div class="feature-icon">&#x1F465;</div><h3>Hiring</h3><p>Job posts that actually attract people, distributed to Poached, Indeed, and your socials. Not just "we're hiring &#x1F64F;".</p><span class="feature-tag">Live</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-block">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <div class="section-label">The Difference</div>
+      <h2 class="section-title">Monday morning, two realities</h2>
+    </div>
+    <div class="compare-grid">
+      <div class="compare-col without">
+        <div class="compare-head"><h3>&#x274C; Without Sidecar</h3></div>
+        <div class="compare-items">
+          <div class="compare-item"><span>&#x1F629;</span> Wake up dreading the ordering spreadsheet</div>
+          <div class="compare-item"><span>&#x23F1;&#xFE0F;</span> 30 min counting bottles, 45 min emailing distributors</div>
+          <div class="compare-item"><span>&#x1F4C9;</span> 3 unanswered Google reviews from the weekend</div>
+          <div class="compare-item"><span>&#x1F4F5;</span> Instagram hasn't been posted to in 9 days</div>
+          <div class="compare-item"><span>&#x1F4EC;</span> Inbox has 40 unread emails including a catering inquiry from Thursday</div>
+          <div class="compare-item"><span>&#x2753;</span> No idea what your pour cost is on the new cocktail menu</div>
+          <div class="compare-item"><span>&#x1F610;</span> A cook quit and you need to write a job post</div>
+          <div class="compare-item"><span>&#x1F552;</span> It's 2pm. You haven't touched the floor.</div>
+        </div>
       </div>
-      <div class="slider-wrap">
-        <input type="range" min="30" max="95" value="70" step="5" id="minConf" oninput="updateSlider('minConf','%')">
-        <div class="rec-marker" style="left:calc((70 - 30) / (95 - 30) * 100%)"></div>
+      <div class="compare-col with">
+        <div class="compare-head"><h3>&#x2705; With Sidecar</h3></div>
+        <div class="compare-items">
+          <div class="compare-item"><span>&#x2615;</span> Text Sidecar your counts while you drink coffee</div>
+          <div class="compare-item"><span>&#x1F4E8;</span> POs drafted and sent to distributors by 10am</div>
+          <div class="compare-item"><span>&#x2B50;</span> All 3 weekend reviews responded to &mdash; in your voice</div>
+          <div class="compare-item"><span>&#x1F4F8;</span> 4 posts scheduled this week, preview in your texts</div>
+          <div class="compare-item"><span>&#x1F4E9;</span> Catering inquiry quoted, follow-up sent, event confirmed</div>
+          <div class="compare-item"><span>&#x1F6A8;</span> Low-stock alert already sent &mdash; Tito's and Aperol flagged</div>
+          <div class="compare-item"><span>&#x1F4CB;</span> Hiring post live on your socials &mdash; applications coming in</div>
+          <div class="compare-item"><span>&#x1F378;</span> It's 11am. You're on the floor where you belong.</div>
+        </div>
       </div>
-      <div class="setting-hint">Recommended: <span class="rec-badge">70%</span> — Claude must be this confident to trigger a trade</div>
     </div>
+  </div>
+</section>
 
-    <div class="setting-row">
-      <div class="setting-label">
-        <span>Min Edge</span>
-        <span class="val" id="minEdgeVal">10%</span>
+<section class="section-block" id="pricing">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="section-label">Pricing</div>
+      <h2 class="section-title">One plan. Everything included.</h2>
+      <p style="color:var(--text-muted);font-size:16px;margin-top:12px;">One plan. Every feature. 7-day free trial — no credit card required.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="plan featured">
+        <div class="plan-badge">EVERYTHING INCLUDED</div>
+        <div class="plan-name">Sidecar</div>
+        <div class="plan-price">$199<span>/mo per location</span></div>
+        <p class="plan-desc">Your entire back office via text. Every feature, no limits, no upsells.</p>
+        <ul class="plan-features">
+          <li>Google &amp; Yelp review responses — drafted &amp; ready to post</li>
+          <li>Unlimited AI social posts &amp; captions in your voice</li>
+          <li>Custom image &amp; graphic generation (DALL-E HD)</li>
+          <li>Purchase orders drafted &amp; sent to distributors</li>
+          <li>SMS inventory tracking — text your counts</li>
+          <li>Low-stock alerts &amp; automated reorder triggers</li>
+          <li>SKU map + 7am distributor reorder alerts</li>
+          <li>Demand forecasting — "what should I order?"</li>
+          <li>Happy hour &amp; combo specials recommendations</li>
+          <li>Keg kicked tracking &amp; auto-reorder queue</li>
+          <li>Delivery receipt scanning via photo</li>
+          <li>POS integration (Square, Toast, Clover, Lightspeed)</li>
+          <li>Automated weekly sales reports &amp; CSV export</li>
+          <li>Event &amp; promo copy written &amp; distributed</li>
+          <li>Hiring posts written &amp; distributed</li>
+          <li>Inbox &amp; DM drafts</li>
+          <li>AI pour cost analysis</li>
+          <li>Team member access — add your staff</li>
+        </ul>
+        <a href="https://portal.sidecarhq.cc/onboard" class="plan-cta">Start Free Trial &rarr;</a>
+        <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:12px;">No contracts. Cancel anytime. Multi-location? <a href="mailto:ryan@sidecarhq.cc" style="color:var(--accent);">Contact us</a>.</p>
       </div>
-      <div class="slider-wrap">
-        <input type="range" min="3" max="30" value="10" step="1" id="minEdge" oninput="updateSlider('minEdge','%')">
-        <div class="rec-marker" style="left:calc((10 - 3) / (30 - 3) * 100%)"></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Your first week is free.</h2>
+      <p>No contracts. No setup fees. No risk. If we don't save you time, you don't pay.</p>
+      <div class="cta-actions">
+        <a href="https://portal.sidecarhq.cc/onboard" class="btn-primary">Start Free Trial &rarr;</a>
+        <a href="sms:+18448400637" class="btn-secondary">&#x1F4F1; Text DEMO to try it</a>
       </div>
-      <div class="setting-hint">Recommended: <span class="rec-badge">10%</span> — Gap between Claude's probability and market price needed to trade</div>
+      <p class="cta-fine">&#x1F512; No credit card required &middot; Cancel anytime &middot; Results in 48 hours</p>
     </div>
   </div>
+</section>
 
-  <!-- Markets -->
-  <div class="settings-group">
-    <h3>Enabled Markets</h3>
-    <div class="toggle-row">
-      <span class="toggle-label">🌤 Weather</span>
-      <label class="toggle"><input type="checkbox" id="mktWeather" checked><span class="slider"></span></label>
-    </div>
-    <div class="toggle-row">
-      <span class="toggle-label">🏛 Politics</span>
-      <label class="toggle"><input type="checkbox" id="mktPolitics"><span class="slider"></span></label>
-    </div>
-    <div class="toggle-row">
-      <span class="toggle-label">₿ Crypto</span>
-      <label class="toggle"><input type="checkbox" id="mktCrypto"><span class="slider"></span></label>
-    </div>
-    <div class="toggle-row">
-      <span class="toggle-label">📈 Finance</span>
-      <label class="toggle"><input type="checkbox" id="mktFinance"><span class="slider"></span></label>
-    </div>
+<footer>
+  <div class="container">
+    <p>Sidecar &mdash; AI-powered back office for bars &amp; restaurants &middot; NYC &middot; <a href="mailto:ryan@sidecarhq.cc">ryan@sidecarhq.cc</a> &middot; <a href="#terms">Terms</a> &middot; <a href="#privacy">Privacy</a></p>
   </div>
+</footer>
 
-  <!-- Safety -->
-  <div class="settings-group">
-    <h3>Safety</h3>
-    <div class="toggle-row">
-      <span class="toggle-label">Conflict Detection <span style="color:var(--text2);font-size:11px">— prevents contradictory bets</span></span>
-      <label class="toggle"><input type="checkbox" id="conflictDetect" checked><span class="slider"></span></label>
-    </div>
-    <div class="toggle-row">
-      <span class="toggle-label">Duplicate Prevention <span style="color:var(--text2);font-size:11px">— prevents same ticker twice</span></span>
-      <label class="toggle"><input type="checkbox" id="dupePrevent" checked><span class="slider"></span></label>
-    </div>
+<style>
+.legal-section { padding:80px 0; border-top:1px solid rgba(255,255,255,0.06); }
+.legal-section h2 { font-family:'Playfair Display',serif; font-size:32px; margin-bottom:8px; }
+.legal-section .legal-date { font-size:13px; color:var(--text-dim); margin-bottom:32px; }
+.legal-section h3 { font-family:'DM Sans',sans-serif; font-size:17px; font-weight:700; margin:28px 0 10px; color:var(--text); }
+.legal-section p, .legal-section li { font-size:15px; color:var(--text-muted); line-height:1.75; }
+.legal-section ul { padding-left:20px; margin-top:8px; }
+.legal-section li { margin-bottom:6px; }
+.legal-back { display:inline-block; margin-top:32px; font-size:14px; color:var(--accent); text-decoration:none; }
+</style>
+
+<!-- ═══ TERMS OF SERVICE ═══ -->
+<section class="legal-section" id="terms">
+  <div class="container" style="max-width:760px;">
+    <h2>Terms of Service</h2>
+    <p class="legal-date">Effective date: March 2026 &middot; Sidecar HQ LLC &middot; New York, NY</p>
+
+    <h3>1. Acceptance</h3>
+    <p>By signing up for Sidecar, texting our number, or using the portal at portal.sidecarhq.cc, you agree to these Terms. If you do not agree, do not use the service.</p>
+
+    <h3>2. The Service</h3>
+    <p>Sidecar provides an AI-powered SMS back-office for bars and restaurants. This includes but is not limited to: inventory tracking, order drafting, social media content, review response drafts, hiring posts, and demand forecasting. Specific features depend on your plan tier.</p>
+
+    <h3>3. Subscriptions and Billing</h3>
+    <p>Sidecar offers monthly subscription plans billed in advance. By subscribing, you authorize us to charge your payment method on a recurring monthly basis until you cancel.</p>
+    <ul>
+      <li><strong>No refunds for partial months.</strong> If you cancel mid-billing period, your access continues until the end of the current paid period. No prorated refunds are issued.</li>
+      <li>Cancellations take effect at the end of your current billing cycle. You will not be charged again after cancellation.</li>
+      <li>If a payment fails, we will notify you by SMS and email. Continued failure to pay may result in account suspension.</li>
+      <li>We reserve the right to change pricing with 30 days' notice. Existing subscribers will be notified before any price change takes effect.</li>
+    </ul>
+
+    <h3>4. Free Trial</h3>
+    <p>New customers receive a 7-day free trial. No credit card is required to start a trial. At the end of the trial period, you must subscribe to continue using the service. We reserve the right to modify or end trial availability at any time.</p>
+
+    <h3>5. Acceptable Use</h3>
+    <p>You agree not to use Sidecar to:</p>
+    <ul>
+      <li>Send spam, unsolicited messages, or communications that violate applicable law</li>
+      <li>Generate false, deceptive, or misleading content</li>
+      <li>Post content that is defamatory, harassing, or harmful to any individual or group</li>
+      <li>Violate any federal, state, or local laws or regulations</li>
+      <li>Attempt to reverse-engineer, scrape, or misuse our systems</li>
+    </ul>
+
+    <h3>6. SMS Communications and Consent</h3>
+    <p>By texting our number or providing your phone number during signup, you consent to receive SMS messages from Sidecar related to your account and the service. Message and data rates may apply. You may opt out at any time by replying STOP. After opting out, you will receive one final confirmation message and no further messages will be sent.</p>
+
+    <h3>7. Content Ownership</h3>
+    <p>You retain ownership of all content you provide to Sidecar (bar name, brand voice, business information). Content we generate on your behalf (posts, order drafts, review responses) is yours to use once delivered. You are responsible for reviewing and approving all AI-generated content before use.</p>
+
+    <h3>8. Disclaimer of Warranties</h3>
+    <p>Sidecar is provided "as is" without warranty of any kind, express or implied. We do not guarantee that the service will be uninterrupted, error-free, or that AI-generated content will be accurate, complete, or suitable for any particular purpose. You are responsible for reviewing all outputs before sending or publishing them.</p>
+
+    <h3>9. Limitation of Liability</h3>
+    <p>To the maximum extent permitted by law, Sidecar HQ LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, arising from your use of or inability to use the service.</p>
+
+    <h3>10. Termination</h3>
+    <p>We reserve the right to suspend or terminate your account for violation of these Terms, non-payment, or conduct we determine to be harmful to other users or the service. You may cancel your subscription at any time through the portal at portal.sidecarhq.cc or by emailing ryan@sidecarhq.cc.</p>
+
+    <h3>11. Governing Law</h3>
+    <p>These Terms are governed by the laws of the State of New York, without regard to conflict of law principles. Any disputes arising from these Terms shall be resolved in the courts of New York County, New York.</p>
+
+    <h3>12. Changes to Terms</h3>
+    <p>We may update these Terms from time to time. We will notify active customers of material changes by SMS or email. Continued use of the service after changes constitutes acceptance of the updated Terms.</p>
+
+    <h3>13. Contact</h3>
+    <p>Questions about these Terms? Email us at <a href="mailto:ryan@sidecarhq.cc" style="color:var(--accent)">ryan@sidecarhq.cc</a> or write to Sidecar HQ LLC, New York, NY.</p>
+
+    <a href="#" class="legal-back">&larr; Back to top</a>
   </div>
+</section>
 
-  <!-- Generated Config -->
-  <div class="settings-group">
-    <h3>Generated Config</h3>
-    <p style="font-size:12px;color:var(--text2);margin-bottom:10px;">Copy this config and push to your GitHub repo. The bot pulls it before each cycle.</p>
-    <div class="config-output" id="configOutput"></div>
-    <div style="display:flex;gap:8px;margin-top:10px;">
-      <button class="sync-btn primary" onclick="copyConfig()">📋 Copy Config</button>
-      <button class="sync-btn" onclick="copySshCommand()">📋 Copy SSH Push Command</button>
-    </div>
+<!-- ═══ PRIVACY POLICY ═══ -->
+<section class="legal-section" id="privacy">
+  <div class="container" style="max-width:760px;">
+    <h2>Privacy Policy</h2>
+    <p class="legal-date">Effective date: March 2026 &middot; Sidecar HQ LLC &middot; New York, NY</p>
+
+    <h3>1. What We Collect</h3>
+    <p>We collect the following information when you use Sidecar:</p>
+    <ul>
+      <li><strong>Account information:</strong> bar name, contact name, phone number, email address, neighborhood, social media handles</li>
+      <li><strong>Business information:</strong> distributor names and emails, inventory data, brand voice, POS connection details</li>
+      <li><strong>Usage data:</strong> SMS messages sent and received, tasks created, content generated, feature usage</li>
+      <li><strong>Billing information:</strong> processed securely by Stripe — we do not store credit card numbers</li>
+    </ul>
+
+    <h3>2. How We Use Your Information</h3>
+    <ul>
+      <li>To provide and improve the Sidecar service</li>
+      <li>To generate content on your behalf (social posts, order drafts, review responses)</li>
+      <li>To send you SMS notifications, alerts, and communications related to your account</li>
+      <li>To process billing and manage your subscription</li>
+      <li>To detect and prevent fraud, abuse, or policy violations</li>
+      <li>To contact you about product updates or service changes (you may opt out at any time)</li>
+    </ul>
+
+    <h3>3. How We Share Your Information</h3>
+    <p>We do not sell your personal information. We may share data with:</p>
+    <ul>
+      <li><strong>Service providers:</strong> Twilio (SMS delivery), Stripe (billing), Supabase (database), Anthropic (AI processing), OpenAI (image generation), Airtable (task management), Resend (email delivery)</li>
+      <li><strong>Distributors:</strong> Only the order information you explicitly ask us to send on your behalf</li>
+      <li><strong>Law enforcement:</strong> If required by applicable law or valid legal process</li>
+    </ul>
+    <p>All third-party providers are contractually required to handle your data in compliance with applicable privacy laws.</p>
+
+    <h3>4. SMS Data and TCPA Compliance</h3>
+    <p>By using Sidecar via SMS, you consent to receive text messages. We comply with the Telephone Consumer Protection Act (TCPA) and CTIA guidelines. You may opt out at any time by replying STOP. We maintain records of consent for all SMS communications. Message and data rates may apply.</p>
+
+    <h3>5. Data Retention</h3>
+    <p>We retain your data for as long as your account is active, plus 90 days after termination to allow for dispute resolution. You may request deletion of your data at any time by emailing ryan@sidecarhq.cc. Some data may be retained longer if required by law.</p>
+
+    <h3>6. Security</h3>
+    <p>We use industry-standard security measures including encrypted connections (TLS), access controls, and secure third-party infrastructure. However, no method of transmission over the internet is 100% secure. We encourage you to protect your account credentials and notify us immediately of any suspected unauthorized access.</p>
+
+    <h3>7. Your Rights</h3>
+    <p>Depending on your location, you may have the right to:</p>
+    <ul>
+      <li>Access the personal information we hold about you</li>
+      <li>Request correction of inaccurate data</li>
+      <li>Request deletion of your data</li>
+      <li>Opt out of marketing communications at any time</li>
+      <li>Data portability (export your data from the portal)</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at <a href="mailto:ryan@sidecarhq.cc" style="color:var(--accent)">ryan@sidecarhq.cc</a>.</p>
+
+    <h3>8. Cookies</h3>
+    <p>Our marketing website (sidecarhq.cc) uses minimal cookies for analytics. The portal (portal.sidecarhq.cc) uses session cookies required for authentication. We do not use third-party advertising cookies.</p>
+
+    <h3>9. Children's Privacy</h3>
+    <p>Sidecar is not directed at individuals under 18 years of age. We do not knowingly collect personal information from minors.</p>
+
+    <h3>10. Changes to This Policy</h3>
+    <p>We may update this Privacy Policy from time to time. We will notify active customers of material changes by SMS or email. The effective date at the top of this page will always reflect the most recent version.</p>
+
+    <h3>11. Contact</h3>
+    <p>Questions about this Privacy Policy? Email <a href="mailto:ryan@sidecarhq.cc" style="color:var(--accent)">ryan@sidecarhq.cc</a> or write to Sidecar HQ LLC, New York, NY.</p>
+
+    <a href="#" class="legal-back">&larr; Back to top</a>
   </div>
-</div>
+</section>
 
-</div>
-
-<!-- Sync Modal -->
-<div class="modal-overlay" id="syncModal">
-  <div class="modal">
-    <h3>Sync Trade Data</h3>
-    <p style="font-size:12px;color:var(--text2);margin-bottom:10px;">Run this on your Mac, then paste the output below:</p>
-    <div class="config-output" style="margin-bottom:12px;font-size:11px;">ssh root@174.138.84.53 'cat /root/polymarket-ai-bot/data/trades.json'</div>
-    <textarea id="syncInput" placeholder="Paste trades.json content here..."></textarea>
-    <div class="modal-actions">
-      <button class="sync-btn" onclick="closeSyncModal()">Cancel</button>
-      <button class="sync-btn primary" onclick="importTrades()">Import</button>
-    </div>
-  </div>
-</div>
-
-<script>
-// ===== TRADE DATA =====
-// Real trades from VPS as of Feb 11, 2026
-const DEFAULT_TRADES = [
-  {id:1,ticker:"KXHIGHNY-26FEB12-B38.5",market:"NYC High 38-39°F Feb 12",side:"YES",price:0.12,qty:32,cost:3.84,potential:28.16,edge:0.08,confidence:0.75,ts:"2026-02-11T20:20:14",result:"loss",pnl:-3.84},
-  {id:2,ticker:"KXHIGHNY-26FEB12-B34.5",market:"NYC High 34-35°F Feb 12",side:"YES",price:0.30,qty:21,cost:6.30,potential:14.70,edge:0.15,confidence:0.80,ts:"2026-02-11T20:20:14",result:"win",pnl:14.70},
-  {id:3,ticker:"KXHIGHCHI-26FEB12-T38",market:"Chicago High <38°F Feb 12",side:"YES",price:0.22,qty:28,cost:6.16,potential:21.84,edge:0.13,confidence:0.75,ts:"2026-02-11T20:20:14",result:"loss",pnl:-6.16},
-  {id:4,ticker:"KXHIGHCHI-26FEB12-B42.5",market:"Chicago High 42-43°F Feb 12",side:"YES",price:0.12,qty:52,cost:6.24,potential:45.76,edge:0.13,confidence:0.70,ts:"2026-02-11T20:20:14",result:"loss",pnl:-6.24},
-  {id:5,ticker:"KXHIGHNY-26FEB12-B38.5",market:"NYC High 38-39°F Feb 12 (dup)",side:"YES",price:0.12,qty:32,cost:3.84,potential:28.16,edge:0.08,confidence:0.75,ts:"2026-02-11T20:22:14",result:"loss",pnl:-3.84},
-  {id:6,ticker:"KXHIGHNY-26FEB12-B34.5",market:"NYC High 34-35°F Feb 12 (dup)",side:"YES",price:0.30,qty:21,cost:6.30,potential:14.70,edge:0.15,confidence:0.80,ts:"2026-02-11T20:22:14",result:"win",pnl:14.70},
-  {id:7,ticker:"KXHIGHCHI-26FEB12-T38",market:"Chicago High <38°F Feb 12 (dup)",side:"YES",price:0.22,qty:28,cost:6.16,potential:21.84,edge:0.13,confidence:0.75,ts:"2026-02-11T20:22:14",result:"loss",pnl:-6.16},
-  {id:8,ticker:"KXHIGHNY-26FEB12-B38.5",market:"NYC High 38-39°F Feb 12",side:"YES",price:0.12,qty:32,cost:3.84,potential:28.16,edge:0.08,confidence:0.75,ts:"2026-02-12T01:20:14",result:"loss",pnl:-3.84},
-  {id:9,ticker:"KXHIGHNY-26FEB12-B34.5",market:"NYC High 34-35°F Feb 12",side:"YES",price:0.30,qty:21,cost:6.30,potential:14.70,edge:0.15,confidence:0.80,ts:"2026-02-12T01:20:14",result:"win",pnl:14.70},
-  {id:10,ticker:"KXHIGHCHI-26FEB12-T38",market:"Chicago High <38°F Feb 12",side:"YES",price:0.22,qty:28,cost:6.16,potential:21.84,edge:0.13,confidence:0.75,ts:"2026-02-12T01:20:14",result:"loss",pnl:-6.16},
-  {id:11,ticker:"KXHIGHCHI-26FEB12-B42.5",market:"Chicago High 42-43°F Feb 12",side:"YES",price:0.12,qty:52,cost:6.24,potential:45.76,edge:0.13,confidence:0.70,ts:"2026-02-12T01:20:14",result:"loss",pnl:-6.24},
-  {id:12,ticker:"KXHIGHNY-26FEB12-B38.5",market:"NYC High 38-39°F Feb 12",side:"YES",price:0.12,qty:32,cost:3.84,potential:28.16,edge:0.08,confidence:0.75,ts:"2026-02-12T01:22:14",result:"loss",pnl:-3.84},
-  {id:13,ticker:"KXHIGHNY-26FEB12-B34.5",market:"NYC High 34-35°F Feb 12",side:"YES",price:0.30,qty:21,cost:6.30,potential:14.70,edge:0.15,confidence:0.80,ts:"2026-02-12T01:22:14",result:"win",pnl:14.70},
-  {id:14,ticker:"KXHIGHCHI-26FEB12-T38",market:"Chicago High <38°F Feb 12",side:"YES",price:0.22,qty:28,cost:6.16,potential:21.84,edge:0.13,confidence:0.75,ts:"2026-02-12T01:22:14",result:"loss",pnl:-6.16},
-];
-
-// ===== STATE =====
-let trades = JSON.parse(localStorage.getItem('kalshi_trades') || 'null') || DEFAULT_TRADES;
-
-function saveTrades() { localStorage.setItem('kalshi_trades', JSON.stringify(trades)); }
-
-// ===== TABS =====
-document.querySelectorAll('.tab').forEach(t => {
-  t.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
-    t.classList.add('active');
-    document.getElementById(t.dataset.tab).classList.add('active');
-    if (t.dataset.tab === 'settings') generateConfig();
-  });
-});
-
-// ===== OVERVIEW =====
-function renderOverview() {
-  const resolved = trades.filter(t => t.result === 'win' || t.result === 'loss');
-  const pending = trades.filter(t => t.result === 'pending');
-  const wins = resolved.filter(t => t.result === 'win');
-  const totalPnl = resolved.reduce((s, t) => s + (t.pnl || 0), 0);
-  const totalCost = trades.reduce((s, t) => s + (t.cost || 0), 0);
-
-  const pnlEl = document.getElementById('pnlAmount');
-  pnlEl.textContent = (totalPnl >= 0 ? '+' : '') + '$' + totalPnl.toFixed(2);
-  pnlEl.className = 'pnl-amount ' + (totalPnl >= 0 ? 'green' : 'red');
-
-  document.getElementById('winRate').textContent = resolved.length ? Math.round(wins.length / resolved.length * 100) + '%' : '—';
-  document.getElementById('winRate').className = 'stat-value ' + (wins.length / resolved.length >= 0.5 ? 'green' : 'red');
-  document.getElementById('totalTrades').textContent = trades.length;
-  document.getElementById('pendingCount').textContent = pending.length;
-  document.getElementById('totalInvested').textContent = '$' + totalCost.toFixed(2);
-
-  drawChart(resolved);
-}
-
-function drawChart(resolved) {
-  const canvas = document.getElementById('pnlChart');
-  const ctx = canvas.getContext('2d');
-  canvas.width = canvas.offsetWidth * 2;
-  canvas.height = canvas.offsetHeight * 2;
-  ctx.scale(2, 2);
-  const W = canvas.offsetWidth, H = canvas.offsetHeight;
-  ctx.clearRect(0, 0, W, H);
-
-  if (resolved.length < 2) {
-    ctx.fillStyle = '#8896ab';
-    ctx.font = '13px DM Sans';
-    ctx.textAlign = 'center';
-    ctx.fillText('Need more resolved trades for chart', W/2, H/2);
-    return;
-  }
-
-  let cum = 0;
-  const pts = resolved.map(t => { cum += t.pnl; return cum; });
-  const mn = Math.min(0, ...pts), mx = Math.max(0, ...pts);
-  const range = mx - mn || 1;
-  const pad = 20;
-
-  // Zero line
-  const zeroY = pad + (mx / range) * (H - 2*pad);
-  ctx.strokeStyle = '#1e2a3a';
-  ctx.lineWidth = 1;
-  ctx.setLineDash([4,4]);
-  ctx.beginPath();
-  ctx.moveTo(pad, zeroY);
-  ctx.lineTo(W-pad, zeroY);
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  // PnL line
-  ctx.beginPath();
-  pts.forEach((p, i) => {
-    const x = pad + (i / (pts.length-1)) * (W - 2*pad);
-    const y = pad + ((mx - p) / range) * (H - 2*pad);
-    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-  });
-  const lastPnl = pts[pts.length-1];
-  ctx.strokeStyle = lastPnl >= 0 ? '#22c55e' : '#ef4444';
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  // Fill
-  const lastX = pad + (1) * (W - 2*pad);
-  ctx.lineTo(lastX, zeroY);
-  ctx.lineTo(pad, zeroY);
-  ctx.closePath();
-  ctx.fillStyle = lastPnl >= 0 ? 'rgba(34,197,94,0.08)' : 'rgba(239,68,68,0.08)';
-  ctx.fill();
-
-  // Dots
-  pts.forEach((p, i) => {
-    const x = pad + (i / (pts.length-1)) * (W - 2*pad);
-    const y = pad + ((mx - p) / range) * (H - 2*pad);
-    ctx.beginPath();
-    ctx.arc(x, y, 3, 0, Math.PI*2);
-    ctx.fillStyle = p >= 0 ? '#22c55e' : '#ef4444';
-    ctx.fill();
-  });
-}
-
-// ===== TRADES LIST =====
-function renderTrades() {
-  const list = document.getElementById('tradesList');
-  list.innerHTML = '';
-  const sorted = [...trades].reverse();
-  sorted.forEach(t => {
-    const row = document.createElement('div');
-    row.className = 'trade-row';
-    const res = t.result || 'pending';
-    const pnlStr = res === 'pending' ? '—' : (t.pnl >= 0 ? '+' : '') + '$' + (t.pnl||0).toFixed(2);
-    const pnlClass = res === 'win' ? 'green' : res === 'loss' ? 'red' : '';
-    row.innerHTML = `
-      <span class="trade-market" title="${t.ticker}">${t.market || t.ticker}</span>
-      <span style="font-family:var(--mono);font-size:12px">$${(t.cost||0).toFixed(2)}</span>
-      <span><span class="trade-tag ${res}">${res.toUpperCase()}</span></span>
-      <span class="trade-pnl ${pnlClass}">${pnlStr}</span>
-    `;
-    list.appendChild(row);
-  });
-}
-
-// ===== SYNC =====
-function openSyncModal() { document.getElementById('syncModal').classList.add('show'); }
-function closeSyncModal() { document.getElementById('syncModal').classList.remove('show'); }
-
-function importTrades() {
-  const raw = document.getElementById('syncInput').value.trim();
-  try {
-    const data = JSON.parse(raw);
-    const arr = Array.isArray(data) ? data : data.trades || [];
-    if (!arr.length) { alert('No trades found in data'); return; }
-    // Merge — normalize fields
-    const normalized = arr.map((t, i) => ({
-      id: t.id || i+1,
-      ticker: t.ticker || t.market_id || '',
-      market: t.title || t.market || t.ticker || '',
-      side: t.side || 'YES',
-      price: t.price || t.entry_price || 0,
-      qty: t.quantity || t.qty || 0,
-      cost: t.cost || (t.price * t.quantity) || 0,
-      potential: t.potential_profit || t.potential || 0,
-      edge: t.edge || 0,
-      confidence: t.confidence || 0,
-      ts: t.timestamp || t.ts || new Date().toISOString(),
-      result: t.result || 'pending',
-      pnl: t.pnl || 0,
-    }));
-    trades = normalized;
-    saveTrades();
-    renderAll();
-    closeSyncModal();
-    document.getElementById('syncInput').value = '';
-  } catch(e) {
-    alert('Invalid JSON: ' + e.message);
-  }
-}
-
-function exportData() {
-  const blob = new Blob([JSON.stringify(trades, null, 2)], {type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'kalshi-trades.json';
-  a.click();
-}
-
-function clearData() {
-  if (confirm('Clear all trade data? This cannot be undone.')) {
-    trades = [];
-    saveTrades();
-    renderAll();
-  }
-}
-
-// ===== SETTINGS =====
-function updateSlider(id, prefix) {
-  const el = document.getElementById(id);
-  document.getElementById(id + 'Val').textContent = prefix + el.value + (prefix === '%' ? '' : prefix === '$' ? '' : '');
-  if (prefix === '$') document.getElementById(id + 'Val').textContent = '$' + el.value;
-  if (prefix === '%') document.getElementById(id + 'Val').textContent = el.value + '%';
-  if (prefix === '') document.getElementById(id + 'Val').textContent = el.value;
-  generateConfig();
-}
-
-function updateKillSwitch() {
-  const on = document.getElementById('botEnabled').checked;
-  const sw = document.getElementById('killSwitch');
-  sw.className = 'kill-switch ' + (on ? 'on' : 'off');
-  document.getElementById('killStatus').textContent = on ? 'Trading active' : 'TRADING PAUSED';
-  generateConfig();
-}
-
-function generateConfig() {
-  const config = {
-    bot_enabled: document.getElementById('botEnabled').checked,
-    daily_spend_limit: parseInt(document.getElementById('dailyLimit').value),
-    per_trade_amount: parseInt(document.getElementById('perTrade').value),
-    min_confidence: parseInt(document.getElementById('minConf').value),
-    min_edge_pct: parseInt(document.getElementById('minEdge').value),
-    max_trades_per_day: parseInt(document.getElementById('maxTrades').value),
-    markets_enabled: {
-      weather: document.getElementById('mktWeather').checked,
-      politics: document.getElementById('mktPolitics').checked,
-      crypto: document.getElementById('mktCrypto').checked,
-      finance: document.getElementById('mktFinance').checked,
-    },
-    conflict_detection: document.getElementById('conflictDetect').checked,
-    duplicate_prevention: document.getElementById('dupePrevent').checked,
-    updated_at: new Date().toISOString(),
-    updated_by: "dashboard"
-  };
-  document.getElementById('configOutput').textContent = JSON.stringify(config, null, 2);
-}
-
-function copyConfig() {
-  const text = document.getElementById('configOutput').textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = event.target;
-    btn.textContent = '✓ Copied!';
-    setTimeout(() => btn.textContent = '📋 Copy Config', 1500);
-  });
-}
-
-function copySshCommand() {
-  const config = document.getElementById('configOutput').textContent;
-  const escaped = config.replace(/'/g, "'\\''");
-  const cmd = `ssh root@174.138.84.53 'cat > /root/polymarket-ai-bot/config.json << ENDCFG\n${config}\nENDCFG'`;
-  navigator.clipboard.writeText(cmd).then(() => {
-    const btn = event.target;
-    btn.textContent = '✓ Copied!';
-    setTimeout(() => btn.textContent = '📋 Copy SSH Push Command', 1500);
-  });
-}
-
-// ===== INIT =====
-function renderAll() {
-  renderOverview();
-  renderTrades();
-  generateConfig();
-}
-
-renderAll();
-window.addEventListener('resize', () => renderOverview());
-</script>
 </body>
 </html>
