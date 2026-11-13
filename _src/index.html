@@ -1,0 +1,374 @@
+<!--
+title: Sidecar | The operations platform for bars and restaurants
+description: Sidecar connects your sales, inventory and suppliers, flags what needs attention and prepares the work for you to approve. Most of it happens by text. 7-day free trial.
+nav: home
+-->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <h1 class="display">Run the floor. Sidecar runs the back office.</h1>
+      <p class="lede">Sidecar connects your sales, inventory and suppliers, flags what needs attention, and prepares the work for you to approve. Most of it happens by text, from the phone already in your pocket.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="{{SIGNUP}}">Start free trial</a>
+        <a class="btn btn-quiet" href="#how">See how it works</a>
+      </div>
+      <p class="hero-note">7-day free trial, no credit card. Want to see it first? <a href="{{SMS}}">Text DEMO to (844) 840-0637</a></p>
+    </div>
+  </div>
+
+  <div class="hero-stage">
+    <div class="wrap">
+      <figure style="margin:0">
+        <div class="app" role="img" aria-label="Sample Sidecar morning briefing for a bar called The Anchor: three items need attention, two orders await approval, one invoice discrepancy, and a weekend demand forecast up 18 percent.">
+          <div class="app-top">
+            <span class="loc"><i>A</i>The Anchor</span>
+            <span class="search">Ask Sidecar or search items</span>
+            <span class="who">JR</span>
+          </div>
+          <div class="app-body">
+            <nav class="app-side" aria-hidden="true">
+              <a class="on">{{icon:layers}}Today</a>
+              <a>{{icon:box}}Inventory<span class="count">3</span></a>
+              <a>{{icon:truck}}Orders<span class="count">2</span></a>
+              <a>{{icon:users}}Suppliers</a>
+              <a>{{icon:receipt}}Invoices<span class="count">1</span></a>
+              <a>{{icon:chart}}Reports</a>
+              <hr>
+              <a>{{icon:message}}Text thread</a>
+            </nav>
+            <div class="app-main">
+              <div class="app-head">
+                <h3>Thursday briefing</h3>
+                <span>Updated 7:00 AM</span>
+              </div>
+              <dl class="kpis">
+                <div class="kpi"><dt>Needs attention</dt><dd>3</dd></div>
+                <div class="kpi"><dt>Orders to approve</dt><dd>2</dd></div>
+                <div class="kpi"><dt>Invoice discrepancies</dt><dd>1</dd></div>
+                <div class="kpi up"><dt>Weekend demand</dt><dd>+18%<small>vs. 4 wk</small></dd></div>
+              </dl>
+              <div class="app-grid">
+                <div class="panel">
+                  <div class="panel-head">What needs you today <span>5 items</span></div>
+                  <table class="brief">
+                    <tr><td class="t"><span class="chip low">Low stock</span></td><td class="what"><strong>Tito's Handmade 1L</strong><span>0.5 bottles on hand. Par is 6.</span></td><td class="act"><span class="mini-btn">Add to order</span></td></tr>
+                    <tr><td class="t"><span class="chip low">Low stock</span></td><td class="what"><strong>Aperol 1L</strong><span>2 bottles on hand. Par is 5.</span></td><td class="act"><span class="mini-btn">Add to order</span></td></tr>
+                    <tr><td class="t"><span class="chip order">Order ready</span></td><td class="what"><strong>Harbor Wine &amp; Spirits</strong><span>7 items drafted from counts and par levels.</span></td><td class="act"><span class="mini-btn pri">Approve</span></td></tr>
+                    <tr><td class="t"><span class="chip order">Order ready</span></td><td class="what"><strong>Eastside Beverage Co.</strong><span>2 half barrels, 1 sixth barrel.</span></td><td class="act"><span class="mini-btn pri">Approve</span></td></tr>
+                    <tr><td class="t"><span class="chip inv">Invoice</span></td><td class="what"><strong>Eastside invoice 20418<span class="dev-flag">In development</span></strong><span>Aperol billed at $27.50. Agreed price $24.00.</span></td><td class="act"><span class="mini-btn">Review</span></td></tr>
+                  </table>
+                </div>
+                <div class="panel">
+                  <div class="panel-head">Weekend demand <span>Drinks sold</span></div>
+                  <div class="fc-chart">
+                    <div class="fc-bars">
+                      <div class="fc-bar"><span class="v">470</span><i class="lift" style="height:6.5%"></i><i class="base" style="height:44.6%"></i></div>
+                      <div class="fc-bar"><span class="v">840</span><i class="lift" style="height:16.3%"></i><i class="base" style="height:75%"></i></div>
+                      <div class="fc-bar"><span class="v">920</span><i class="lift" style="height:17.4%"></i><i class="base" style="height:82.6%"></i></div>
+                      <div class="fc-bar"><span class="v">413</span><i class="lift" style="height:3.6%"></i><i class="base" style="height:41.3%"></i></div>
+                    </div>
+                    <div class="fc-days"><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+                  </div>
+                  <div class="fc-legend"><span><i style="background:var(--ivory-2)"></i>4-week average</span><span><i style="background:var(--purple)"></i>Expected lift</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="caption">Illustrative view with sample data. Low-stock alerts, order drafts and demand forecasts are available today, delivered by text. Invoice checks are in development.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="band band-white" aria-labelledby="problem-h">
+  <div class="wrap">
+    <div class="band-head">
+      <h2 class="h2" id="problem-h">Running a restaurant shouldn't mean running ten different systems.</h2>
+      <p class="lede">Sales live in the POS. Counts live on a clipboard. Prices live in a rep's email. Invoices live in a folder by the register. Right now, you are the only thing connecting them.</p>
+    </div>
+
+    <div class="sys">
+      <ul class="sys-list">
+        <li>{{icon:pos}}<strong>POS</strong><span>What sold</span></li>
+        <li>{{icon:box}}<strong>Inventory</strong><span>What's on the shelf</span></li>
+        <li>{{icon:truck}}<strong>Suppliers</strong><span>What's available, at what price</span></li>
+        <li>{{icon:receipt}}<strong>Invoices</strong><span>What you were charged</span></li>
+        <li>{{icon:ledger}}<strong>Accounting</strong><span>What was paid</span></li>
+        <li>{{icon:chart}}<strong>Sales reports</strong><span>How the week went</span></li>
+        <li>{{icon:mail}}<strong>Email and texts</strong><span>What everyone agreed to</span></li>
+      </ul>
+      <div class="sys-bus" aria-hidden="true">
+        <svg viewBox="0 0 100 407" preserveAspectRatio="none">
+          <path d="M0 29 C 55 29, 45 203.5, 100 203.5"/>
+          <path d="M0 87 C 55 87, 45 203.5, 100 203.5"/>
+          <path d="M0 145 C 55 145, 45 203.5, 100 203.5"/>
+          <path d="M0 203.5 L 100 203.5"/>
+          <path d="M0 261 C 55 261, 45 203.5, 100 203.5"/>
+          <path d="M0 319 C 55 319, 45 203.5, 100 203.5"/>
+          <path d="M0 377 C 55 377, 45 203.5, 100 203.5"/>
+        </svg>
+      </div>
+      <div class="sys-hub">
+        <a class="brand" href="product.html" aria-label="Every Sidecar feature">{{MARK}}<span class="brand-word">Sidecar</span></a>
+        <h3 class="h3">One view of the whole operation.</h3>
+        <p class="muted" style="margin:0">Sidecar reads across your systems so the answers come to you, instead of you going to each tool.</p>
+        <ul>
+          <li><span>What needs attention today</span><span class="status live">Available now</span></li>
+          <li><span>What to order, and from whom</span><span class="status live">Available now</span></li>
+          <li><span>Where money is leaking</span><span class="status dev">In development</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-night" aria-labelledby="picture-h">
+  <div class="wrap">
+    <div class="band-head">
+      <h2 class="h2" id="picture-h">Sidecar sees the bigger picture.</h2>
+      <p class="lede">Every system you use knows one piece of your business. None of them talk to each other. Sidecar puts the pieces side by side and works out what should happen next.</p>
+    </div>
+
+    <figure style="margin:0">
+      <div class="sheet" data-build role="table" aria-label="Example: how four data sources combine into one recommendation">
+        <div class="sheet-head" role="row"><span role="columnheader">Source</span><span role="columnheader">What it knows</span><span role="columnheader" style="text-align:right">This week</span></div>
+        <div class="sheet-row" role="row"><span class="src" role="cell">{{icon:pos}}POS</span><span class="knows" role="cell">What sold</span><span class="fact" role="cell">Aperol spritz: 64 sold, up 23%</span></div>
+        <div class="sheet-row" role="row"><span class="src" role="cell">{{icon:box}}Inventory</span><span class="knows" role="cell">What's left</span><span class="fact" role="cell">Aperol: 2 bottles, par 5</span></div>
+        <div class="sheet-row" role="row"><span class="src" role="cell">{{icon:truck}}Suppliers</span><span class="knows" role="cell">What it costs, and where</span><span class="fact" role="cell">Harbor $24.00, Eastside $27.50</span></div>
+        <div class="sheet-row" role="row"><span class="src" role="cell">{{icon:ledger}}Accounting</span><span class="knows" role="cell">What you paid last time</span><span class="fact" role="cell">Eastside, $27.50 a bottle</span></div>
+        <div class="sheet-result" role="row"><span class="src" role="cell">{{MARK}}Sidecar</span><span class="rec" role="cell">Order 6 Aperol from Harbor before Friday. <em>You cover the weekend and pay $3.50 less per bottle.</em></span><span role="cell"><span class="status live">Draft ready to approve</span></span></div>
+      </div>
+      <figcaption class="caption">Illustrative example with sample data. Turning sales and inventory into order drafts is available now. Supplier price comparison and accounting data are in development.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="band-head">
+      <h2 class="h2" id="work-h">The work behind the bar, handled.</h2>
+      <p class="lede">Four areas where owners lose the most hours. Each capability is marked with what you can use today and what we are building next.</p>
+    </div>
+
+    <div class="modules">
+      <article class="module">
+        <div class="module-copy">
+          <div class="module-tag">{{icon:box}}Inventory</div>
+          <h3 class="h3">Know what you have. Know what you need.</h3>
+          <p>Text your counts or send a photo of a delivery receipt. Sidecar tracks stock against your par levels, warns you before you run out and forecasts what the week will need.</p>
+          <ul class="caps">
+            <li>Counts by text<span class="status live">Available now</span></li>
+            <li>Par levels and low-stock alerts<span class="status live">Available now</span></li>
+            <li>Delivery receipts from a photo<span class="status live">Available now</span></li>
+            <li>Demand forecast from Square sales<span class="status live">Available now</span></li>
+            <li>Stock drawn down from POS sales<span class="status dev">In development</span></li>
+          </ul>
+          <a class="textlink" href="inventory.html#demo">Try the inventory demo</a>
+        </div>
+        <div class="module-view">
+          <div class="app" role="img" aria-label="Sample bar inventory table showing on-hand counts against par levels.">
+            <div class="panel-head">Bar inventory <span>Counted Wed, 11:40 PM</span></div>
+            <div class="scroll-x">
+              <table class="dt">
+                <thead><tr><th>Item</th><th class="r">On hand</th><th class="r">Par</th><th class="hide-sm" style="width:28%">Level</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td class="name">Tito's Handmade 1L</td><td class="r">0.5</td><td class="r">6</td><td class="hide-sm"><span class="meter warn"><i style="width:8%"></i></span></td><td><span class="chip low">Order</span></td></tr>
+                  <tr><td class="name">Aperol 1L</td><td class="r">2</td><td class="r">5</td><td class="hide-sm"><span class="meter warn"><i style="width:40%"></i></span></td><td><span class="chip low">Order</span></td></tr>
+                  <tr><td class="name">Modelo Especial 1/2 bbl</td><td class="r">1</td><td class="r">2</td><td class="hide-sm"><span class="meter warn"><i style="width:50%"></i></span></td><td><span class="chip low">Order</span></td></tr>
+                  <tr><td class="name">Campari 1L</td><td class="r">3</td><td class="r">4</td><td class="hide-sm"><span class="meter"><i style="width:75%"></i></span></td><td><span class="chip order">Watch</span></td></tr>
+                  <tr><td class="name">Jameson 1L</td><td class="r">5</td><td class="r">4</td><td class="hide-sm"><span class="meter ok"><i style="width:100%"></i></span></td><td><span class="chip fc">OK</span></td></tr>
+                  <tr><td class="name">Fresh lime juice, qt</td><td class="r">6</td><td class="r">4</td><td class="hide-sm"><span class="meter ok"><i style="width:100%"></i></span></td><td><span class="chip fc">OK</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="module">
+        <div class="module-copy">
+          <div class="module-tag">{{icon:truck}}Purchasing</div>
+          <h3 class="h3">Ordering shouldn't take hours.</h3>
+          <p>Sidecar turns low stock into order drafts, grouped by distributor. You approve by text and the order goes to your rep by email. Comparing prices across suppliers comes next.</p>
+          <ul class="caps">
+            <li>Order drafts grouped by distributor<span class="status live">Available now</span></li>
+            <li>7 a.m. reorder alert<span class="status live">Available now</span></li>
+            <li>Approve by text, sent to your rep<span class="status live">Available now</span></li>
+            <li>Supplier price comparison<span class="status dev">In development</span></li>
+            <li>Order tracking and delivery checks<span class="status dev">In development</span></li>
+          </ul>
+          <a class="textlink" href="product.html#ordering">Every ordering feature</a>
+        </div>
+        <div class="module-view">
+          <div class="app po" role="img" aria-label="Sample order drafts for two distributors awaiting approval.">
+            <div class="panel-head">Orders to approve <span>2 drafts</span></div>
+            <div class="po-sup">
+              <div class="po-sup-head"><strong>Harbor Wine &amp; Spirits</strong><span>Rep: Dana R., by email</span></div>
+              <table class="dt">
+                <tbody>
+                  <tr><td>Tito's Handmade 1L</td><td class="r">6</td></tr>
+                  <tr><td>Aperol 1L</td><td class="r">6</td></tr>
+                  <tr><td>Campari 1L</td><td class="r">2</td></tr>
+                  <tr><td>Jameson 1L</td><td class="r">2</td></tr>
+                  <tr><td class="muted">3 more items</td><td class="r muted">9</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="po-sup">
+              <div class="po-sup-head"><strong>Eastside Beverage Co.</strong><span>Rep: Marco T., by email</span></div>
+              <table class="dt">
+                <tbody>
+                  <tr><td>Modelo Especial 1/2 bbl</td><td class="r">2</td></tr>
+                  <tr><td>Local IPA 1/6 bbl</td><td class="r">1</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="po-foot"><span>Nothing is sent until you approve.</span><span><span class="mini-btn">Edit</span> <span class="mini-btn pri">Approve both</span></span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="module">
+        <div class="module-copy">
+          <div class="module-tag">{{icon:chart}}Financial intelligence</div>
+          <h3 class="h3">Understand where your money goes.</h3>
+          <p>Today, Sidecar sends a weekly sales report from Square with revenue, top sellers and your best and worst days, plus pricing ideas for slow hours. Next, it will read your invoices, catch price changes and show where margin is slipping.</p>
+          <ul class="caps">
+            <li>Weekly sales report from Square<span class="status live">Available now</span></li>
+            <li>Happy hour and specials suggestions<span class="status live">Available now</span></li>
+            <li>Invoice checks against agreed prices<span class="status dev">In development</span></li>
+            <li>Supplier price change alerts<span class="status dev">In development</span></li>
+            <li>Spend and margin by category<span class="status dev">In development</span></li>
+          </ul>
+          <a class="textlink" href="product.html#numbers">Every sales and cost feature</a>
+        </div>
+        <div class="module-view">
+          <div class="app" role="img" aria-label="Concept view: spend by category this week against a four-week average, and two supplier price increases.">
+            <div class="panel-head">Spend by category <span class="status dev">In development</span></div>
+            <div class="spend">
+              <div class="spend-row"><span>Spirits</span><span class="bar"><i style="width:78%"></i><b style="left:70%"></b></span><span class="r">$3,420</span></div>
+              <div class="spend-row"><span>Beer</span><span class="bar"><i style="width:37%"></i><b style="left:40%"></b></span><span class="r">$1,610</span></div>
+              <div class="spend-row"><span>Wine</span><span class="bar"><i style="width:21%"></i><b style="left:22%"></b></span><span class="r">$940</span></div>
+              <div class="spend-row"><span>Mixers</span><span class="bar"><i style="width:12%"></i><b style="left:10%"></b></span><span class="r">$520</span></div>
+              <div class="spend-row"><span>Supplies</span><span class="bar"><i style="width:5%"></i><b style="left:6%"></b></span><span class="r">$210</span></div>
+            </div>
+            <div class="fc-legend"><span><i style="background:var(--purple)"></i>This week</span><span><i style="background:var(--ink);width:2px"></i>4-week average</span></div>
+            <table class="dt" style="border-top:1px solid var(--rule)">
+              <thead><tr><th>Price changes</th><th>Supplier</th><th class="r">Was</th><th class="r">Now</th></tr></thead>
+              <tbody>
+                <tr><td class="name">Aperol 1L</td><td>Eastside</td><td class="r">$24.00</td><td class="r">$27.50</td></tr>
+                <tr><td class="name">Lime juice, qt</td><td>Harbor</td><td class="r">$9.80</td><td class="r">$10.40</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+
+      <article class="module">
+        <div class="module-copy">
+          <div class="module-tag">{{icon:message}}Your operations assistant</div>
+          <h3 class="h3">Ask a question. Get something done.</h3>
+          <p>Sidecar works over text. Ask about stock, orders or last week's sales and get an answer you can act on, in the same thread. No app to download, nothing new to learn.</p>
+          <ul class="caps">
+            <li>Questions answered by text<span class="status live">Available now</span></li>
+            <li>Answers from your counts and Square sales<span class="status live">Available now</span></li>
+            <li>Approve drafts with a one-word reply<span class="status live">Available now</span></li>
+          </ul>
+          <a class="textlink" href="{{SMS}}">Try it: text DEMO to (844) 840-0637</a>
+        </div>
+        <div class="module-view">
+          <div class="convo" role="img" aria-label="Sample text conversation: the owner asks what to order before Friday and Sidecar replies with drafted orders for two distributors.">
+            <div class="convo-top">{{icon:message}}<strong>Sidecar</strong><span>(844) 840-0637</span></div>
+            <div class="turn me"><span class="who">You, 9:12</span><div class="say">What do I need to order before Friday?</div></div>
+            <div class="turn sc"><span class="who">Sidecar</span><div class="say"><p>Based on what's on hand and your last four Fridays, six items will run short this weekend. I drafted orders for two distributors.</p><p>Reply SHOW to see them.</p></div></div>
+            <div class="turn me"><span class="who">You, 9:13</span><div class="say">Show</div></div>
+            <div class="turn sc"><span class="who">Sidecar</span><div class="say">
+              <div class="order-lines">
+                <div class="sup">Harbor Wine &amp; Spirits</div>
+                <div><span>Tito's Handmade 1L</span><span>6</span></div>
+                <div><span>Aperol 1L</span><span>6</span></div>
+                <div><span>Campari 1L</span><span>2</span></div>
+                <div><span>Jameson 1L</span><span>2</span></div>
+                <div class="sup">Eastside Beverage Co.</div>
+                <div><span>Modelo Especial 1/2 bbl</span><span>2</span></div>
+                <div><span>Local IPA 1/6 bbl</span><span>1</span></div>
+              </div>
+              <p>Reply APPROVE to email both reps.</p>
+            </div></div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="also">
+      <h3>Also included today</h3>
+      <p>Replies to Google and Yelp reviews drafted in your voice, social captions, on-brand graphics for events, promo copy and hiring posts. Everything is drafted for you and nothing goes out without your OK. <a class="textlink" href="marketing.html">See marketing</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="band band-white" aria-labelledby="vision-h">
+  <div class="wrap">
+    <div class="band-head">
+      <h2 class="h2" id="vision-h">Where Sidecar is going: an order cycle that runs itself.</h2>
+      <p class="lede">Today Sidecar handles most of the ordering loop for you. The goal is all of it, with you approving only the decisions that matter. Here is every step, and where each one stands.</p>
+    </div>
+    <ol class="flow">
+      <li><div><strong>Read sales and demand</strong><span class="d">Recent sales and the same days in past weeks.</span></div><span class="status live">Available now</span></li>
+      <li><div><strong>Know current stock</strong><span class="d">Counts, deliveries and kegs, kept by text.</span></div><span class="status live">Available now</span></li>
+      <li><div><strong>Find what needs replenishing</strong><span class="d">Below par, or about to be, given the forecast.</span></div><span class="status live">Available now</span></li>
+      <li><div><strong>Check price, availability and minimums</strong><span class="d">Across every distributor that carries the item.</span></div><span class="status dev">In development</span></li>
+      <li><div><strong>Prepare the orders</strong><span class="d">Grouped by distributor and ready to send.</span></div><span class="status live">Available now</span></li>
+      <li><div><strong>You approve</strong><span class="d">One reply.</span></div><span class="status live">Available now</span></li>
+      <li><div><strong>Submit through the right channel</strong><span class="d">Email to your rep today. Distributor ordering systems next.</span></div><span class="status part">Partly available</span></li>
+      <li><div><strong>Track and reconcile</strong><span class="d">Confirm deliveries and match invoices to what you agreed.</span></div><span class="status dev">In development</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="band" id="how" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="band-head">
+      <h2 class="h2" id="how-h">How Sidecar works</h2>
+      <p class="lede">No new software for your staff to learn. You set it up once, then it works in the background and checks in by text.</p>
+    </div>
+    <ol class="steps" style="list-style:none">
+      <li class="step">
+        <span class="step-n">1</span>
+        <h3 class="h3">Connect</h3>
+        <p>Link the systems you already use and tell Sidecar who you buy from.</p>
+        <p class="today"><strong>Today:</strong> Square, your distributors by email, and your counts by text.</p>
+      </li>
+      <li class="step">
+        <span class="step-n">2</span>
+        <h3 class="h3">Understand</h3>
+        <p>Sidecar learns your products, par levels, suppliers and how your week usually sells.</p>
+        <p class="today"><strong>Today:</strong> sales history from Square, plus the pars and products you set once.</p>
+      </li>
+      <li class="step">
+        <span class="step-n">3</span>
+        <h3 class="h3">Take action</h3>
+        <p>Every morning you see what needs attention, with the work already drafted. More of it becomes automatic over time.</p>
+        <p class="today"><strong>Today:</strong> 7 a.m. reorder alerts and order drafts you approve by text.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="band band-white" aria-labelledby="who-h">
+  <div class="wrap">
+    <div class="band-head">
+      <h2 class="h2" id="who-h">Built for the way hospitality actually works.</h2>
+      <p class="lede">Sidecar was built first for independent bars, where the owner is also the buyer, the bookkeeper and the closer. It is designed to grow with you.</p>
+    </div>
+    <div class="aud">
+      <div>{{icon:glass}}<h3 class="h4">Independent bars</h3><p>Counts, kegs, distributor orders and reviews, handled from the phone behind the bar.</p><p class="fit">Where Sidecar started</p></div>
+      <div>{{icon:plate}}<h3 class="h4">Restaurants</h3><p>Keep the bar program and dry goods on par, and stop running out in the middle of service.</p><p class="fit">Same plan, same price</p></div>
+      <div>{{icon:store}}<h3 class="h4">Multi-location operators</h3><p>Priced per location, with team access so each manager handles their own counts and orders.</p><p class="fit"><a class="textlink" href="mailto:{{EMAIL}}?subject=Sidecar%20for%20multiple%20locations">Talk to us about multiple locations</a></p></div>
+      <div>{{icon:building}}<h3 class="h4">Hospitality groups</h3><p>A shared view across every venue is on the roadmap. Work with us early and help shape it.</p><p class="fit"><span class="status dev">In development</span></p></div>
+    </div>
+  </div>
+</section>
+
+{{CLOSER}}

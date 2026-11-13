@@ -1,0 +1,91 @@
+<!--
+title: Pricing | Sidecar
+description: One plan with every feature included. $199 a month per location, or $1,990 a year. 7-day free trial, no credit card, cancel anytime.
+nav: pricing
+-->
+<section class="page-head">
+  <div class="wrap">
+    <h1 class="display">One plan. Everything included.</h1>
+    <p class="lede">No tiers, no add-ons, no setup fees. Try every feature free for 7 days, then keep going for $199 a month. If Sidecar saves you one stockout or one hour a week, it has paid for itself.</p>
+  </div>
+</section>
+
+<section class="band band-white" aria-label="Plan">
+  <div class="wrap">
+    <div class="plan">
+      <div class="plan-l">
+        <h2 class="h3">Sidecar</h2>
+        <div class="bill-toggle" role="group" aria-label="Billing period">
+          <button type="button" data-bill="month" aria-pressed="true">Monthly</button>
+          <button type="button" data-bill="year" aria-pressed="false">Annual</button>
+        </div>
+        <div data-bill-show="month">
+          <p class="price"><b class="num">$199</b><span>per location, per month</span></p>
+          <p class="muted small">Billed monthly. Cancel anytime.</p>
+        </div>
+        <div data-bill-show="year" hidden>
+          <p class="price"><b class="num">$1,990</b><span>per location, per year</span></p>
+          <p class="muted small">Two months free compared with monthly billing.</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="{{SIGNUP}}">Start your free trial</a>
+          <p class="small muted" style="margin:4px 0 0">7 days free. No credit card to start. Cancel anytime. Payments handled securely by Stripe.</p>
+        </div>
+      </div>
+      <div class="plan-r">
+        <h3 class="h4" style="margin-bottom:14px">Included today</h3>
+        <ul class="incl">
+          <li>{{icon:check}}Inventory counts by text</li>
+          <li>{{icon:check}}Par levels and low-stock alerts</li>
+          <li>{{icon:check}}Delivery receipts from a photo</li>
+          <li>{{icon:check}}Keg tracking and reorder queue</li>
+          <li>{{icon:check}}Demand forecasting</li>
+          <li>{{icon:check}}SKU map by distributor</li>
+          <li>{{icon:check}}Order drafts sent to your reps</li>
+          <li>{{icon:check}}7 a.m. reorder alerts</li>
+          <li>{{icon:check}}Square connection and weekly reports</li>
+          <li>{{icon:check}}Happy hour and specials ideas</li>
+          <li>{{icon:check}}Google and Yelp review replies</li>
+          <li>{{icon:check}}Social captions and graphics</li>
+          <li>{{icon:check}}Event, promo and hiring copy</li>
+          <li>{{icon:check}}Team member access</li>
+          <li>{{icon:check}}CSV export of your data</li>
+          <li>{{icon:check}}Web portal</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="buy-h">
+  <div class="wrap">
+    <div class="band-head">
+      <h2 class="h2" id="buy-h">How buying works</h2>
+      <p class="lede">Three steps. No sales call required, though we're happy to talk.</p>
+    </div>
+    <ol class="steps" style="list-style:none">
+      <li class="step"><span class="step-n">1</span><h3 class="h3">Start your trial</h3><p>Sign up in a couple of minutes. No credit card. Every feature is on from day one.</p><p class="today"><a class="textlink" href="{{SIGNUP}}">Start free trial</a></p></li>
+      <li class="step"><span class="step-n">2</span><h3 class="h3">Set it up together</h3><p>Connect Square, add your products and pars, list your distributors. We help with all of it.</p><p class="today">Questions? <a class="textlink" href="mailto:{{EMAIL}}">{{EMAIL}}</a></p></li>
+      <li class="step"><span class="step-n">3</span><h3 class="h3">Keep going</h3><p>At the end of the 7 days, add a card in the portal to continue. Monthly or annual, cancel anytime.</p><p class="today">$199 a month, or $1,990 a year</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="band band-white" aria-labelledby="faq-h">
+  <div class="wrap split">
+    <div class="l">
+      <h2 class="h2" id="faq-h">Questions owners ask</h2>
+      <p class="lede" style="margin-top:20px">Anything else, email <a class="textlink" href="mailto:{{EMAIL}}">{{EMAIL}}</a>.</p>
+    </div>
+    <div class="r faq">
+      <details><summary>How does the free trial work?{{icon:chevron}}</summary><div class="a">Sign up and your 7-day trial starts right away, with every feature on. No credit card is needed to start. At the end of the trial, subscribe to keep going.</div></details>
+      <details><summary>Is there a contract?{{icon:chevron}}</summary><div class="a">No. Monthly plans can be cancelled at any time from the portal or by email. Your access continues until the end of the period you paid for.</div></details>
+      <details><summary>I have more than one location.{{icon:chevron}}</summary><div class="a">Pricing is per location. <a class="textlink" href="mailto:{{EMAIL}}?subject=Sidecar%20for%20multiple%20locations">Email us</a> and we'll help you set up each venue.</div></details>
+      <details><summary>Do I need Square?{{icon:chevron}}</summary><div class="a">No. Inventory, alerts, ordering and the rest work by text with any POS. Connecting Square adds sales-based forecasts and weekly reports. Toast, Clover and Lightspeed are in development.</div></details>
+      <details><summary>What about the features marked in development?{{icon:chevron}}</summary><div class="a">They are not part of the product yet, so they are not part of what you pay for today. We mark them so you can see where Sidecar is going.</div></details>
+      <details><summary>Can I get my data out?{{icon:chevron}}</summary><div class="a">Yes. Export inventory, task history and message logs as CSV from the portal whenever you like.</div></details>
+    </div>
+  </div>
+</section>
+
+{{CLOSER}}

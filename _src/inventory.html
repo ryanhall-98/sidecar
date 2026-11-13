@@ -1,0 +1,110 @@
+<!--
+title: Inventory | Sidecar
+description: Text your counts, set par levels and get low-stock alerts and weekend demand forecasts before you run out. Inventory for bars and restaurants, by text.
+nav: inventory
+-->
+<section class="page-head">
+  <div class="wrap">
+        <h1 class="display">Know what you have. Know what you need.</h1>
+    <p class="lede">Running out of the house vodka on a Saturday costs more than the bottle. Sidecar keeps count with you, measures stock against par and tells you what the week will need, before the rush.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="{{SIGNUP}}">Start free trial</a>
+      <a class="btn btn-quiet" href="#demo">Try the demo below</a>
+    </div>
+  </div>
+</section>
+
+<section class="band band-white" id="demo" aria-labelledby="demo-h">
+  <div class="wrap">
+    <div class="band-head">
+      <h2 class="h2" id="demo-h">Try it. Send a text, watch the count change.</h2>
+      <p class="lede">This is how inventory works in Sidecar, with a sample bar. Tap a message to send it. For the real thing on your own phone, text DEMO to (844) 840-0637.</p>
+    </div>
+    <div class="demo" data-invdemo>
+      <div class="convo demo-thread">
+        <div class="convo-top">{{icon:message}}<strong>Sidecar</strong><span>Sample bar</span></div>
+        <div class="demo-log" aria-live="polite">
+          <div class="turn sc"><span class="who">Sidecar</span><div class="say">Hi, this is your inventory. Send counts, a delivery receipt or a question.</div></div>
+        </div>
+        <div class="demo-send">
+          <span class="small muted">Tap to send</span>
+          <button type="button" class="btn btn-quiet btn-sm" data-say="count">Tito's 0.5, Aperol 2</button>
+          <button type="button" class="btn btn-quiet btn-sm" data-say="keg">Keg kicked: Modelo</button>
+          <button type="button" class="btn btn-quiet btn-sm" data-say="receipt">Send a delivery receipt photo</button>
+          <button type="button" class="btn btn-quiet btn-sm" data-say="order">What should I order this week?</button>
+          <button type="button" class="textlink demo-reset" data-say="reset">Start over</button>
+        </div>
+      </div>
+      <div class="app demo-table">
+        <div class="panel-head">Bar inventory <span data-updated>Last count: Wed, 11:40 PM</span></div>
+        <table class="dt">
+          <thead><tr><th>Item</th><th class="r">On hand</th><th class="r">Par</th><th class="hide-sm" style="width:26%">Level</th><th>Status</th></tr></thead>
+          <tbody data-rows></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="count-h">
+  <div class="wrap split">
+    <div class="l">
+      <h2 class="h3" id="count-h">Counting without the clipboard.</h2>
+      <p style="margin-top:16px">Text counts as you walk the bar, in plain language. "Tito's 3, Aperol 2, Modelo half barrel 1." Sidecar matches each line to the right product and updates stock.</p>
+      <p>When a delivery arrives, send a photo of the receipt and the new stock is added for you. When a keg kicks, text "keg kicked" and it is logged, stock is updated and a reorder is queued.</p>
+      <ul class="caps">
+        <li>Counts by text<span class="status live">Available now</span></li>
+        <li>Delivery receipts from a photo<span class="status live">Available now</span></li>
+        <li>Keg tracking<span class="status live">Available now</span></li>
+        <li>Bulk upload from a spreadsheet<span class="status live">Available now</span></li>
+      </ul>
+    </div>
+    <div class="r">
+      <div class="matrix two">
+        <table>
+          <thead><tr><th>You text</th><th>Sidecar does</th></tr></thead>
+          <tbody>
+            <tr><td>"Tito's 3, Aperol 2"</td><td>Updates both counts and checks them against par.</td></tr>
+            <tr><td>A receipt photo</td><td>Reads the delivery and adds it to stock.</td></tr>
+            <tr><td>"Keg kicked"</td><td>Logs it, updates stock, queues a reorder.</td></tr>
+            <tr><td>"What should I order?"</td><td>Answers from your counts, pars and sales.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-white" aria-labelledby="ahead-h">
+  <div class="wrap split">
+    <div class="l">
+      <h2 class="h3" id="ahead-h">See the shortage before the shift.</h2>
+      <p style="margin-top:16px">Set a par for each item once. Every morning at 7, Sidecar texts you what has fallen below it, with an order already drafted. Ask "what should I order this week?" and it answers from your Square sales history, so a big weekend doesn't catch you short.</p>
+      <ul class="caps">
+        <li>Par levels and low-stock alerts<span class="status live">Available now</span></li>
+        <li>Demand forecast from Square sales<span class="status live">Available now</span></li>
+        <li>Stock drawn down from POS sales<span class="status dev">In development</span></li>
+        <li>Waste and variance tracking<span class="status dev">In development</span></li>
+      </ul>
+    </div>
+    <div class="r">
+      <div class="convo" role="img" aria-label="Sample morning alert text listing three items below par.">
+        <div class="convo-top">{{icon:message}}<strong>Sidecar</strong><span>7:00 AM</span></div>
+        <div class="turn sc"><span class="who">Sidecar</span><div class="say">
+          <p>Good morning. Three items are below par:</p>
+          <div class="order-lines">
+            <div><span>Tito's Handmade 1L</span><span>0.5 of 6</span></div>
+            <div><span>Aperol 1L</span><span>2 of 5</span></div>
+            <div><span>Modelo Especial 1/2 bbl</span><span>1 of 2</span></div>
+          </div>
+          <p>Your Friday usually runs about 20% above a weeknight. Orders for Harbor and Eastside are drafted. Reply APPROVE to send.</p>
+        </div></div>
+        <div class="turn me"><span class="who">You, 7:42</span><div class="say">Approve</div></div>
+        <div class="turn sc"><span class="who">Sidecar</span><div class="say">Sent to both reps.</div></div>
+      </div>
+      <p class="caption">Sample conversation.</p>
+    </div>
+  </div>
+</section>
+
+{{CLOSER}}
