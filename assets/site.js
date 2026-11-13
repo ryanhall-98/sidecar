@@ -124,7 +124,7 @@
           return '<div><span>' + i.name + ' (' + i.sup + ')</span><span>' + Math.ceil(i.par - i.on) + '</span></div>';
         }).join('');
         return 'Based on your counts and pars, ' + l.length + (l.length === 1 ? ' item needs' : ' items need') +
-          ' ordering:<div class="order-lines">' + lines + '</div>Reply APPROVE and I\'ll email each rep.';
+          ' ordering:<div class="order-lines">' + lines + '</div>Reply APPROVE and I\'ll email you the orders to forward.';
       }]
     };
     demo.querySelectorAll('[data-say]').forEach(function (b) {
