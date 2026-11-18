@@ -94,10 +94,10 @@
     <div class="l">
       <h2 class="h3" id="count-h">Counting without the clipboard.</h2>
       <p style="margin-top:16px">Text counts as you walk the bar, in plain language. "Tito's 3, Aperol 2, Modelo half barrel 1." Sidecar matches each line to the right product and updates stock.</p>
-      <p>When a delivery arrives, send a photo of the receipt and the new stock is added for you. When a keg kicks, text "keg kicked" and it is logged, stock is updated and a reorder is queued.</p>
+      <p>When a delivery arrives, check it in and the new stock is added for you. Reading the receipt from a photo is coming next. When a keg kicks, text "keg kicked" and it is logged, stock is updated and a reorder is queued.</p>
       <ul class="caps">
         <li>Counts by text<span class="status live">Available now</span></li>
-        <li>Delivery receipts from a photo<span class="status live">Available now</span></li>
+        <li>Delivery receipts from a photo<span class="status dev">In development</span></li>
         <li>Keg tracking<span class="status live">Available now</span></li>
         <li>Bulk upload from a spreadsheet<span class="status live">Available now</span></li>
       </ul>
@@ -108,7 +108,7 @@
           <thead><tr><th>You text</th><th>Sidecar does</th></tr></thead>
           <tbody>
             <tr><td>"Tito's 3, Aperol 2"</td><td>Updates both counts and checks them against par.</td></tr>
-            <tr><td>A receipt photo</td><td>Reads the delivery and adds it to stock.</td></tr>
+            <tr><td>A delivery check-in</td><td>Adds what arrived to stock, and keeps anything still coming on order.</td></tr>
             <tr><td>"Keg kicked"</td><td>Logs it, updates stock, queues a reorder.</td></tr>
             <tr><td>"What should I order?"</td><td>Answers from your counts, pars and sales.</td></tr>
           </tbody>
